@@ -35,7 +35,7 @@ if file is not None:
             date_object = datetime.strptime(race_info[1], "%b %d, %Y").date()
             st.write(date_object)
             st.write(race_info)
-            query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_info[0]}', {race_info[1]})"
+            query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_info[0]}', '{date_object}')"
             st.write(query)
 
         elif page != 1:
