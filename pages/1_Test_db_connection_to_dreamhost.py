@@ -4,7 +4,7 @@
 import streamlit as st
 
 # Initialize connection.
-conn = st.connection('mysql', type='sql')
+conn = st.connection('freesqldatabase', type='sql')
 
 # Perform query.
 df = conn.query('SELECT * from madklub_deltagere;', ttl=600)
@@ -17,7 +17,7 @@ for row in df.itertuples():
 import mysql.connector as connection
 import pandas as pd
 try:
-    mydb = connection.connect(host=st.secrets["freesqldatabase"]["host"], database = st.secrets["freesqldatabase"]["database"], user=st.secrets["freesqldatabase"]["username"], passwd=st.secrets["freesqldatabase"]["password"], use_pure=True)
+    mydb = connection.connect(host=st.secrets["connections.freesqldatabase"]["host"], database = st.secrets["connections.freesqldatabase"]["database"], user=st.secrets["connections.freesqldatabase"]["username"], passwd=st.secrets["connections.freesqldatabase"]["password"], use_pure=True)
     query = "Select * from madklub_deltagere;"
     result_dataFrame = pd.read_sql(query,mydb)
     mydb.close() #close the connection
