@@ -29,9 +29,7 @@ if file is not None:
             race_info = re.findall(r'(Session name): (.+) (Session started): (\w{3} \d{2}, \d{4})', page_text)
             st.write(race_info)
 
-        elif page in (1):
-            # Do nothing
-        else:
+        elif page not in (1):
             st.write('extract lap times')
 
     # Display the content
