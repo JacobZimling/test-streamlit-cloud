@@ -1,1 +1,4 @@
-
+# requirements.txt
+streamlit~=1.50.0
+mysqlclient~=2.2.7
+SQLAlchemy~=2.0.43
