@@ -18,10 +18,11 @@ if file is not None:
     for page in range(len(pdf_reader.pages)):
         st.write(page)
         page_text = pdf_reader.pages[page].extract_text()
-        st.write(page_text)
+        #st.write(page_text)
         #content += page_text
 
         if page == 0:
+            st.write('extract dace info')
             st.write(page_text)
             #race_info = re.findall(r'(Session name): (.+) (Session started): (.+)', page_text)
             #st.write(race_info)
