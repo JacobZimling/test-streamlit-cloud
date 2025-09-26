@@ -1,5 +1,5 @@
 import streamlit as st
-import pypdf import PdfReader
+from pypdf import PdfReader
 
 #st.pdf("https://pihl-zimling.dk/mlcrc/1308-Race-Slangerup-1a.pdf")
 
