@@ -7,6 +7,9 @@ import re
 file = st.file_uploader("Upload a PDF file", type="pdf")
 
 if file is not None:
+    # Initialize connection.
+    #conn = st.connection('freesqldatabase', type='sql')
+    
     # Read the PDF file
     pdf_reader = PdfReader(file)
     # Extract the content
@@ -27,7 +30,9 @@ if file is not None:
             #st.write(race_info)
 
             race_info = re.findall(r'Session name: (.+) Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
-            st.write(race_info)
+            st.write(race_info)''
+            query = f"INSERT INTO race_info (race_date, race_name) VALUES ({race_info[0]}, {race_info[1]})"
+            st.write(query)
 
         elif page != 1:
             st.write('extract lap times')
