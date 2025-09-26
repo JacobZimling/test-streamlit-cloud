@@ -26,7 +26,7 @@ if file is not None:
             #race_info = re.findall(r'(\w[\w ]+) (\d\d:\d\d.\d\d\d) (.+) (\d\d:\d\d.\d\d\d) (\d+)', page_text)
             #st.write(race_info)
 
-            race_info = re.findall(r'(Session name): (.+) (Session started): (\w{3} \d{2}, \d{4})', page_text)
+            race_info = re.findall(r'Session name: (.+) Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
             st.write(race_info)
 
         elif page != 1:
