@@ -12,7 +12,7 @@ df = conn.query('SELECT * from madklub_deltagere;', ttl=600)
 # Print results.
 for row in df.itertuples():
     st.write(f"{row.names}")
-'''
+
 
 import mysql.connector as connection
 import pandas as pd
@@ -24,4 +24,3 @@ try:
 except Exception as e:
     mydb.close()
     print(str(e))
-'''
