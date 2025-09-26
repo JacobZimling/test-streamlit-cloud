@@ -32,10 +32,10 @@ if file is not None:
 
             race_info = re.findall(r'Session name: (.+) Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
 
-            race_info[1] = datetime.strptime(race_info[1], "%b %d, %Y").date()
-            st.write(race_info[1])
-            st.write(race_info)
-            query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_info[0]}', '{race_info[1]}')"
+            race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
+            #st.write(race_date)
+            #st.write(race_info)
+            query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
             st.write(query)
 
         elif page != 1:
