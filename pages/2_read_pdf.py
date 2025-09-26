@@ -42,7 +42,7 @@ if file is not None:
 
             # Add race info if race is new
             query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
-            st.write(query)
+            st.write(query)5]
 
             # Get race_id
         
@@ -56,7 +56,7 @@ if file is not None:
             for lap in lap_info:
                 #st.write(type(l))
                 #st.write(l)
-                params = dict(lap=lap[0], driver=lap[1])
+                params = dict(lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[6])
                 st.write(params)
                 
     # Display the content
