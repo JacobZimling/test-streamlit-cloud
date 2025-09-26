@@ -54,7 +54,7 @@ if file is not None:
             st.write(lap_info)
             
             for l in lap_info:
-                params = dict(lap=lap_info[0], driver=lap_info[1]
+                params = dict(lap=lap_info[0], driver=lap_info[1])
                 st.write(params)
                 
     # Display the content
