@@ -1,6 +1,6 @@
 # requirements.txt
 streamlit~=1.50.0
-#SQLAlchemy~=2.0.43
+SQLAlchemy~=2.0.43
 #mysqlclient
-#PyMySQL~=1.1.2
+PyMySQL~=1.1.2
 mysql-connector-python~=9.4.0
