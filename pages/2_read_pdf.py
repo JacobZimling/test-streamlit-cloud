@@ -40,6 +40,8 @@ if file is not None:
 
         elif page != 1:
             st.write('extract lap times')
+            lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)[0]
+            st.write(lap_info)
 
     # Display the content
     #st.write(content)
