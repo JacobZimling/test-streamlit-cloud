@@ -22,7 +22,7 @@ if file is not None:
         #content += page_text
 
         if page == 0:
-            st.write('extract dace info')
+            st.write('extract race info')
             st.write(page_text)
             #race_info = re.findall(r'(Session name): (.+) (Session started): (.+)', page_text)
             #st.write(race_info)
@@ -45,7 +45,7 @@ if file is not None:
             st.write(page_text)
 
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-            st.write(lap_info)
+            st.write(type(lap_info))
 
     # Display the content
     #st.write(content)
