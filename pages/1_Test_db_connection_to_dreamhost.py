@@ -1,5 +1,6 @@
 # 1_Test_db_connection_to_dreamhost.py
 
+'''
 import streamlit as st
 
 # Initialize connection.
@@ -11,3 +12,15 @@ df = conn.query('SELECT * from madklub_deltagere;', ttl=600)
 # Print results.
 for row in df.itertuples():
     st.write(f"{row.names}")
+'''
+
+import mysql.connector as connection
+import pandas as pd
+try:
+    mydb = connection.connect(host="db.pihl-zimling.dk", database = 'madklub',user="zimling", passwd="D1s0de2!",use_pure=True)
+    query = "Select * from madklub_deltagere;"
+    result_dataFrame = pd.read_sql(query,mydb)
+    mydb.close() #close the connection
+except Exception as e:
+    mydb.close()
+    print(str(e))
