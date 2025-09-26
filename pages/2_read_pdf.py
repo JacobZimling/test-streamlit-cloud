@@ -1,6 +1,7 @@
 import streamlit as st
 from pypdf import PdfReader
 import re
+from datetime import datetime
 
 #st.pdf("https://pihl-zimling.dk/mlcrc/1308-Race-Slangerup-1a.pdf")
 
@@ -30,8 +31,11 @@ if file is not None:
             #st.write(race_info)
 
             race_info = re.findall(r'Session name: (.+) Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
+
+            date_object = datetime.strptime(race_info[1], "%b %d, %Y").date()
+            print(date_object)
             st.write(race_info)
-            query = f"INSERT INTO race_info (race_date, race_name) VALUES ({race_info[0]}, {race_info[1]})"
+            query = f"INSERT INTO race_info (race_date, race_name) VALUES (""{race_info[0]}"", ""{race_info[1]}"")"
             st.write(query)
 
         elif page != 1:
