@@ -53,11 +53,11 @@ if file is not None:
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
             st.write(lap_info)
             
-            for l in lap_info:
-                st.write(type(l))
-                st.write(l)
-                #params = dict(lap=lap_info[l][0], driver=lap_info[l][1])
-                #st.write(params)
+            for lap in lap_info:
+                #st.write(type(l))
+                #st.write(l)
+                params = dict(lap=lap[0], driver=lap[1])
+                st.write(params)
                 
     # Display the content
     #st.write(content)
