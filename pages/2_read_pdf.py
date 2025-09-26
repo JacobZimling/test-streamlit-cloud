@@ -10,7 +10,7 @@ if file is not None:
     pdf_reader = PyPDF2.PdfReader(file)
     # Extract the content
     content = ""
-    for page in range(pdf_reader.getNumPages()):
+    for page in range(len(reader.pages)):
         content += pdf_reader.getPage(page).extractText()
     # Display the content
     st.write(content)
