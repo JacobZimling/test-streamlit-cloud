@@ -19,7 +19,8 @@ if file is not None:
 
         match page:
             case 0:
-                race_info = list(re.findall(r'(Session name): (.+) (Session started): (.+) Session time: .+ (Session ended): (.+) Pos', page_text)[0])
+                #race_info = re.findall(r'(Session name): (.+) (Session started): (.+) Session time: .+ (Session ended): (.+) Pos', page_text)
+                race_info = re.findall(r'(Session name)', page_text)
                 st.write(race_info)
 
     # Display the content
