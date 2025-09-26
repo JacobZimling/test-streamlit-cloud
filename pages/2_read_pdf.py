@@ -13,6 +13,6 @@ if file is not None:
     for page in range(len(pdf_reader.pages)):
         st.write(page)
         st.write(pdf_reader.pages[page].extract_text())
-    #    content += pdf_reader.pages[page].extract_text()
+        content += pdf_reader.pages[page].extract_text()
     # Display the content
-    #st.write(content)
+    st.write(content)
