@@ -11,6 +11,6 @@ if file is not None:
     # Extract the content
     content = ""
     for page in range(len(pdf_reader.pages)):
-        content += pdf_reader.pages[page].extractText()
+        content += pdf_reader.pages[page].extract_text()
     # Display the content
     st.write(content)
