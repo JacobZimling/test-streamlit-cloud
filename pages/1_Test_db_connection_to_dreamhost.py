@@ -1,6 +1,6 @@
 # 1_Test_db_connection_to_dreamhost.py
 
-'''
+
 import streamlit as st
 
 # Initialize connection.
@@ -24,3 +24,4 @@ try:
 except Exception as e:
     mydb.close()
     print(str(e))
+'''
