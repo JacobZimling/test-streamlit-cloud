@@ -17,7 +17,7 @@ for row in df.itertuples():
 import mysql.connector as connection
 import pandas as pd
 try:
-    mydb = connection.connect(host=st.secrets.connections.freesqldatabase.com.host, database = st.secrets.connections.freesqldatabase.com.database, user=st.secrets.connections.freesqldatabase.com.username, passwd=st.secrets.connections.freesqldatabase.com.password, use_pure=True)
+    mydb = connection.connect(host=st.secrets["connections.freesqldatabase.com"]["host"], database = st.secrets["connections.freesqldatabase.com"]["database"], user=st.secrets["connections.freesqldatabase.com"]["username"], passwd=st.secrets["connections.freesqldatabase.com"]["password"], use_pure=True)
     query = "Select * from madklub_deltagere;"
     result_dataFrame = pd.read_sql(query,mydb)
     mydb.close() #close the connection
