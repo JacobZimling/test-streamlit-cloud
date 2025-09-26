@@ -17,17 +17,18 @@ if file is not None:
         st.write(page_text)
         #content += page_text
 
-        match page:
-            case 0 | 1:
-                #race_info = re.findall(r'(Session name): (.+) (Session started): (.+) Session time: .+ (Session ended): (.+) Pos', page_text)
-                race_info = re.findall(r'(Session name): (.+) (Session started): (.+)', page_text)
-                #race_info = re.findall(r'(Session name: Slangerup 1a Session started: Jun 15, 2025 12:55 PM Session time: 00:07:00 Session ended: Jun 15, 2025 1:08 PM)', page_text)
-                st.write(race_info)
-                race_info = re.findall(r'(Session time): (.+) (Session ended): (.+)', page_text)
-                st.write(race_info)
+        if page in (0, 1):
+            #race_info = re.findall(r'(Session name): (.+) (Session started): (.+) Session time: .+ (Session ended): (.+) Pos', page_text)
+            race_info = re.findall(r'(Session name): (.+) (Session started): (.+)', page_text)
+            #race_info = re.findall(r'(Session name: Slangerup 1a Session started: Jun 15, 2025 12:55 PM Session time: 00:07:00 Session ended: Jun 15, 2025 1:08 PM)', page_text)
+            st.write(race_info)
+            race_info = re.findall(r'(Session time): (.+) (Session ended): (.+)', page_text)
+            st.write(race_info)
 
-                race_info = re.findall(r'(\w[\w ]+) (\d\d:\d\d.\d\d\d) (.+) (\d\d:\d\d.\d\d\d) (\d+)', page_text)
-                st.write(race_info)
+            race_info = re.findall(r'(\w[\w ]+) (\d\d:\d\d.\d\d\d) (.+) (\d\d:\d\d.\d\d\d) (\d+)', page_text)
+            st.write(race_info)
+        else:
+            st.write('extract lap times')
 
     # Display the content
     #st.write(content)
