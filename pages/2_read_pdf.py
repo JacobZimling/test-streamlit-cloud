@@ -37,15 +37,25 @@ if file is not None:
             race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
             #st.write(race_date)
             #st.write(race_info)
+
+            # Check if race exist
+
+            # Add race info if race is new
             query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
             st.write(query)
 
+            # Get race_id
+        
         elif page != 1:
             st.write('extract lap times')
             st.write(page_text)
 
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-            st.write(type(lap_info))
-
+            st.write(lap_info)
+            
+            for l in lap_info:
+                params = dict(lap=lap_info[0], driver=lap_info[1]
+                st.write(params)
+                
     # Display the content
     #st.write(content)
