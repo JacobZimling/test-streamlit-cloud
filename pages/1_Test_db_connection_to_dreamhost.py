@@ -24,3 +24,5 @@ try:
 except Exception as e:
     mydb.close()
     print(str(e))
+    
+st.write(result_dataFrame)
