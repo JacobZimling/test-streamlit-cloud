@@ -1,5 +1,6 @@
 import streamlit as st
 from pypdf import PdfReader
+import re
 
 #st.pdf("https://pihl-zimling.dk/mlcrc/1308-Race-Slangerup-1a.pdf")
 
@@ -12,7 +13,14 @@ if file is not None:
     content = ""
     for page in range(len(pdf_reader.pages)):
         st.write(page)
-        st.write(pdf_reader.pages[page].extract_text())
-        content += pdf_reader.pages[page].extract_text()
+        page_text = pdf_reader.pages[page].extract_text()
+        st.write(page_text)
+        #content += page_text
+
+        match page:
+            case 0:
+                race_info = re.findall(r'(Session name): (\w+) (Session started):', page_text) 
+                st.write(race_info)
+
     # Display the content
-    st.write(content)
+    #st.write(content)
