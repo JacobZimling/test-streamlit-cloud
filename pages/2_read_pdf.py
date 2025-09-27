@@ -51,7 +51,7 @@ if file is not None:
                 st.write(query)
                 #conn.session.execute(text(f"INSERT INTO race_info (race_date, race_name) VALUES (text('{race_date}'), text('{race_info[0]}'));"))
                 conn.session.execute(
-                    'INSERT INTO race_info (race_date, race_name) VALUES (:race_date, :race_name);',
+                    text('INSERT INTO race_info (race_date, race_name) VALUES (:race_date, :race_name);'),
                     params=dict(race_date=race_date, race_name=race_info[0])
                 )
                 conn.session.commit()
