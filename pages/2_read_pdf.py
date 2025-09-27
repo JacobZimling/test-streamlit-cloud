@@ -70,9 +70,9 @@ if file is not None:
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
             #st.write(lap_info)
 
+            query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
+            st.write(query)
             with conn.session as s:
-                query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                st.write(query)
                 #s.execute(f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='';")
                 for lap in lap_info:
                     
