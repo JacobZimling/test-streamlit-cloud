@@ -2,6 +2,7 @@ import streamlit as st
 from pypdf import PdfReader
 import re
 from datetime import datetime
+from sqlalchemy.sql import text
 
 #st.pdf("https://pihl-zimling.dk/mlcrc/1308-Race-Slangerup-1a.pdf")
 
@@ -49,7 +50,7 @@ if file is not None:
                 st.write('insert race info')
                 query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]};')"
                 st.write(query)
-                conn.session.execute(f"INSERT INTO race_info (race_date, race_name) VALUES (text('{race_date}'), text('{race_info[0]};'))")
+                conn.session.execute(text(f"INSERT INTO race_info (race_date, race_name) VALUES (text('{race_date}'), text('{race_info[0]};'))"))
                 #conn.session.execute(
                 #    "INSERT INTO race_info (race_date, race_name) VALUES (':race_date', ':race_name')",
                 #    params=dict(race_date=race_date, race_name=race_info[0])
