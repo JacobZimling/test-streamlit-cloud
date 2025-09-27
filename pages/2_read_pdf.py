@@ -49,11 +49,11 @@ if file is not None:
                 st.write('insert race info')
                 query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]};')"
                 st.write(query)
-                conn.session.execute(text(f"INSERT INTO race_info (race_date, race_name) VALUES (text('{race_date}'), text('{race_info[0]}'));"))
-                #conn.session.execute(
-                #    "INSERT INTO race_info (race_date, race_name) VALUES (':race_date', ':race_name')",
-                #    params=dict(race_date=race_date, race_name=race_info[0])
-                #)
+                #conn.session.execute(text(f"INSERT INTO race_info (race_date, race_name) VALUES (text('{race_date}'), text('{race_info[0]}'));"))
+                conn.session.execute(
+                    'INSERT INTO race_info (race_date, race_name) VALUES (:race_date, :race_name);',
+                    params=dict(race_date=race_date, race_name=race_info[0])
+                )
                 conn.session.commit()
 
                 # Get race_id
@@ -61,7 +61,7 @@ if file is not None:
                 st.write(df)
 
             race_id = df['race_id'].iloc[0]
-            #st.write(race_id)
+            st.write(race_id)
         
         elif page != 1:
             st.write('extract lap times')
@@ -72,11 +72,12 @@ if file is not None:
 
             query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
             st.write(query)
-            with conn.session as s:
-                #s.execute(f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='';")
-                for lap in lap_info:
-                    
-                    params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
+#            with conn.session as s:
+#                s.execute(query)
+#                for lap in lap_info:
+#                    s.execute(
+                        
+#                    params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
                     #st.write(params)
                 
     # Display the content
