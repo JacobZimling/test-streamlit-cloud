@@ -41,9 +41,8 @@ if file is not None:
 
             # Check if race exist
             df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
-            st.write(df.empty)
-            st.write(len(df))
-            st.dataframe(df)
+            #st.write(df.empty)
+            #st.dataframe(df)
 
             # Add race info if race is new
             if df.empty:
@@ -62,7 +61,7 @@ if file is not None:
                 st.write(df)
 
             race_id = df['race_id'].iloc[0]
-            st.write(race_id)
+            #st.write(race_id)
         
         elif page != 1:
             st.write('extract lap times')
@@ -70,12 +69,15 @@ if file is not None:
 
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
             #st.write(lap_info)
-            
-            for lap in lap_info:
-                #st.write(type(l))
-                #st.write(l)
-                params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
-                st.write(params)
+
+            with conn.session as s:
+                query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
+                st.write(query)
+                #s.execute(f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='';")
+                for lap in lap_info:
+                    
+                    params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
+                    #st.write(params)
                 
     # Display the content
     #st.write(content)
