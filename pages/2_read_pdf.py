@@ -16,7 +16,7 @@ if file is not None:
     # Extract the content
     content = ""
     for page in range(len(pdf_reader.pages)):
-        st.write(page)
+        #st.write(page)
         page_text = pdf_reader.pages[page].extract_text()
         #st.write(page_text)
         #content += page_text
@@ -39,7 +39,8 @@ if file is not None:
             #st.write(race_info)
 
             # Check if race exist
-            df = conn.query('SELECT * from madklub_deltagere;', ttl=600)
+            df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=600)
+            st.write(type(df))
             st.write(df)
 
             # Add race info if race is new
