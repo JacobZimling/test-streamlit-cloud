@@ -47,12 +47,13 @@ if file is not None:
             # Add race info if race is new
             if df.empty:
                 st.write('insert race info')
-                query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
+                query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]};')"
                 st.write(query)
-                conn.session.execute(
-                    "INSERT INTO race_info (race_date, race_name) VALUES (':race_date', ':race_name')",
-                    params=dict(race_date=race_date, race_name=race_info[0])
-                )
+                conn.session.execute(f"INSERT INTO race_info (race_date, race_name) VALUES (text('{race_date}'), text('{race_info[0]};'))")
+                #conn.session.execute(
+                #    "INSERT INTO race_info (race_date, race_name) VALUES (':race_date', ':race_name')",
+                #    params=dict(race_date=race_date, race_name=race_info[0])
+                #)
                 conn.session.commit()
 
             # Get race_id
