@@ -39,17 +39,21 @@ if file is not None:
             #st.write(race_info)
 
             # Check if race exist
-            df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=600)
+            df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
             st.write(df.empty)
             st.write(len(df))
             st.dataframe(df)
 
             # Add race info if race is new
-            query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
-            st.write(query)
+            if not df.empty:
+                query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
+                st.write(query)
+                conn.session.execute(query)
+                conn.session.commit()
 
             # Get race_id
-            race_id = 1
+            race_id = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
+            st.write(race_id)
         
         elif page != 1:
             st.write('extract lap times')
