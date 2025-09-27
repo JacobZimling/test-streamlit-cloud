@@ -41,7 +41,7 @@ if file is not None:
             # Check if race exist
             df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=600)
             st.write(df.empty)
-            st.write(len(df9)
+            st.write(len(df))
             st.dataframe(df)
 
             # Add race info if race is new
