@@ -41,7 +41,7 @@ if file is not None:
             # Check if race exist
             df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=600)
             st.write(type(df))
-            st.write(df)
+            st.dataframe(df)
 
             # Add race info if race is new
             query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
@@ -55,7 +55,7 @@ if file is not None:
             st.write(page_text)
 
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-            st.write(lap_info)
+            #st.write(lap_info)
             
             for lap in lap_info:
                 #st.write(type(l))
