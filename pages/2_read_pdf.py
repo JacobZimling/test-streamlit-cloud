@@ -61,7 +61,7 @@ if file is not None:
                 df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
                 st.write(df)
 
-            race_id = df['race_id'].iloc
+            race_id = df['race_id'].iloc[0]
             st.write(race_id)
         
         elif page != 1:
