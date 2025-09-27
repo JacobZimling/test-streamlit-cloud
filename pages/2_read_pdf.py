@@ -49,7 +49,7 @@ if file is not None:
                 st.write('insert race info')
                 query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
                 st.write(query)
-                conn.session.execute(query)
+                conn.session.execute(text(query))
                 conn.session.commit()
 
             # Get race_id
