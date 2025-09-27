@@ -8,8 +8,8 @@ from datetime import datetime
 file = st.file_uploader("Upload a PDF file", type="pdf")
 
 if file is not None:
-    # Initialize connection.
-    #conn = st.connection('freesqldatabase', type='sql')
+    # Initialize DB connection.
+    conn = st.connection('freesqldatabase', type='sql')
     
     # Read the PDF file
     pdf_reader = PdfReader(file)
@@ -39,12 +39,15 @@ if file is not None:
             #st.write(race_info)
 
             # Check if race exist
+            df = conn.query('SELECT * from madklub_deltagere;', ttl=600)
+            st.write(df)
 
             # Add race info if race is new
             query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
             st.write(query)
 
             # Get race_id
+            race_id = 1
         
         elif page != 1:
             st.write('extract lap times')
@@ -56,7 +59,7 @@ if file is not None:
             for lap in lap_info:
                 #st.write(type(l))
                 #st.write(l)
-                params = dict(lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
+                params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
                 st.write(params)
                 
     # Display the content
