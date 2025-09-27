@@ -45,7 +45,7 @@ if file is not None:
             st.dataframe(df)
 
             # Add race info if race is new
-            if not df.empty:
+            if df.empty:
                 st.write('insert race info')
                 query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}')"
                 st.write(query)
