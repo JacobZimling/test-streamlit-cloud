@@ -57,8 +57,11 @@ if file is not None:
                 #)
                 conn.session.commit()
 
-            # Get race_id
-            race_id = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
+                # Get race_id
+                df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
+                st.write(df)
+
+            race_id = df['race_id'].iloc
             st.write(race_id)
         
         elif page != 1:
