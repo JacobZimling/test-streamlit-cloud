@@ -1,7 +1,7 @@
 # 1_Test_db_connection_to_dreamhost.py
 
-
 import streamlit as st
+from sqlalchemy.sql import text
 
 # Initialize connection.
 conn = st.connection('freesqldatabase', type='sql')
@@ -11,7 +11,7 @@ with conn.session as s:
     data = [('Test1 & Test2', 7, 0)]
     for k in data:
         s.execute(
-            'INSERT INTO madklub_deltagere (names, `order`, active) VALUES (:names, :order, :active);',
+            text('INSERT INTO madklub_deltagere (names, `order`, active) VALUES (:names, :order, :active);'),
             params=dict(names=k[0], order=k[1], active=k[2])
         )
     s.commit()
