@@ -36,7 +36,7 @@ if file is not None:
             race_info = re.findall(r'Session name: (.+) Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
 
             race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
-            #st.write(race_date)
+            st.write(type(race_date))
             #st.write(race_info)
 
             # Check if race exist
