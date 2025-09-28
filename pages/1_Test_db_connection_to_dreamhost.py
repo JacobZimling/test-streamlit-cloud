@@ -6,8 +6,18 @@ import streamlit as st
 # Initialize connection.
 conn = st.connection('freesqldatabase', type='sql')
 
+# Insert some data with conn.session.
+with conn.session as s:
+    data = {1: {'Test1 & Test2', 7, 0}
+    for k in pet_owners:
+        s.execute(
+            'INSERT INTO madklub_deltagere (names, `order`, active) VALUES (:names, :order, :active);',
+            params=dict(names=k[0], order=k[1], active=k[2])
+        )
+    s.commit()
+
 # Perform query.
-df = conn.query('SELECT * from madklub_deltagere;', ttl=600)
+df = conn.query('SELECT * from madklub_deltagere;', ttl=0)
 
 # Print results.
 for row in df.itertuples():
