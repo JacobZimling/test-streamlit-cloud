@@ -9,7 +9,7 @@ conn = st.connection('freesqldatabase', type='sql')
 # Insert some data with conn.session.
 with conn.session as s:
     data = {1: {'Test1 & Test2', 7, 0}}
-    for k in pet_owners:
+    for k in data:
         s.execute(
             'INSERT INTO madklub_deltagere (names, `order`, active) VALUES (:names, :order, :active);',
             params=dict(names=k[0], order=k[1], active=k[2])
