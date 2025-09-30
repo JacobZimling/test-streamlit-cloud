@@ -28,7 +28,7 @@ if file is not None:
             st.write(race_info)
             race_name = race_info[2] or race_info[4]
             # st.write(f'Venue: {race_info[0]} Race name: {race_name} Heat: {race_info[3]}')
-            race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
+            race_date = datetime.strptime(race_info[5], "%b %d, %Y").date()
             # st.write(type(race_date))
 
             # Check if race exist
