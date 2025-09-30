@@ -10,4 +10,4 @@ df = conn.query(f"SELECT lap, driver_id, lap_time FROM race_laps WHERE race_id i
 st.dataframe(df)
 
 # st.line_chart(df, x='lap_time', y='lap')
-st.bar_chart(df, x='driver_id', y='lap', stack=False)
+st.bar_chart(df, x='driver_id', y='lap', sort='lap', stack=False)
