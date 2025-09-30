@@ -59,7 +59,7 @@ if file is not None:
             st.write(page_text)
 
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-            # st.write(lap_info)
+            st.write(lap_info)
 
             st.write(lap_info[0][2])
             time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')
