@@ -36,10 +36,10 @@ if file is not None:
 
             # Add race info if race is new
             if df.empty:
-                st.write('insert race info')
+                # st.write('insert race info')
                 with conn.session as s:
                     data = [(race_date.strftime('%Y-%m-%d'), race_info[0])]
-                    st.write(data)
+                    # st.write(data)
                     for k in data:
                         s.execute(
                             text('INSERT INTO race_info (race_date, race_name) VALUES (:date, :name);'),
@@ -48,7 +48,7 @@ if file is not None:
                     s.commit()
                 
                 # Get race_id
-                df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
+                df = conn.query(f"SELECT * FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
                 st.dataframe(df)
 
             race_id = df['race_id'].iloc[0]
