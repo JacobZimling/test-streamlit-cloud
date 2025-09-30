@@ -64,7 +64,7 @@ if file is not None:
             st.write(lap_info[0][2])
             time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')
             st.write(time)
-            st.write(type(time))
+            # st.write(type(time))
             # st.write(type(lap_info[0][2]))
 
             with conn.session as s:
@@ -80,6 +80,6 @@ if file is not None:
                 s.commit()
 
             # # Get lap info
-            # df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
-            # st.dataframe(df)
+            df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
+            st.dataframe(df)
 
