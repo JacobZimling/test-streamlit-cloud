@@ -2,6 +2,7 @@
 
 import streamlit as st
 from sqlalchemy.sql import text
+from datetime import datetime
 
 # Initialize connection.
 conn = st.connection('freesqldatabase', type='sql')
