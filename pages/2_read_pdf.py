@@ -59,15 +59,20 @@ if file is not None:
             st.write(page_text)
 
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-            st.write(lap_info)
+            # st.write(lap_info)
 
             with conn.session as s:
                 query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                 st.write(query)
-#                s.execute(query)
-#                for lap in lap_info:
-#                    s.execute(
-                        
-#                    params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
-                    #st.write(params)
-                
+                s.execute(query)
+                for lap in lap_info:
+                    s.execute(
+                        text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, rank);'),
+                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
+                    )
+                s.commit()
+
+            # Get lap info
+            df = conn.query(f"SELECT * FROM race_laps WHERE race_date='{race_id}' and driver_id='{{lap_info[0][1]}';", ttl=0)
+            st.dataframe(df)
+
