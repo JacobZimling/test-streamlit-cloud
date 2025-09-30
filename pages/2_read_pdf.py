@@ -75,7 +75,7 @@ if file is not None:
                     s.execute(
             #             text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, rank);'),
                         text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, :rank);'),
-                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=int(lap[5]))
+                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5])
                     )
                 s.commit()
 
