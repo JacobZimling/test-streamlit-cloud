@@ -8,13 +8,15 @@ conn = st.connection('freesqldatabase', type='sql')
 
 # Insert some data with conn.session.
 with conn.session as s:
-    data = [('2025-01-01', 'Another race')]
-    for k in data:
-        s.execute(
-            text('INSERT INTO race_info (race_date, race_name) VALUES (:date, :name);'),
-            params=dict(date=k[0], name=k[1])
-        )
-    s.commit()
+    race_date = datetime.strptime('Jan 01, 2025', "%b %d, %Y").date()
+    data = [(race_date.strftime('%Y-%m-%d'), 'Another race')]
+    st.write(data)
+    # for k in data:
+    #     s.execute(
+    #         text('INSERT INTO race_info (race_date, race_name) VALUES (:date, :name);'),
+    #         params=dict(date=k[0], name=k[1])
+    #     )
+    # s.commit()
     
     # data = [('Test1 & Test2', 7, 0)]
     # for k in data:
@@ -25,7 +27,8 @@ with conn.session as s:
     # s.commit()
 
 # Perform query.
-df = conn.query('SELECT * from madklub_deltagere;', ttl=0)
+df = conn.query('SELECT * from race_info;', ttl=0)
+#df = conn.query('SELECT * from madklub_deltagere;', ttl=0)
 
 # Print results.
 for row in df.itertuples():
