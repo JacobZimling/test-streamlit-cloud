@@ -51,36 +51,36 @@ if file is not None:
                 
                 # Get race_id
                 df = conn.query(f"SELECT * FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';", ttl=0)
-                st.dataframe(df)
+                # st.dataframe(df)
 
             race_id = df['race_id'].iloc[0]
             # st.write(race_id)
             st.dataframe(df)
         
-        # elif page != 1:
-        #     st.write('extract lap times')
-        #     # st.write(page_text)
+        elif page != 1:
+            st.write('extract lap times')
+            # st.write(page_text)
 
-        #     lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-        #     # st.write(lap_info)
+            lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
+            # st.write(lap_info)
 
-        #     # st.write(lap_info[0][2])
-        #     # time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')
-        #     # st.write(time)
-        #     # st.write(type(time))
-        #     # st.write(type(lap_info[0][2]))
+            # st.write(lap_info[0][2])
+            # time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')
+            # st.write(time)
+            # st.write(type(time))
+            # st.write(type(lap_info[0][2]))
 
-        #     with conn.session as s:
-        #         query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-        #         # st.write(query)
-        #         s.execute(text(query))
-        #         for lap in lap_info:
-        #             s.execute(
-        #                 text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, :rank);'),
-        #                 params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5])
-        #             )
-        #         s.commit()
+            with conn.session as s:
+                query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
+                # st.write(query)
+                s.execute(text(query))
+                for lap in lap_info:
+                    s.execute(
+                        text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, :rank);'),
+                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5])
+                    )
+                s.commit()
 
-        #     # # Get lap info
-        #     df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
-        #     st.dataframe(df)
+            # # Get lap info
+            df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
+            st.dataframe(df)
