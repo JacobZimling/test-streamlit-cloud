@@ -11,3 +11,6 @@ df = conn.query(f"SELECT lap, driver_id, lap_time FROM race_laps WHERE race_id i
 
 # st.line_chart(df, x='lap_time', y='lap')
 st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
+
+import plotly.express as px
+px.bar(df, x="driver_id", y="lap", animation_frame="lap_time", hover_name="driver_id")
