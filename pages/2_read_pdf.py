@@ -67,16 +67,17 @@ if file is not None:
             st.write(type(time))
             # st.write(type(lap_info[0][2]))
 
-            # with conn.session as s:
-            #     query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-            #     st.write(query)
-            #     s.execute(text(query))
-            #     for lap in lap_info:
-            #         s.execute(
+            with conn.session as s:
+                query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
+                st.write(query)
+                s.execute(text(query))
+                for lap in lap_info:
+                    s.execute(
             #             text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, rank);'),
-            #             params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
-            #         )
-            #     s.commit()
+                        text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, rank);'),
+                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5])
+                    )
+                s.commit()
 
             # # Get lap info
             # df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
