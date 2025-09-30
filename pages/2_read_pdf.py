@@ -62,7 +62,9 @@ if file is not None:
             # st.write(lap_info)
 
             st.write(lap_info[0][2])
-            st.write(type(lap_info[0][2]))
+            time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time()
+            st.write(type(time)
+            # st.write(type(lap_info[0][2]))
 
             # with conn.session as s:
             #     query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
