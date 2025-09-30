@@ -7,3 +7,4 @@ mysql-connector-python~=9.4.0
 streamlit-pdf~=1.0.7
 PyPDF2~=3.0.1
 pypdf~=6.1.0
+plotly~=6.3.0
