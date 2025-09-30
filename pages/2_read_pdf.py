@@ -52,17 +52,18 @@ if file is not None:
                 st.dataframe(df)
 
             race_id = df['race_id'].iloc[0]
-            st.write(race_id)
+            # st.write(race_id)
+            st.dataframe(df)
         
         elif page != 1:
             st.write('extract lap times')
-            st.write(page_text)
+            # st.write(page_text)
 
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-            st.write(lap_info)
+            # st.write(lap_info)
 
             # st.write(lap_info[0][2])
-            time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')
+            # time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')
             # st.write(time)
             # st.write(type(time))
             # st.write(type(lap_info[0][2]))
@@ -82,4 +83,3 @@ if file is not None:
             # # Get lap info
             df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
             st.dataframe(df)
-
