@@ -53,12 +53,24 @@ if file is not None:
                 params=dict(race_date=race_date.strftime('%Y-%m-%d'), race_name=race_info[0])
                 st.write(f'params: {params}');
 
-                conn.session.execute(
-                    text('INSERT INTO race_info (race_date, race_name) VALUES (:race_date, :race_name);'),
-                    params=dict(race_date=race_date.strftime('%Y-%m-%d'), race_name=race_info[0])
-                )
-                conn.session.commit()
+                # conn.session.execute(
+                #     text('INSERT INTO race_info (race_date, race_name) VALUES (:race_date, :race_name);'),
+                #     params=dict(race_date=race_date.strftime('%Y-%m-%d'), race_name=race_info[0])
+                # )
+                # conn.session.commit()
 
+                # race_date = datetime.strptime('Jan 01, 2025', "%b %d, %Y").date()
+                with conn.session as s:
+                    data = [(race_date.strftime('%Y-%m-%d'), race_info[0])]
+                    st.write(data)
+                    for k in data:
+                        s.execute(
+                            text('INSERT INTO race_info (race_date, race_name) VALUES (:date, :name);'),
+                            params=dict(date=k[0], name=k[1])
+                        )
+                    s.commit()
+
+                
                 # Get race_id
                 df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
                 st.dataframe(df)
