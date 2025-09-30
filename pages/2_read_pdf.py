@@ -73,6 +73,6 @@ if file is not None:
                 s.commit()
 
             # Get lap info
-            df = conn.query(f"SELECT * FROM race_laps WHERE race_date='{race_id}' and driver_id='{{lap_info[0][1]}';", ttl=0)
+            df = conn.query(f"SELECT * FROM race_laps WHERE race_date='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
             st.dataframe(df)
 
