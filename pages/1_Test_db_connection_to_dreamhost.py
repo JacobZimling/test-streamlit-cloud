@@ -29,22 +29,26 @@ with conn.session as s:
 
 # Perform query.
 df = conn.query('SELECT * from race_info;', ttl=0)
-#df = conn.query('SELECT * from madklub_deltagere;', ttl=0)
-
 # Print results.
 for row in df.itertuples():
-    st.write(f"{row.names}")
+    st.write(f"{row.race_id} {row.race_date} {row.race_name}")
+
+# Perform query.
+#df = conn.query('SELECT * from madklub_deltagere;', ttl=0)
+# Print results.
+# for row in df.itertuples():
+#     st.write(f"{row.names}")
 
 
-import mysql.connector as connection
-import pandas as pd
-try:
-    mydb = connection.connect(host=st.secrets["freesqldatabase"]["host"], database = st.secrets["freesqldatabase"]["database"], user=st.secrets["freesqldatabase"]["username"], passwd=st.secrets["freesqldatabase"]["password"], use_pure=True)
-    query = "Select * from madklub_deltagere;"
-    result_dataFrame = pd.read_sql(query,mydb)
-    mydb.close() #close the connection
-except Exception as e:
-    mydb.close()
-    print(str(e))
+# import mysql.connector as connection
+# import pandas as pd
+# try:
+#     mydb = connection.connect(host=st.secrets["freesqldatabase"]["host"], database = st.secrets["freesqldatabase"]["database"], user=st.secrets["freesqldatabase"]["username"], passwd=st.secrets["freesqldatabase"]["password"], use_pure=True)
+#     query = "Select * from madklub_deltagere;"
+#     result_dataFrame = pd.read_sql(query,mydb)
+#     mydb.close() #close the connection
+# except Exception as e:
+#     mydb.close()
+#     print(str(e))
     
-st.write(result_dataFrame)
+# st.write(result_dataFrame)
