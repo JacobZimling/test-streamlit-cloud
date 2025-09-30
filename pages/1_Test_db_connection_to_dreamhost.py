@@ -10,12 +10,12 @@ conn = st.connection('freesqldatabase', type='sql')
 # Insert some data with conn.session.
 with conn.session as s:
     race_date = datetime.strptime('Jan 01, 2025', "%b %d, %Y").date()
-    data = [(race_date.strftime('%Y-%m-%d'), 'Another race')]
+    data = [(race_date, 'Another race')]
     st.write(data)
     for k in data:
         s.execute(
             text('INSERT INTO race_info (race_date, race_name) VALUES (:date, :name);'),
-            params=dict(date=k[0], name=k[1])
+            params=dict(date=k[0].strftime('%Y-%m-%d'), name=k[1])
         )
     s.commit()
     
