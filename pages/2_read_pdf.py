@@ -63,7 +63,7 @@ if file is not None:
 
             st.write(lap_info[0][2])
             time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time()
-            st.write(type(time)
+            st.write(type(time))
             # st.write(type(lap_info[0][2]))
 
             # with conn.session as s:
