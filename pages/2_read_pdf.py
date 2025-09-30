@@ -27,35 +27,35 @@ if file is not None:
             race_info = re.findall(r'Session name: (\w+) ((\d)([abe])|(2wd)) Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
             st.write(race_info)
             race_name = race_info[2] or race_info[4]
-            st.write(f'Venue: {race_info[0]} Race name: {race_name} Heat: {race_info[3]}')
-            # race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
+            # st.write(f'Venue: {race_info[0]} Race name: {race_name} Heat: {race_info[3]}')
+            race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
             # st.write(type(race_date))
 
-            # # Check if race exist
-            # df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}';", ttl=0)
-            # #st.write(df.empty)
-            # #st.dataframe(df)
+            # Check if race exist
+            df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';", ttl=0)
+            #st.write(df.empty)
+            #st.dataframe(df)
 
-            # # Add race info if race is new
-            # if df.empty:
-            #     # st.write('insert race info')
-            #     with conn.session as s:
-            #         data = [(race_date.strftime('%Y-%m-%d'), race_info[0])]
-            #         # st.write(data)
-            #         for k in data:
-            #             s.execute(
-            #                 text('INSERT INTO race_info (race_date, race_name) VALUES (:date, :name);'),
-            #                 params=dict(date=k[0], name=k[1])
-            #             )
-            #         s.commit()
+            # Add race info if race is new
+            if df.empty:
+                # st.write('insert race info')
+                with conn.session as s:
+                    data = [(race_date.strftime('%Y-%m-%d'), race_info[0], race_name, race_info[3])]
+                    # st.write(data)
+                    for k in data:
+                        s.execute(
+                            text('INSERT INTO race_info (race_date, race_venue, race_name, race_heat) VALUES (:date, :venue, :name, :heat);'),
+                            params=dict(date=k[0], venue=k[1], name=k[2], heat=k[3])
+                        )
+                    s.commit()
                 
-            #     # Get race_id
-            #     df = conn.query(f"SELECT * FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
-            #     st.dataframe(df)
+                # Get race_id
+                df = conn.query(f"SELECT * FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';", ttl=0)
+                st.dataframe(df)
 
-            # race_id = df['race_id'].iloc[0]
-            # # st.write(race_id)
-            # st.dataframe(df)
+            race_id = df['race_id'].iloc[0]
+            # st.write(race_id)
+            st.dataframe(df)
         
         # elif page != 1:
         #     st.write('extract lap times')
