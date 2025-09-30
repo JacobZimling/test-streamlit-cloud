@@ -14,30 +14,20 @@ if file is not None:
     
     # Read the PDF file
     pdf_reader = PdfReader(file)
-    # Extract the content
-    content = ""
+l    # Extract the content
     for page in range(len(pdf_reader.pages)):
         #st.write(page)
         page_text = pdf_reader.pages[page].extract_text()
         #st.write(page_text)
-        #content += page_text
 
         if page == 0:
             st.write('extract race info')
-            st.write(page_text)
-            #race_info = re.findall(r'(Session name): (.+) (Session started): (.+)', page_text)
-            #st.write(race_info)
-            #race_info = re.findall(r'(Session time): (.+) (Session ended): (.+)', page_text)
-            #st.write(race_info)
-
-            #race_info = re.findall(r'(\w[\w ]+) (\d\d:\d\d.\d\d\d) (.+) (\d\d:\d\d.\d\d\d) (\d+)', page_text)
-            #st.write(race_info)
+            # st.write(page_text)
 
             race_info = re.findall(r'Session name: (.+) Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
-
             race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
-            st.write(type(race_date))
-            #st.write(race_info)
+            # st.write(type(race_date))
+            # st.write(race_info)
 
             # Check if race exist
             df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
@@ -47,19 +37,6 @@ if file is not None:
             # Add race info if race is new
             if df.empty:
                 st.write('insert race info')
-                #query = f"INSERT INTO race_info (race_date, race_name) VALUES ('{race_date}', '{race_info[0]}');"
-                #st.write(query)
-                #conn.session.execute(text(f"INSERT INTO race_info (race_date, race_name) VALUES (text('{race_date}'), text('{race_info[0]}'));"))
-                params=dict(race_date=race_date.strftime('%Y-%m-%d'), race_name=race_info[0])
-                st.write(f'params: {params}');
-
-                # conn.session.execute(
-                #     text('INSERT INTO race_info (race_date, race_name) VALUES (:race_date, :race_name);'),
-                #     params=dict(race_date=race_date.strftime('%Y-%m-%d'), race_name=race_info[0])
-                # )
-                # conn.session.commit()
-
-                # race_date = datetime.strptime('Jan 01, 2025', "%b %d, %Y").date()
                 with conn.session as s:
                     data = [(race_date.strftime('%Y-%m-%d'), race_info[0])]
                     st.write(data)
@@ -69,7 +46,6 @@ if file is not None:
                             params=dict(date=k[0], name=k[1])
                         )
                     s.commit()
-
                 
                 # Get race_id
                 df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
@@ -85,9 +61,9 @@ if file is not None:
             lap_info = re.findall(r'(\d+) (\w[\w ]+) (\d{2}:\d{2}.\d{3}) (\+.{5}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
             #st.write(lap_info)
 
-            query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-            st.write(query)
-#            with conn.session as s:
+           with conn.session as s:
+                query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
+                st.write(query)
 #                s.execute(query)
 #                for lap in lap_info:
 #                    s.execute(
@@ -95,5 +71,3 @@ if file is not None:
 #                    params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=lap[2], dif=lap[3], rank=lap[5])
                     #st.write(params)
                 
-    # Display the content
-    #st.write(content)
