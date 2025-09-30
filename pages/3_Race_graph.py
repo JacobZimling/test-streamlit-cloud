@@ -6,7 +6,27 @@ import streamlit as st
 conn = st.connection('freesqldatabase', type='sql')
 
 # Get lap data
-df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
+#df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
+df = conn.query(
+  'SELECT \
+      c.driver_id as driver_id, \
+      c.lap as lap, \
+      c.lap_time AS lap_time, \
+      IF(@prev_driver_id = c.driver_id, \
+         @race_time := addtime(@race_time, c.lap_time), \
+         @race_time := c.lap_time) AS race_time, \
+      @prev_driver_id := c.driver_id AS id \
+  FROM ( \
+      SELECT @prev_driver_id := NULL, \
+             @race_time := 0 \
+  ) i \
+  JOIN ( \
+      SELECT driver_id, lap, lap_time \
+      FROM race_laps \
+      WHERE race_id in (14,15) \
+      ORDER BY driver_id, lap \
+  ) c;',
+  ttl=0)
 st.dataframe(df)
 
 # st.line_chart(df, x='lap_time', y='lap')
