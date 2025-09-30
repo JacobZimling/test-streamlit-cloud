@@ -25,9 +25,9 @@ if file is not None:
             # st.write(page_text)
 
             race_info = re.findall(r'Session name: (\w+) (((\d)([abe]))|((2wd))) Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
-            race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
-            # st.write(type(race_date))
             st.write(race_info)
+            # race_date = datetime.strptime(race_info[1], "%b %d, %Y").date()
+            # st.write(type(race_date))
 
             # # Check if race exist
             # df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_name='{race_info[0]}';", ttl=0)
