@@ -14,7 +14,7 @@ if file is not None:
     
     # Read the PDF file
     pdf_reader = PdfReader(file)
-l    # Extract the content
+    # Extract the content
     for page in range(len(pdf_reader.pages)):
         #st.write(page)
         page_text = pdf_reader.pages[page].extract_text()
