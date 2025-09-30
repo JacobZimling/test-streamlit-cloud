@@ -9,4 +9,4 @@ conn = st.connection('freesqldatabase', type='sql')
 df = conn.query(f"SELECT lap, driver_id, lap_time FROM race_laps WHERE race_id in (14, 15);", ttl=0)
 st.dataframe(df)
 
-st.line_chart(df)
+st.line_chart(df, x='lap_time', y='lap')
