@@ -35,3 +35,10 @@ st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', st
 import plotly.express as px
 # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id"))
 st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id'))
+
+import plotly.graph_objects as go
+animals=['giraffes', 'orangutans', 'monkeys']
+
+fig = go.Figure([go.Bar(x=df['driver_id'], y=df[lap])])
+fig.update_layout(xaxis={'categoryorder':'total descending'})
+fig.show()
