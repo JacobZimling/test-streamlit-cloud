@@ -41,4 +41,4 @@ st.write(df['lap'])
 import plotly.graph_objects as go
 fig = go.Figure([go.Bar(x=df['driver_id'], y=df['lap'])])
 fig.update_layout(xaxis={'categoryorder':'total descending'})
-fig.show()
+st.write(fig.show())
