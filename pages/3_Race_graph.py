@@ -34,4 +34,4 @@ st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', st
 
 import plotly.express as px
 # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id"))
-st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id'))
+st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id', xaxis={'categoryorder':'total descending'}))
