@@ -1,4 +1,4 @@
-pl# 3_Race_graph.py
+# 3_Race_graph.py
 
 import streamlit as st
 
