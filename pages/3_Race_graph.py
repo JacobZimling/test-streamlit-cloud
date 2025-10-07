@@ -9,6 +9,8 @@ from modules.raceinfo import Race
 
 race = Race()
 
+exit()
+
 # Get lap data
 #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
 # df = conn.query(
