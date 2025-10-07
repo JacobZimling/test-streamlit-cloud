@@ -1,7 +1,7 @@
 # 3_Race_graph.py
 
 import streamlit as st
-from modules import Race
+from modules import Race as Race
 
 # Initialize DB connection.
 # conn = st.connection('heliohost', type='sql')
