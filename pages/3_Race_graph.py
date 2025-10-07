@@ -1,15 +1,18 @@
 # 3_Race_graph.py
 
 import streamlit as st
-from modules import raceinfo as ri
+from modules import Race
 
 # Initialize DB connection.
 # conn = st.connection('heliohost', type='sql')
-conn = ri.db_connect()
+# conn = ri.db_connect()
+
+race = Race()
 
 # Get lap data
 #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
-df = conn.query(
+# df = conn.query(
+df = race.conn.query(
   'SELECT \
       c.driver_id as driver_id, \
       c.lap as lap, \
