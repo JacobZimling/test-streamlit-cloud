@@ -10,7 +10,7 @@ file = st.file_uploader("Upload a PDF file", type="pdf")
 
 if file is not None:
     # Initialize DB connection.
-    conn = st.connection('freesqldatabase', type='sql')
+    conn = st.connection('heliohost', type='sql')
     
     # Read the PDF file
     pdf_reader = PdfReader(file)
