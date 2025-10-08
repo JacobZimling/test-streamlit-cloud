@@ -27,7 +27,7 @@ if race_year:
   st.write(races)
 
   race_dict = races.set_index('race_date').to_dict(orient='index')
-  st.wrtie(race_dict)
+  st.write(race_dict)
 
   # r = races['race_date'].values[0]
   # st.write(r);
