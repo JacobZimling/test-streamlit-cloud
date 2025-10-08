@@ -17,9 +17,9 @@ conn = race.db_connect()
 # st.dataframe(race.get_race_years)
 
 years = race.get_race_years(conn)
-st.write(type(years))
+# st.write(type(years))
 st.write(years)
-
+st.selectbox('Vælg år', years['race_year'])
 
 
 # Get lap data
