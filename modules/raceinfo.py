@@ -29,5 +29,5 @@ def get_races(conn, race_year):
   return conn.query(f'SELECT distinct race_date, race_venue FROM race_info WHERE year(race_date)={race_year}')
 
 def get_race_info(conn):
-  return conn.query('SELECT race_id, year(race_date) as race_year, race_date, race_venue, concat(race_venue, '(', race_date, ')') as venue_label, race_name FROM race_info')
+  return conn.query('SELECT race_id, year(race_date) as race_year, race_date, race_venue, concat(race_venue, "(", race_date, ")") as venue_label, race_name FROM race_info')
   
