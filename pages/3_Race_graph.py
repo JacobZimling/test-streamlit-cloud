@@ -27,6 +27,8 @@ if race_year:
   st.write(races)
   st.write(races.loc[races['race_date'] == '2025-06-15'])
   st.write(races.loc[races['race_date'] == '2025-06-15']['race_venue'])
+  date = '2025-06-15'
+  st.write(races.query(f"race_date == '{date}'"))
   st.selectbox('Løbsdag', races['race_date'], index=None, placeholder='Vælg løbsdag', format_func=lambda x: races.loc[races['race_date'] == x])
 
 # Get lap data
