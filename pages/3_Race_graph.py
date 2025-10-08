@@ -10,7 +10,7 @@ from modules.raceinfo import Race
 race = Race()
 
 # race.select_race_year
-races.show_races
+race.show_races
 
 
 # Get lap data
