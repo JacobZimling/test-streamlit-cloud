@@ -1,19 +1,25 @@
 # 3_Race_graph.py
 
 import streamlit as st
-from modules.raceinfo import Race
+# from modules.raceinfo import Race
+from modules import raceinfo as race
 
 # Initialize DB connection.
 # conn = st.connection('heliohost', type='sql')
-# conn = ri.db_connect()
+conn = race.db_connect()
 
-race = Race()
+# race = Race()
 
 # race.select_race_year
-years = race.get_race_years
+# years = race.get_race_years
+# st.write(type(years))
+# st.write(years)
+# st.dataframe(race.get_race_years)
+
+years = race.get_race_years(conn)
 st.write(type(years))
 st.write(years)
-# st.dataframe(race.get_race_years)
+
 
 
 # Get lap data
