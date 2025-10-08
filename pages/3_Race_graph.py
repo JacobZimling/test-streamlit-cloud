@@ -27,7 +27,7 @@ if race_year:
   st.write(races)
   st.write(races.loc[races['race_date'] == '2025-06-15'])
   st.write(races.loc[races['race_date'] == '2025-06-15']['race_venue'])
-  # st.selectbox('Løbsdag', races['race_date'], index=None, placeholder='Vælg løbsdag', format_func=lambda x: races[x]['race_venue'])
+  st.selectbox('Løbsdag', races['race_date'], index=None, placeholder='Vælg løbsdag', format_func=lambda x: races.loc[races['race_date'] == x])
 
 # Get lap data
 #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
