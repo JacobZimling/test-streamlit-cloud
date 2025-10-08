@@ -25,17 +25,21 @@ if race_year:
   st.write('get races for the selected year')
   races = race.get_races(conn, race_year)
   st.write(races)
-  r = races['race_date'].values[0]
-  st.write(r);
-  # st.write(type(r))
+
+  race_dict = races.set_index('race_date').to_dict(orient='index')
+  st.wrtie(race_dict)
+
+  # r = races['race_date'].values[0]
+  # st.write(r);
+  # # st.write(type(r))
   
-  r = races.loc[races['race_date'].values.strftime('%Y-%m-%d') == '2025-06-15']
-  st.write(r)
-  st.write(type(r))
-  st.write(races.loc[races['race_date'] == '2025-06-15'])
-  st.write(races.loc[races['race_date'] == '2025-06-15']['race_venue'])
-  date = '2025-06-15'
-  st.write(races.query(f"race_date == '{date}'"))
+  # r = races.loc[races['race_date'].values.strftime('%Y-%m-%d') == '2025-06-15']
+  # st.write(r)
+  # st.write(type(r))
+  # st.write(races.loc[races['race_date'] == '2025-06-15'])
+  # st.write(races.loc[races['race_date'] == '2025-06-15']['race_venue'])
+  # date = '2025-06-15'
+  # st.write(races.query(f"race_date == '{date}'"))
   # st.selectbox('Løbsdag', races['race_date'], index=None, placeholder='Vælg løbsdag', format_func=lambda x: races.loc[races['race_date'] == x])
 
 # Get lap data
