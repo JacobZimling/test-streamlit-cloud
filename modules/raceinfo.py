@@ -14,6 +14,7 @@ class Race:
 
   def show_races(self):
     st.dataframe(self.races)
+    return
 
 # Initialize DB connection.
 # def db_connect():
