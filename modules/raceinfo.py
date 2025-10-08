@@ -24,10 +24,8 @@ def db_connect():
 
 def get_race_years(conn):
   return conn.query('SELECT distinct year(race_date) as race_year FROM race_info')
-    
-    
 
-# Initialize DB connection.
-# def db_connect():
-#   return st.connection('heliohost', type='sql')
+def get_races(conn, race_year):
+  return conn.query(f'SELECT distinct race_date, race_venue FROM race_info WHERE year(race_date)={race_year}')
+
   
