@@ -25,7 +25,7 @@ if race_year:
   st.write('get races for the selected year')
   races = race.get_races(conn, race_year)
   st.write(races)
-  r = races.loc[races['race_date']
+  r = races.loc[races['race_date']]
   st.write(r)
   st.write(type(r))
   st.write(races.loc[races['race_date'] == '2025-06-15'])
