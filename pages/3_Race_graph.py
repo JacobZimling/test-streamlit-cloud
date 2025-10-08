@@ -16,10 +16,13 @@ conn = race.db_connect()
 # st.write(years)
 # st.dataframe(race.get_race_years)
 
-years = race.get_race_years(conn)
+# years = race.get_race_years(conn)
 # st.write(type(years))
-st.write(years)
-race_year = st.selectbox('År', years['race_year'], index=None, placeholder='Vælg år')
+# st.write(years)
+# race_year = st.selectbox('År', years['race_year'], index=None, placeholder='Vælg år')
+
+races = race.get_race_info(conn)
+st.write(races)
 
 if race_year:
   st.write('get races for the selected year')
