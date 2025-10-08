@@ -31,6 +31,8 @@ if race_year:
 
   race_selector = races[races['race_year'] == race_year]
   st.write(race_selector)
+  
+  st.selectbox('Løbsdag', options=race_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag')
 
 #   races = race.get_races(conn, race_year)
 #   st.write(races)
