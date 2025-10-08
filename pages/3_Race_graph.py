@@ -10,7 +10,10 @@ from modules.raceinfo import Race
 race = Race()
 
 # race.select_race_year
-st.dataframe(race.get_race_years)
+years = race.get_race_years
+st.write(type(years))
+st.write(years)
+# st.dataframe(race.get_race_years)
 
 
 # Get lap data
