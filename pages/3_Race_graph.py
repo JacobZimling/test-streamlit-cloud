@@ -9,6 +9,8 @@ from modules.raceinfo import Race
 
 race = Race()
 
+race.select_race_year()
+
 st.stop()
 
 # Get lap data
