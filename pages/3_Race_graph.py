@@ -19,13 +19,13 @@ conn = race.db_connect()
 years = race.get_race_years(conn)
 # st.write(type(years))
 st.write(years)
-race_year = st.selectbox('Vælg år', years['race_year'], index=None)
+race_year = st.selectbox('År', years['race_year'], index=None, placeholder='Vælg år')
 
 if race_year:
   st.write('get races for the selected year')
   races = race.get_races(conn, race_year)
   st.write(races)
-  st.selectbox('Vælg løbsdag', races['race_date'], index=None)
+  st.selectbox('Løbsdag', races['race_date'], index=None, placeholder='Vælg løbsdag')
 
 # Get lap data
 #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
