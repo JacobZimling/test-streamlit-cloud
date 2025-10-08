@@ -28,6 +28,10 @@ race_year = st.selectbox('År', options=races['race_year'].unique(), index=None,
 
 if race_year:
   st.write('get races for the selected year')
+
+  race_selector = races[races['race_year'] == race_year]
+  st.write(race_selector)
+
 #   races = race.get_races(conn, race_year)
 #   st.write(races)
 
