@@ -22,6 +22,8 @@ import streamlit as st
 def db_connect():
   return st.connection('heliohost', type='sql')
 
+def get_race_years(conn):
+  return conn.query('SELECT distinct year(race_date) FROM race_info')
     
     
 
