@@ -11,6 +11,10 @@ class Race:
   def select_race_year():
     st.write('Select year')
     return
+
+  def show_races(self):
+    st.dataframe(self.races)
+
 # Initialize DB connection.
 # def db_connect():
 #   return st.connection('heliohost', type='sql')
