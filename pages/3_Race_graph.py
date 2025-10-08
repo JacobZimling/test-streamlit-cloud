@@ -24,13 +24,13 @@ conn = race.db_connect()
 races = race.get_race_info(conn)
 st.write(races)
 
-if race_year:
-  st.write('get races for the selected year')
-  races = race.get_races(conn, race_year)
-  st.write(races)
+# if race_year:
+#   st.write('get races for the selected year')
+#   races = race.get_races(conn, race_year)
+#   st.write(races)
 
-  race_dict = races.set_index('race_date').to_dict(orient='index')
-  st.write(race_dict)
+#   race_dict = races.set_index('race_date').to_dict(orient='index')
+#   st.write(race_dict)
 
   # r = races['race_date'].values[0]
   # st.write(r);
