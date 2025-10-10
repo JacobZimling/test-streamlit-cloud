@@ -21,6 +21,8 @@ conn = race.db_connect()
 # st.write(years)
 # race_year = st.selectbox('År', years['race_year'], index=None, placeholder='Vælg år')
 
+# https://search.brave.com/search?q=streamlit+scascading+selectboxes+from+dataframe&summary=1&conversation=76d7adeeee7a87c717e6d4
+
 races = race.get_race_info(conn)
 st.write(races)
 
