@@ -50,6 +50,7 @@ if race_year:
 
   for index, race_row in race_selector.iterrows():
     st.write(f'{race_row['race_date']} {race_row['venue_label']}')
+    race_label[race_row['race_date']] = race_row['venue_label']
   
   st.write(race_label)
 
