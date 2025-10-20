@@ -36,10 +36,10 @@ if race_year:
   st.write(race_selector)
 
 #   # race_label = race_selector.set_index('race_date').to_dict(orient='index')
-#   race_label = {}
-#   for race in race_selector:
-#     race_label[race_selector['race_date']] = race_selector['venue_label']
-#   st.write(race_label)
+  race_label = {}
+  for race in race_selector:
+    race_label[race_selector['race_date']] = race_selector['venue_label']
+  st.write(race_label)
 
   race_venue = st.selectbox('Løbsdag', options=race_selector['venue_label'].unique(), index=None, placeholder='Vælg løbsdag')
 
