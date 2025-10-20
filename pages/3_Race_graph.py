@@ -44,6 +44,9 @@ if race_year:
     # st.write(type(race))
     # st.write(f'{race['race_date']} {race['venue_label']}')
     # race_label[race_selector['race_date']] = race_selector['venue_label']
+  
+  for index, race_row in race_selector.itertuples():
+    st.write((race_row.race_date, race_row.venue_label)
   st.write(race_label)
 
   race_venue = st.selectbox('Løbsdag', options=race_selector['venue_label'].unique(), index=None, placeholder='Vælg løbsdag')
