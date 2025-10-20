@@ -30,7 +30,7 @@ races = race.get_race_info(conn)
 race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år')
 
 if race_year:
-  st.write('get races for the selected year')
+  st.write('get races for {race_year}')
 
   race_selector = races[races['race_year'] == race_year]
   st.write(race_selector)
@@ -41,7 +41,10 @@ if race_year:
 #     race_label[race_selector['race_date']] = race_selector['venue_label']
 #   st.write(race_label)
 
-#   st.selectbox('Løbsdag', options=race_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag')
+  race_venue = st.selectbox('Løbsdag', options=race_selector['venue_label'].unique(), index=None, placeholder='Vælg løbsdag')
+
+  if race_venue:
+    st.write(f'get races for {race_venue}')
 
 #   races = race.get_races(conn, race_year)
 #   st.write(races)
