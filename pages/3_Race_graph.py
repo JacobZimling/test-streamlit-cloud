@@ -54,7 +54,8 @@ if race_year:
   
   st.write(race_label)
 
-  race_venue = st.selectbox('Løbsdag', options=race_selector['venue_label'].unique(), index=None, placeholder='Vælg løbsdag')
+  # race_venue = st.selectbox('Løbsdag', options=race_selector['venue_label'].unique(), index=None, placeholder='Vælg løbsdag')
+  race_venue = st.selectbox('Løbsdag', options=race_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: race_label.get(x))
 
   if race_venue:
     st.write(f'get races for {race_venue}')
