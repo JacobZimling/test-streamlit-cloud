@@ -33,26 +33,17 @@ if race_year:
   st.write('get races for {race_year}')
 
   race_selector = races[races['race_year'] == race_year]
-  st.write(race_selector)
+  # st.write(race_selector)
   # st.write(type(race_selector))
 
 #   # race_label = race_selector.set_index('race_date').to_dict(orient='index')
   race_label = {}
   # Create venue labels
-  # for race in race_selector:
-    # st.write(race)
-    # st.write(type(race))
-    # st.write(f'{race['race_date']} {race['venue_label']}')
-    # race_label[race_selector['race_date']] = race_selector['venue_label']
-  
-  # for index, race_row in race_selector.itertuples(index=False):
-  #   st.write(f'{race_row.race_date} {race_row.venue_label}')
-
   for index, race_row in race_selector.iterrows():
     st.write(f'{race_row['race_date']} {race_row['venue_label']}')
     race_label[race_row['race_date']] = race_row['venue_label']
   
-  st.write(race_label)
+  # st.write(race_label)
 
   # race_venue = st.selectbox('Løbsdag', options=race_selector['venue_label'].unique(), index=None, placeholder='Vælg løbsdag')
   race_venue = st.selectbox('Løbsdag', options=race_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: race_label.get(x))
