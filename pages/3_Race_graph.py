@@ -34,7 +34,7 @@ if race_year:
 
   race_selector = races[races['race_year'] == race_year]
   st.write(race_selector)
-  st.write(type(race_selector))
+  # st.write(type(race_selector))
 
 #   # race_label = race_selector.set_index('race_date').to_dict(orient='index')
   race_label = {}
@@ -48,7 +48,7 @@ if race_year:
   # for index, race_row in race_selector.itertuples(index=False):
   #   st.write(f'{race_row.race_date} {race_row.venue_label}')
 
-  for index, race_row in race_selector.interrows():
+  for index, race_row in race_selector.iterrows():
     st.write(f'{race_row['race_date']} {race_row['venue_label']}')
   
   st.write(race_label)
