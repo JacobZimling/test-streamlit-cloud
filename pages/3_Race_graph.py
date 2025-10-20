@@ -7,6 +7,8 @@ from modules import raceinfo as race
 # Initialize DB connection.
 # conn = st.connection('heliohost', type='sql')
 conn = race.db_connect()
+st.write(conn)
+st.write(type(conn))
 
 # race = Race()
 
