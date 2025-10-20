@@ -27,7 +27,7 @@ conn = race.db_connect()
 races = race.get_race_info(conn)
 st.write(races)
 
-# race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år')
+race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år')
 
 # if race_year:
 #   st.write('get races for the selected year')
