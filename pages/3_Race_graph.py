@@ -25,15 +25,15 @@ conn = race.db_connect()
 # https://discuss.streamlit.io/t/format-func-function-examples-please/11295/4
 
 races = race.get_race_info(conn)
-st.write(races)
+# st.write(races)
 
 race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år')
 
-# if race_year:
-#   st.write('get races for the selected year')
+if race_year:
+  st.write('get races for the selected year')
 
-#   race_selector = races[races['race_year'] == race_year]
-#   st.write(race_selector)
+  race_selector = races[races['race_year'] == race_year]
+  st.write(race_selector)
 
 #   # race_label = race_selector.set_index('race_date').to_dict(orient='index')
 #   race_label = {}
