@@ -49,7 +49,7 @@ if race_year:
     st.write(f'{race_row.race_date} {race_row.venue_label}')
 
   for index, race_row in race_selector.interrows():
-    st.write(f'{race_row['race_date']} {race_row.['venue_label']}')
+    st.write(f'{race_row['race_date']} {race_row['venue_label']}')
   
   st.write(race_label)
 
