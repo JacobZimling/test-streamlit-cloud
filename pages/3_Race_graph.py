@@ -38,7 +38,7 @@ if race_year:
 
     # Limit heat list based on race_venue
     heat_selector = venue_selector[venue_selector['race_date'] == race_venue]
-    # st.write(heat_selector)
+    st.write(heat_selector)
     
     # Create data for heat labels
     heat_label = {}
@@ -46,7 +46,7 @@ if race_year:
       if heat_row['race_name'] == '2wd':
         heat_name = heat_row['race_name']
       else:
-        heat_name = f'4wd heat {heat_row['race_name']}'
+        heat_name = f'4wd løb {heat_row['race_name']}'
       heat_label[heat_row['race_name']] = heat_name
     # st.write(heat_label)
   
