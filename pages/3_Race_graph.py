@@ -38,7 +38,7 @@ if race_year:
 
     # Limit heat list based on race_venue
     heat_selector = venue_selector[venue_selector['race_date'] == race_venue]
-    st.write(heat_selector)
+    # st.write(heat_selector)
     
     # Create data for heat labels
     heat_label = {}
@@ -54,37 +54,11 @@ if race_year:
 
     if race_heat:
       # Get lap data for selected heat
-      #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
-      # q = f'SELECT race_id FROM race_info WHERE race_date={race_venue} and race_name="{race_heat}"'
-      # st.write(q)
-      # df = conn.query(f'SELECT race_id FROM race_info WHERE race_date="{race_venue}" and race_name="{race_heat}"', ttl=0)
+      df = get_lap_info(conn, race_venue, race_heat)
       # st.dataframe(df)
-      
-      # df = conn.query(
-      #   f'SELECT \
-      #       c.driver_id as driver_id, \
-      #       c.lap as lap, \
-      #       c.lap_time AS lap_time, \
-      #       IF(@prev_driver_id = c.driver_id, \
-      #          @race_time := addtime(@race_time, c.lap_time), \
-      #          @race_time := c.lap_time) AS race_time, \
-      #       @prev_driver_id := c.driver_id AS id \
-      #   FROM ( \
-      #       SELECT @prev_driver_id := NULL, \
-      #              @race_time := 0 \
-      #   ) i \
-      #   JOIN ( \
-      #       SELECT driver_id, lap, lap_time \
-      #       FROM race_laps \
-      #       WHERE race_id in (SELECT race_id FROM race_info WHERE race_date="{race_venue}" and race_name="{race_heat}") \
-      #       ORDER BY driver_id, lap \
-      #   ) c;',
-      #   ttl=0)
-      df = gep_lap_info(conn, race_venue, race_heat)
-      st.dataframe(df)
 
-# # st.line_chart(df, x='lap_time', y='lap')
-# st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
+      st.line_chart(df, x='lap_time', y='lap')
+      st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
 
 # import plotly.express as px
 # # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id"))
