@@ -36,6 +36,10 @@ if race_year:
   if race_venue:
     st.write(f'get races for {race_venue}')
 
+    # Limit heat list based on race_venue
+    heat_selector = venue_selector[venue_selector['race_date'] == race_venue]
+    # st.write(heat_selector)
+    
   
 
 # Get lap data
