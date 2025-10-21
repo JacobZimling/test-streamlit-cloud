@@ -38,7 +38,7 @@ if race_year:
 
     # Limit heat list based on race_venue
     heat_selector = venue_selector[venue_selector['race_date'] == race_venue]
-    # st.write(heat_selector)
+    st.write(heat_selector)
     
   
 
