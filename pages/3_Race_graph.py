@@ -15,7 +15,7 @@ races = race.get_race_info(conn)
 # st.write(races)
 
 # Select year
-race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år')
+race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år', width=300)
 
 if race_year:
   # st.write(f'get races for {race_year}')
@@ -31,7 +31,7 @@ if race_year:
     venue_label[venue_row['race_date']] = venue_row['venue_label']
   # st.write(venue_label)
 
-  race_venue = st.selectbox('Løbsdag', options=venue_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x))
+  race_venue = st.selectbox('Løbsdag', options=venue_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
 
   if race_venue:
     st.write(f'get races for {race_venue}')
@@ -50,7 +50,7 @@ if race_year:
       heat_label[heat_row['race_name']] = heat_name
     # st.write(heat_label)
   
-    race_heat = st.selectbox('Heat', options=heat_selector['race_name'].unique(), index=None, placeholder='Vælg heat', format_func=lambda x: heat_label.get(x))
+    race_heat = st.selectbox('Løb', options=heat_selector['race_name'].unique(), index=None, placeholder='Vælg heat', format_func=lambda x: heat_label.get(x), width=300)
 
     if race_heat:
       # Get lap data for selected heat
