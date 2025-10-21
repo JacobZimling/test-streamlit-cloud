@@ -57,7 +57,7 @@ if race_year:
       #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
       q = f'SELECT race_id FROM race_info WHERE race_date={race_venue} and race_name="{race_heat}"'
       st.write(q)
-      df = conn.query(f'SELECT race_id FROM race_info WHERE race_date={race_venue} and race_name="{race_heat}"', ttl=0)
+      df = conn.query(f'SELECT race_id FROM race_info WHERE race_date="{race_venue}" and race_name="{race_heat}"', ttl=0)
       st.dataframe(df)
       
       df = conn.query(
@@ -76,7 +76,7 @@ if race_year:
         JOIN ( \
             SELECT driver_id, lap, lap_time \
             FROM race_laps \
-            WHERE race_id in (SELECT race_id FROM race_info WHERE race_date={race_venue} and race_name="{race_heat}") \
+            WHERE race_id in (SELECT race_id FROM race_info WHERE race_date="{race_venue}" and race_name="{race_heat}") \
             ORDER BY driver_id, lap \
         ) c;',
         ttl=0)
