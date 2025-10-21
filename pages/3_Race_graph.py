@@ -40,6 +40,15 @@ if race_year:
     heat_selector = venue_selector[venue_selector['race_date'] == race_venue]
     st.write(heat_selector)
     
+    # Create data for heat labels
+    heat_label = {}
+    for index, heat_row in heat_selector.iterrows():
+      if heat_row['race_name'] == '2wd':
+        heat_name = heat_row['race_name']
+      else:
+        heat_name = f'4wd heat {heat_row['race_name']}'
+      heat_label[heat_row['race_name']] = heat_name
+    st.write(heat_label)
   
 
 # Get lap data
