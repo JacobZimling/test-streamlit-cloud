@@ -80,7 +80,7 @@ if race_year:
       #       ORDER BY driver_id, lap \
       #   ) c;',
       #   ttl=0)
-      df = gep_lap_info(conn, race_venue}, race_heat)
+      df = gep_lap_info(conn, race_venue, race_heat)
       st.dataframe(df)
 
 # # st.line_chart(df, x='lap_time', y='lap')
