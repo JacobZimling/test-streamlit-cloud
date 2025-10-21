@@ -59,7 +59,7 @@ if race_year:
       # st.dataframe(df)
 
       # st.line_chart(df, x='lap_time', y='lap')
-      st.bar_chart(df, x='driver_id', y='lap', sort='lap', color='driver_id', stack=False)
+      st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
 
 # import plotly.express as px
 # # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id"))
