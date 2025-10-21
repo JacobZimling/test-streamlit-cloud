@@ -55,6 +55,9 @@ if race_year:
     if race_heat:
       # Get lap data for selected heat
       #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
+      df = conn.query(f'SELECT race_id FROM race_info WHERE race_date={race_venue} and race_name="{race_heat}"', ttl=0)
+      st.dataframe(df)
+      
       df = conn.query(
         f'SELECT \
             c.driver_id as driver_id, \
