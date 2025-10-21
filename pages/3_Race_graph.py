@@ -50,32 +50,31 @@ if race_year:
       heat_label[heat_row['race_name']] = heat_name
     # st.write(heat_label)
   
-  race_heat = st.selectbox('Heat', options=heat_selector['race_name'].unique(), index=None, placeholder='Vælg heat', format_func=lambda x: heat_label.get(x))
+    race_heat = st.selectbox('Heat', options=heat_selector['race_name'].unique(), index=None, placeholder='Vælg heat', format_func=lambda x: heat_label.get(x))
 
-# Get lap data
-#df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
-# df = conn.query(
-# df = race.conn.query(
-#   'SELECT \
-#       c.driver_id as driver_id, \
-#       c.lap as lap, \
-#       c.lap_time AS lap_time, \
-#       IF(@prev_driver_id = c.driver_id, \
-#          @race_time := addtime(@race_time, c.lap_time), \
-#          @race_time := c.lap_time) AS race_time, \
-#       @prev_driver_id := c.driver_id AS id \
-#   FROM ( \
-#       SELECT @prev_driver_id := NULL, \
-#              @race_time := 0 \
-#   ) i \
-#   JOIN ( \
-#       SELECT driver_id, lap, lap_time \
-#       FROM race_laps \
-#       WHERE race_id in (4,5) \
-#       ORDER BY driver_id, lap \
-#   ) c;',
-#   ttl=0)
-# st.dataframe(df)
+    # Get lap data
+    #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
+    df = conn.query(
+      'SELECT \
+          c.driver_id as driver_id, \
+          c.lap as lap, \
+          c.lap_time AS lap_time, \
+          IF(@prev_driver_id = c.driver_id, \
+             @race_time := addtime(@race_time, c.lap_time), \
+             @race_time := c.lap_time) AS race_time, \
+          @prev_driver_id := c.driver_id AS id \
+      FROM ( \
+          SELECT @prev_driver_id := NULL, \
+                 @race_time := 0 \
+      ) i \
+      JOIN ( \
+          SELECT driver_id, lap, lap_time \
+          FROM race_laps \
+          WHERE race_id in (4,5) \
+          ORDER BY driver_id, lap \
+      ) c;',
+      ttl=0)
+    st.dataframe(df)
 
 # # st.line_chart(df, x='lap_time', y='lap')
 # st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
