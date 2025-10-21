@@ -59,16 +59,16 @@ if race_year:
       # st.dataframe(df)
 
       # st.line_chart(df, x='lap_time', y='lap')
-      st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
+      # st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
 
-# import plotly.express as px
-# # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id"))
-# st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id'))
-
-# st.write(df['driver_id'])
-# st.write(df['lap'])
-# import plotly.graph_objects as go
-# fig = go.Figure([go.Bar(x=df['driver_id'], y=df['lap'])])
-# fig.update_layout(xaxis={'categoryorder':'total descending'})
-# # st.write(fig.show())
-# st.plotly_chart(fig, use_container_width=True)
+      # import plotly.express as px
+      # # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id"))
+      # st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id'))
+      
+      # st.write(df['driver_id'])
+      # st.write(df['lap'])
+      import plotly.graph_objects as go
+      fig = go.Figure([go.Bar(x=df['driver_id'], y=df['lap'])])
+      fig.update_layout(xaxis={'categoryorder':'total descending'})
+      # st.write(fig.show())
+      st.plotly_chart(fig, use_container_width=True)
