@@ -2,73 +2,41 @@
 
 import streamlit as st
 from modules import raceinfo as race
-# from modules.raceinfo import Race
 
 # Initialize DB connection.
 # conn = st.connection('heliohost', type='sql')
 conn = race.db_connect()
 
-# race = Race()
-
-# race.select_race_year
-# years = race.get_race_years
-# st.write(type(years))
-# st.write(years)
-# st.dataframe(race.get_race_years)
-
-# years = race.get_race_years(conn)
-# st.write(type(years))
-# st.write(years)
-# race_year = st.selectbox('År', years['race_year'], index=None, placeholder='Vælg år')
-
 # https://search.brave.com/search?q=streamlit+scascading+selectboxes+from+dataframe&summary=1&conversation=76d7adeeee7a87c717e6d4
 # https://discuss.streamlit.io/t/format-func-function-examples-please/11295/4
 
+# Read race information from DB
 races = race.get_race_info(conn)
 # st.write(races)
 
+# Select year
 race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år')
 
 if race_year:
-  st.write(f'get races for {race_year}')
+  # st.write(f'get races for {race_year}')
 
-  race_selector = races[races['race_year'] == race_year]
-  # st.write(race_selector)
-  # st.write(type(race_selector))
+  # Limit venue list based on race_year
+  venue_selector = races[races['race_year'] == race_year]
+  # st.write(venue_selector)
+  # st.write(type(venue_selector))
 
-#   # race_label = race_selector.set_index('race_date').to_dict(orient='index')
-  race_label = {}
-  # Create venue labels
-  for index, race_row in race_selector.iterrows():
-    # st.write(f'{race_row['race_date']} {race_row['venue_label']}')
-    race_label[race_row['race_date']] = race_row['venue_label']
-  
-  # st.write(race_label)
+  # Create data for venue labels
+  venue_label = {}
+  for index, venue_row in venue_selector.iterrows():
+    venue_label[venue_row['race_date']] = venue_row['venue_label']
+  # st.write(venue_label)
 
-  # race_venue = st.selectbox('Løbsdag', options=race_selector['venue_label'].unique(), index=None, placeholder='Vælg løbsdag')
-  race_venue = st.selectbox('Løbsdag', options=race_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: race_label.get(x))
+  race_venue = st.selectbox('Løbsdag', options=venue_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x))
 
   if race_venue:
     st.write(f'get races for {race_venue}')
 
-#   races = race.get_races(conn, race_year)
-#   st.write(races)
-
-#   race_dict = races.set_index('race_date').to_dict(orient='index')
-#   st.write(race_dict)
-
-  # r = races['race_date'].values[0]
-  # st.write(r);
-  # # st.write(type(r))
   
-  # r = races.loc[races['race_date'].values.strftime('%Y-%m-%d') == '2025-06-15']
-  # st.write(r)
-  # st.write(type(r))
-  # st.write(races.loc[races['race_date'] == '2025-06-15'])
-  # st.write(races.loc[races['race_date'] == '2025-06-15']['race_venue'])
-  # date = '2025-06-15'
-  # st.write(races.query(f"race_date == '{date}'"))
-  # st.selectbox('Løbsdag', races['race_date'], index=None, placeholder='Vælg løbsdag', format_func=lambda x: races.loc[races['race_date'] == x])
 
 # Get lap data
 #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
