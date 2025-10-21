@@ -52,5 +52,6 @@ def get_lap_info(conn, race_date, race_name):
         FROM race_laps \
         WHERE race_id in (SELECT race_id FROM race_info WHERE race_date="{race_date}" and race_name="{race_name}") \
         ORDER BY driver_id, lap \
-    ) c;',
+    ) c \
+    ORDER BY race_time;',
     ttl=0)
