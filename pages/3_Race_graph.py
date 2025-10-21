@@ -38,7 +38,7 @@ if race_year:
 
     # Limit heat list based on race_venue
     heat_selector = venue_selector[venue_selector['race_date'] == race_venue]
-    st.write(heat_selector)
+    # st.write(heat_selector)
     
     # Create data for heat labels
     heat_label = {}
@@ -48,8 +48,9 @@ if race_year:
       else:
         heat_name = f'4wd heat {heat_row['race_name']}'
       heat_label[heat_row['race_name']] = heat_name
-    st.write(heat_label)
+    # st.write(heat_label)
   
+  race_heat = st.selectbox('Heat', options=heat_selector['race_name'].unique(), index=None, placeholder='Vælg heat', format_func=lambda x: heat_label.get(x))
 
 # Get lap data
 #df = conn.query(f"SELECT lap, driver_id, lap_time, sum(lap_time) OVER (PARTITION BY driver_id ORDER BY lap) FROM race_laps WHERE race_id in (14, 15);", ttl=0)
