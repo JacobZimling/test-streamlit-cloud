@@ -57,7 +57,7 @@ if race_year:
       df = race.get_lap_info(conn, race_venue, race_heat)
       st.dataframe(df)
 
-      st.line_chart(df, x='lap_time', y='lap')
+      # st.line_chart(df, x='lap_time', y='lap')
       st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
 
 # import plotly.express as px
