@@ -71,7 +71,7 @@ if race_year:
         JOIN ( \
             SELECT driver_id, lap, lap_time \
             FROM race_laps \
-            WHERE race_id in (SELECT race_id FROM race_info WHERE race_date={race_venue} and race_name={race_heat}) \
+            WHERE race_id in (SELECT race_id FROM race_info WHERE race_date={race_venue} and race_name="{race_heat}") \
             ORDER BY driver_id, lap \
         ) c;',
         ttl=0)
