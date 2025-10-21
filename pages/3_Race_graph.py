@@ -54,7 +54,7 @@ if race_year:
 
     if race_heat:
       # Get lap data for selected heat
-      df = get_lap_info(conn, race_venue, race_heat)
+      df = race.get_lap_info(conn, race_venue, race_heat)
       st.dataframe(df)
 
       st.line_chart(df, x='lap_time', y='lap')
