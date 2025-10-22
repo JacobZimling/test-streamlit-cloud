@@ -1,6 +1,7 @@
 # raceinfo.py
 
 import streamlit as st
+from sqlalchemy.sql import text
 
 # class Race:
   # def __init__(self):
