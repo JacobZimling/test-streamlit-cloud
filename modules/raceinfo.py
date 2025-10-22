@@ -35,6 +35,7 @@ def get_race_info(conn):
   # return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, '%Y-%m-%d') as race_date, race_venue, concat(race_venue, " (", race_date, ")") as venue_label, race_name FROM race_info')
   
 def get_lap_info(conn, race_date, race_name):
+  conn.reset()
   with conn.session as session:
     session.execute(text(
       'DROP TEMPORARY TABLE IF EXISTS Employees;'
