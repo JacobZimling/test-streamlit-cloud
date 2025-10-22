@@ -55,7 +55,7 @@ def get_lap_info(conn, race_date, race_name):
         ORDER BY driver_id, lap \
     ) c \
     ORDER BY c.driver_id, c.lap; \
-    INSERT INTO temp_heat \
+    INSERT INTO temp_heat (driver_id, lap, lap_time, race_time, id) \
     SELECT DISTINCT driver_id, 0 as lap, "00:00:00" as lap_time, "00:00:00" as race_time, driver_id as id from temp_heat; \
     SELECT driver_id, race_time, lap FROM ( \
     	SELECT t.driver_id \
