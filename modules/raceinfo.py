@@ -85,8 +85,7 @@ def get_lap_info(conn, race_date, race_name):
       		ON t.driver_id=l.driver_id \
       			and timediff(t.race_time,l.race_time)>=0 \
       	GROUP BY driver_id, race_time) as x \
-      ORDER BY race_time;', 
-      ttl=0
+      ORDER BY race_time;'
     )
     session.commit()
   return lapdata
