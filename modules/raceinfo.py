@@ -66,7 +66,7 @@ def get_lap_info(conn, race_date, race_name):
       'INSERT INTO temp_heat (driver_id, lap, lap_time, race_time, id) \
       SELECT DISTINCT driver_id, 0 as lap, "00:00:00" as lap_time, "00:00:00" as race_time, driver_id as id from temp_heat;'
     ))
-    lapdata = session.query(
+    lapdata = session.query(test(
       'SELECT driver_id, race_time, lap FROM ( \
       	SELECT t.driver_id \
       		,t.race_time \
@@ -86,7 +86,7 @@ def get_lap_info(conn, race_date, race_name):
       			and timediff(t.race_time,l.race_time)>=0 \
       	GROUP BY driver_id, race_time) as x \
       ORDER BY race_time;'
-    )
+    ))
     session.commit()
   return lapdata
   
