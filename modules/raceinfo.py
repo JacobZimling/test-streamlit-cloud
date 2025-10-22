@@ -35,7 +35,8 @@ def get_race_info(conn):
   
 def get_lap_info(conn, race_date, race_name):
   return conn.query(
-    f'SELECT \
+    f'CREATE TEMPORARY TABLE temp_heat AS
+    SELECT \
         c.driver_id as driver_id, \
         c.lap as lap, \
         c.lap_time AS lap_time, \
@@ -53,5 +54,26 @@ def get_lap_info(conn, race_date, race_name):
         WHERE race_id in (SELECT race_id FROM race_info WHERE race_date="{race_date}" and race_name="{race_name}") \
         ORDER BY driver_id, lap \
     ) c \
-    ORDER BY c.driver_id, c.lap;',
+    ORDER BY c.driver_id, c.lap; \
+    INSERT INTO temp_heat \
+    SELECT DISTINCT driver_id, 0 as lap, '00:00:00' as lap_time, '00:00:00' as race_time, driver_id as id from temp_heat; \
+    SELECT driver_id, race_time, lap FROM ( \
+    	SELECT t.driver_id \
+    		,t.race_time \
+    		,l.race_time as rt \
+    		,timediff(t.race_time,l.race_time) as dif \
+    		,l.lap \
+    		,max(lap) as max_lap \
+    	FROM ( \
+    		select time.race_time, names.driver_id \
+    		FROM \
+    			(SELECT DISTINCT race_time FROM temp_heat) as time \
+    		JOIN \
+    			(SELECT DISTINCT driver_id FROM temp_heat) as names \
+    		) as t \
+    	LEFT JOIN temp_heat as l \
+    		ON t.driver_id=l.driver_id \
+    			and timediff(t.race_time,l.race_time)>=0 \
+    	GROUP BY driver_id, race_time) as x \
+    ORDER BY race_time;',
     ttl=0)
