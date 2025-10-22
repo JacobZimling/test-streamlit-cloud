@@ -35,7 +35,7 @@ def get_race_info(conn):
   
 def get_lap_info(conn, race_date, race_name):
   return conn.query(
-    f'CREATE TEMPORARY TABLE temp_heat AS
+    f'CREATE TEMPORARY TABLE temp_heat AS \
     SELECT \
         c.driver_id as driver_id, \
         c.lap as lap, \
