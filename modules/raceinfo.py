@@ -37,6 +37,9 @@ def get_race_info(conn):
 def get_lap_info(conn, race_date, race_name):
   with conn.session as session:
     session.execute(text(
+      'DROP TEMPORARY TABLE IF EXISTS Employees;'
+    ))
+    session.execute(text(
       f'CREATE TEMPORARY TABLE temp_heat AS \
       SELECT \
           c.driver_id as driver_id, \
@@ -59,11 +62,11 @@ def get_lap_info(conn, race_date, race_name):
       ORDER BY c.driver_id, c.lap;'
     ))
     session.execute(text(
-      f'INSERT INTO temp_heat (driver_id, lap, lap_time, race_time, id) \
+      'INSERT INTO temp_heat (driver_id, lap, lap_time, race_time, id) \
       SELECT DISTINCT driver_id, 0 as lap, "00:00:00" as lap_time, "00:00:00" as race_time, driver_id as id from temp_heat;'
     ))
     lapdata = session.query(
-      f'SELECT driver_id, race_time, lap FROM ( \
+      'SELECT driver_id, race_time, lap FROM ( \
       	SELECT t.driver_id \
       		,t.race_time \
       		,l.race_time as rt \
