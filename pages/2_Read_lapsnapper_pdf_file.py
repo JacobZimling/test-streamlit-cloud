@@ -80,7 +80,7 @@ if file is not None:
                     st.write(f'{datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')} {race_time.time().strftime('%H:%M:%S.%f')}')
                     s.execute(
                         text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank, race_time) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, :rank, :race_time);'),
-                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5], race_time=race_time)
+                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5], race_time=race_time.time().strftime('%H:%M:%S.%f'))
                     )
                 s.commit()
 
