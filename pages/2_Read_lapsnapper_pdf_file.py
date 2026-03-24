@@ -58,7 +58,7 @@ if file is not None:
             st.dataframe(df)
 
             st.write('extract race times')
-            racetime_info = re.findall(r'(\d+)\. (\w[\w ]+) (\d{2}:\d{2}.\d{3})\.', page_text)
+            racetime_info = re.findall(r'(\d+)\. (\w[\w ]+) (\d{2}:\d{2}.\d{3})', page_text)
             st.write(racetime_info)
         
         elif page != 1:
