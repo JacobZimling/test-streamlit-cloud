@@ -79,14 +79,14 @@ if file is not None:
                     race_time += datetime.strptime(lap[2], '%M:%S.%f') - datetime.strptime("00:00:00", "%H:%M:%S")
                     st.write(f'{datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')} {race_time.time().strftime('%H:%M:%S.%f')}')
                     s.execute(
-                        text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank, race_time) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, :rank, :race_time);'),
-                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5], race_time=race_time.time().strftime('%H:%M:%S.%f'))
+                        text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank, race_time, lap_time_dt, race_time_dt) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, :rank, :race_time, :lap_time_dt, :race_time_dt);'),
+                        params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5], race_time=race_time.time().strftime('%H:%M:%S.%f'), lap_time_dt=datetime.strptime(lap[2], '%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S.%f'), race_time_dt=race_time.strftime('%Y-%m-%d %H:%M:%S.%f'))
                     )
                 s.commit()
 
             # # Get lap info
             df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
             st.dataframe(df)
-            df['lap_time_f'] = df['lap_time'].dt.strftime('%M:%S.%f')
-            df['race_time_f'] = df['race_time'].dt.strftime('%M:%S.%f')
-            st.dataframe(df)
+            # df['lap_time_f'] = df['lap_time'].dt.strftime('%M:%S.%f')
+            # df['race_time_f'] = df['race_time'].dt.strftime('%M:%S.%f')
+            # st.dataframe(df)
