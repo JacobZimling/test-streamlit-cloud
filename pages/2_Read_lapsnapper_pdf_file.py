@@ -86,7 +86,7 @@ if file is not None:
                 race_time = datetime.strptime("00:00:00", "%H:%M:%S")
                 s.execute(
                     text('INSERT INTO race_laps (race_id, lap, driver_id) VALUES (:race_id, :lap, :driver_id);'),
-                    params = dict(race_id=race_id, lap=0, driver_id=lap[0][1])
+                    params = dict(race_id=race_id, lap=0, driver_id=lap_info[0][1])
                 )
                 for lap in lap_info:
                     race_time += datetime.strptime(lap[2], '%M:%S.%f') - datetime.strptime("00:00:00", "%H:%M:%S")
@@ -96,7 +96,7 @@ if file is not None:
                         params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5], race_time=race_time.time().strftime('%H:%M:%S.%f'))
                     )
                 s.commit()
-                st.write(f'{race_result[lap[0][1]]} {race_time}')
+                st.write(f'{race_result[lap_info[0][1]]} {race_time}')
 
             # # Get lap info
             df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
