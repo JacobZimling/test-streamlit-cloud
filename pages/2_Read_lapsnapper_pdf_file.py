@@ -56,6 +56,10 @@ if file is not None:
             race_id = df['race_id'].iloc[0]
             # st.write(race_id)
             st.dataframe(df)
+
+            st.write('extract race times')
+            racetime_info = re.findall(r'(\d+)\. (\w[\w ]+) (\d{2}:\d{2}.\d{3})\.', page_text)
+            st.write(racetime_info)
         
         elif page != 1:
             st.write('extract lap times')
