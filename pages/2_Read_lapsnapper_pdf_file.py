@@ -58,13 +58,13 @@ if file is not None:
             # st.write(race_id)
             st.dataframe(df)
 
-            # st.write('extract race times')
-            # racetime_info = re.findall(r'(\d+)\. (\w[\w ]+) (\d{2}:\d{2}.\d{3})', page_text)
-            # # st.write(racetime_info)
-            # race_result = {}
-            # for r in racetime_info:
-            #     race_result[r[1]] = r[2]
-            # # st.write(race_result)
+            st.write('extract race times')
+            racetime_info = re.findall(r'(\d+)\. (\w[\w ]+) (\d{2}:\d{2}.\d{3})', page_text)
+            #st.write(racetime_info)
+            race_result = {}
+            for r in racetime_info:
+                race_result[r[1]] = r[2]
+            #st.write(race_result)
         
         elif page != 1:
             st.write('extract lap times')
@@ -84,6 +84,10 @@ if file is not None:
                 # st.write(query)
                 s.execute(text(query))
                 race_time = datetime.strptime("00:00:00", "%H:%M:%S")
+                s.execute(
+                    text('INSERT INTO race_laps (race_id, lap, driver_id) VALUES (:race_id, :lap, :driver_id);'),
+                    params = dict(race_id=race_id, lap=0, driver_id=lap[0][1])
+                )
                 for lap in lap_info:
                     race_time += datetime.strptime(lap[2], '%M:%S.%f') - datetime.strptime("00:00:00", "%H:%M:%S")
                     # st.write(f'{datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')} {race_time.time().strftime('%H:%M:%S.%f')}')
@@ -92,6 +96,7 @@ if file is not None:
                         params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5], race_time=race_time.time().strftime('%H:%M:%S.%f'))
                     )
                 s.commit()
+                st.write(f'{race_result[lap[0][1]]} {race_time}')
 
             # # Get lap info
             df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
