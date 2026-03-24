@@ -32,6 +32,7 @@ if file is not None:
             # st.write(type(race_date))
 
             # Check if race exist
+            st.write(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';")
             df = conn.query(f"SELECT race_id FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';", ttl=0)
             #st.write(df.empty)
             #st.dataframe(df)
