@@ -57,13 +57,13 @@ if file is not None:
             # st.write(race_id)
             st.dataframe(df)
 
-            st.write('extract race times')
-            racetime_info = re.findall(r'(\d+)\. (\w[\w ]+) (\d{2}:\d{2}.\d{3})', page_text)
-            st.write(racetime_info)
-            race_result = {}
-            for r in racetime_info:
-                race_result[r[1]] = r[2]
-            st.write(race_result)
+            # st.write('extract race times')
+            # racetime_info = re.findall(r'(\d+)\. (\w[\w ]+) (\d{2}:\d{2}.\d{3})', page_text)
+            # st.write(racetime_info)
+            # race_result = {}
+            # for r in racetime_info:
+            #     race_result[r[1]] = r[2]
+            # st.write(race_result)
         
         elif page != 1:
             st.write('extract lap times')
