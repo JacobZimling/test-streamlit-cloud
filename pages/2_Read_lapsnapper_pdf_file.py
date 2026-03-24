@@ -86,6 +86,7 @@ if file is not None:
 
             # # Get lap info
             df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
+            st.dataframe(df)
             df['lap_time_f'] = df['lap_time'].dt.strftime('%M:%S.%f')
             df['race_time_f'] = df['race_time'].dt.strftime('%M:%S.%f')
             st.dataframe(df)
