@@ -46,7 +46,7 @@ def get_race_info(conn):
   
 def get_lap_info(conn, date_venue, race_name):
   conn.reset()
-  with conn.session as session:
+  #with conn.session as session:
     # session.execute(text(
     #   'DROP TEMPORARY TABLE IF EXISTS Employees;'
     # ))
@@ -97,17 +97,22 @@ def get_lap_info(conn, date_venue, race_name):
     #   	GROUP BY driver_id, race_time) as x \
     #   ORDER BY race_time;'
     # ))
-    query = f'SELECT * \
-        FROM w_race_graph \
-        WHERE race_identifier="{date_venue}{race_name}";'
-    st.write(query)
-    lapdata = session.query(text(
-      f'SELECT * \
-        FROM w_race_graph \
-        WHERE race_identifier="{date_venue}{race_name}";'
-    ))
+    #query = f'SELECT * \
+        #FROM w_race_graph \
+        #WHERE race_identifier="{date_venue}{race_name}";'
+    #st.write(query)
+    #lapdata = session.query(text(
+      #f'SELECT * \
+        #FROM w_race_graph \
+        #WHERE race_identifier="{date_venue}{race_name}";'
+    #))
 
-    session.commit()
+    #session.commit()
+  query = f'SELECT * \
+      FROM w_race_graph \
+      WHERE race_identifier="{date_venue}{race_name}";'
+  st.write(query)
+  lapdata = session.query(query)
   return lapdata
   
   # return conn.query(
