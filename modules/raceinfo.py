@@ -31,17 +31,17 @@ def db_connect():
 
 def get_race_info(conn):
   # return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, "%Y-%m-%d") as race_date, race_venue, concat(race_venue, " (", race_date, ")") as venue_label, race_name FROM race_info')
-  # return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, "%Y-%m-%d") as race_date, race_venue, concat(date_format(race_date, "%Y-%m-%d"), race_venue) as date_venue, concat(race_venue, " (", date_format(race_date, "%e. %M"), ")") as venue_label, race_name FROM race_info')
-  return conn.query(text(
-    'SELECT race_id, \
-            year(race_date) as race_year, \
-            date_format(race_date, "%Y-%m-%d") as race_date, \
-            race_venue, \
-            concat(date_format(race_date, "%Y-%m-%d"), race_venue) as date_venue, \
-            concat(race_venue, " (", date_format(race_date, "%e. %M"), ")") as venue_label, \
-            race_name \
-        FROM race_info'
-  ))
+  return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, "%Y-%m-%d") as race_date, race_venue, concat(date_format(race_date, "%Y-%m-%d"), race_venue) as date_venue, concat(race_venue, " (", date_format(race_date, "%e. %M"), ")") as venue_label, race_name FROM race_info')
+  # return conn.query(text(
+  #   'SELECT race_id, \
+  #           year(race_date) as race_year, \
+  #           date_format(race_date, "%Y-%m-%d") as race_date, \
+  #           race_venue, \
+  #           concat(date_format(race_date, "%Y-%m-%d"), race_venue) as date_venue, \
+  #           concat(race_venue, " (", date_format(race_date, "%e. %M"), ")") as venue_label, \
+  #           race_name \
+  #       FROM race_info'
+  # ))
   # return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, '%Y-%m-%d') as race_date, race_venue, concat(race_venue, " (", race_date, ")") as venue_label, race_name FROM race_info')
   
 def get_lap_info(conn, race_date, race_name):
