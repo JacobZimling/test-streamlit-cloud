@@ -108,11 +108,9 @@ def get_lap_info(conn, date_venue, race_name):
     #))
 
     #session.commit()
-  query = f'SELECT * \
-      FROM w_race_graph \
-      WHERE race_identifier="{date_venue}{race_name}";'
+  query = f'SELECT * FROM w_race_graph WHERE race_identifier="{date_venue}{race_name}";'
   st.write(query)
-  lapdata = session.query(query)
+  lapdata = conn.query(query)
   return lapdata
   
   # return conn.query(
