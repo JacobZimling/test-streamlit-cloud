@@ -34,13 +34,13 @@ if race_year:
   # st.write(venue_label)
 
   # race_venue = st.selectbox('Løbsdag', options=venue_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
-  race_venue = st.selectbox('Løbsdag', options=venue_selector['date_venue'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
+  date_venue = st.selectbox('Løbsdag', options=venue_selector['date_venue'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
 
   if race_venue:
     st.write(f'get races for {race_venue}')
 
     # Limit heat list based on race_venue
-    heat_selector = venue_selector[venue_selector['race_date'] == race_venue]
+    heat_selector = venue_selector[venue_selector['date_venue'] == date_venue]
     # st.write(heat_selector)
     
     # Create data for heat labels
@@ -58,7 +58,7 @@ if race_year:
     if race_heat:
       # Get lap data for selected heat
       st.write(f'race_heat {race_heat}')
-      df = race.get_lap_info(conn, race_venue, race_heat)
+      df = race.get_lap_info(conn, date_venue, race_heat)
       st.dataframe(df)
 
       # st.line_chart(df, x='lap_time', y='lap')
