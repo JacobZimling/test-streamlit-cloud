@@ -35,7 +35,8 @@ CREATE TABLE `race_laps` (
   `driver_id` varchar(50) NOT NULL,
   `lap_time` time NOT NULL,
   `dif` float NOT NULL,
-  `rank` int(11) NOT NULL
+  `rank` int(11) NOT NULL,
+  `race_time` time NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
