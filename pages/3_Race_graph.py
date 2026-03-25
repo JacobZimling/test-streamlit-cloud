@@ -29,7 +29,7 @@ if race_year:
   venue_label = {}
   for index, venue_row in venue_selector.iterrows():
     # venue_label[venue_row['race_date']] = venue_row['venue_label']
-    venue_label[venue_row['date_vanue']] = venue_row['venue_label']
+    venue_label[venue_row['date_venue']] = venue_row['venue_label']
     # venue_label[venue_row['race_date']] = f"{venue_row['race_venue']} ({venue_row['race_date'].strfdate('%Y-%m-%d')})"
   # st.write(venue_label)
 
