@@ -97,6 +97,10 @@ def get_lap_info(conn, date_venue, race_name):
     #   	GROUP BY driver_id, race_time) as x \
     #   ORDER BY race_time;'
     # ))
+    query = f'SELECT * \
+        FROM w_race_graph \
+        WHERE race_identifier="{date_venue}{race_name}";'
+    st.write(query)
     lapdata = session.query(text(
       f'SELECT * \
         FROM w_race_graph \
