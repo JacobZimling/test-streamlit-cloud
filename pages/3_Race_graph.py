@@ -36,7 +36,7 @@ if race_year:
   # race_venue = st.selectbox('Løbsdag', options=venue_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
   date_venue = st.selectbox('Løbsdag', options=venue_selector['date_venue'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
 
-  if race_venue:
+  if date_venue:
     st.write(f'get races for {race_venue}')
 
     # Limit heat list based on race_venue
