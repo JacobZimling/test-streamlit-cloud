@@ -22,7 +22,7 @@ if race_year:
 
   # Limit venue list based on race_year
   venue_selector = races[races['race_year'] == race_year]
-  # st.write(venue_selector)
+  st.write(venue_selector)
   # st.write(type(venue_selector))
 
   # Create data for venue labels
