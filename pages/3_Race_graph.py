@@ -33,7 +33,8 @@ if race_year:
     # venue_label[venue_row['race_date']] = f"{venue_row['race_venue']} ({venue_row['race_date'].strfdate('%Y-%m-%d')})"
   # st.write(venue_label)
 
-  race_venue = st.selectbox('Løbsdag', options=venue_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
+  # race_venue = st.selectbox('Løbsdag', options=venue_selector['race_date'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
+  race_venue = st.selectbox('Løbsdag', options=venue_selector['date_venue'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
 
   if race_venue:
     st.write(f'get races for {race_venue}')
