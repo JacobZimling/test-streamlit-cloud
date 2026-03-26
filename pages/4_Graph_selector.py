@@ -10,7 +10,7 @@ conn = race.db_connect()
 # https://search.brave.com/search?q=streamlit+scascading+selectboxes+from+dataframe&summary=1&conversation=76d7adeeee7a87c717e6d4
 # https://discuss.streamlit.io/t/format-func-function-examples-please/11295/4
 
-date_venue, race_heat = race.race_selector()
+date_venue, race_heat = race.race_selector(conn)
 st.write(f'date_venue: {date_venue} race_heat: {race_heat}')
 # Get lap data for selected heat
 # st.write(f'race_heat {race_heat}')
