@@ -65,7 +65,10 @@ if race_year:
       # st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
 
       import plotly.express as px
-      st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20]))
+      # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20]))
+      fig = px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20])
+      fig.update_layout(xaxis={'categoryorder':'total descending'})
+      st.write(fig)
       # st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id'))
       
       # st.write(df['driver_id'])
