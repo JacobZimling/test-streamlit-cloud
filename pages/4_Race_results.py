@@ -51,7 +51,7 @@ if race_year:
       heat_label[heat_row['race_name']] = heat_name
     # st.write(heat_label)
   
-    race_heat = st.selectbox('Løb', options=heat_selector['race_name'].unique(), index=None, placeholder='Vælg heat', format_func=lambda x: heat_label.get(x), width=300)
+    race_heat = st.selectbox('Løb', options=heat_selector['race_name'].unique(), index=None, placeholder='Vælg løb', format_func=lambda x: heat_label.get(x), width=300)
 
     if race_heat:
       st.write('Show results')
