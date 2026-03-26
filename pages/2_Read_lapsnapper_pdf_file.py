@@ -64,14 +64,14 @@ if file is not None:
             race_result = {}
             for r in racetime_info:
                 race_result[r[1]] = r[2]
-            #st.write(race_result)
+            st.write(race_result)
         
         elif page != 1:
             st.write('extract lap times')
             # st.write(page_text)
 
             lap_info = re.findall(r'(\d+) (\w[\w ]+)\.? (\d{2}:\d{2}.\d{3}) (\+.{5,6}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-            st.write(lap_info)
+            # st.write(lap_info)
 
             # st.write(lap_info[0][2])
             # time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')
