@@ -24,7 +24,7 @@ if file is not None:
             st.write('extract race info')
             # st.write(page_text)
 
-            race_info = re.findall(r'Session name: (\w+) ((\d)([abe])|(2wd))\. Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
+            race_info = re.findall(r'Session name: ([\włæøåÆØÅ]+) ((\d)([abe])|(2wd))\.? Session started: (\w{3} \d{2}, \d{4})', page_text)[0]
             st.write(race_info)
             race_name = race_info[2] or race_info[4]
             # st.write(f'Venue: {race_info[0]} Race name: {race_name} Heat: {race_info[3]}')
@@ -70,7 +70,7 @@ if file is not None:
             st.write('extract lap times')
             # st.write(page_text)
 
-            lap_info = re.findall(r'(\d+) (\w[\w ]+)\. (\d{2}:\d{2}.\d{3}) (\+.{5,6}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
+            lap_info = re.findall(r'(\d+) (\w[\w ]+)\.? (\d{2}:\d{2}.\d{3}) (\+.{5,6}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
             # st.write(lap_info)
 
             # st.write(lap_info[0][2])
