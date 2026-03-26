@@ -60,3 +60,27 @@ rn = 1
 race_identifier='2025-06-15Slangerup1' and driver_id='Zimling'
 */
 ORDER BY driver_id, race_time, lap;
+
+
+/* Race result */
+select r.*, p.point from (
+SELECT 
+ROW_NUMBER() OVER (
+    ORDER BY lap desc, race_time
+)as rank,
+driver_id, race_time, lap
+FROM (
+SELECT driver_id, race_time, lap ,
+ROW_NUMBER() OVER (
+    PARTiTION BY driver_id
+    ORDER BY driver_id, lap desc
+) as rn
+FROM `race_laps`
+where race_id in (14,15)
+) sub
+
+WHERE rn=1
+) as r
+left join race_points as p
+on r.rank=p.rank
+order by r.rank;
