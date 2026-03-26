@@ -10,43 +10,6 @@ conn = race.db_connect()
 # https://search.brave.com/search?q=streamlit+scascading+selectboxes+from+dataframe&summary=1&conversation=76d7adeeee7a87c717e6d4
 # https://discuss.streamlit.io/t/format-func-function-examples-please/11295/4
 
-date_venue, race_heat = race.race_selector()
-st.write(f'date_venue: {date_venue} race_heat: {race_heat}')
-# Get lap data for selected heat
-# st.write(f'race_heat {race_heat}')
-df = race.get_lap_info(conn, date_venue, race_heat)
-st.dataframe(df)
-
-# st.line_chart(df, x='lap_time', y='lap')
-# st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
-
-
-import plotly.express as px
-import plotly.graph_objects as go
-import math
-# st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20]))
-# fig = px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20])
-fig = px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, math.ceil(df['lap'].max() / 5) * 5])
-fig.update_layout(xaxis={'categoryorder':'total descending'}, xaxis_title='Kører', yaxis_title='Omgange')
-# for i, row in df.iterrows():
-#   fig.add_trace(go.Scatter(
-#     x=[row['driver_id']],
-#     y=[row['lap']],
-#     mode='markers',
-#     marker=dict(
-#       image=dict(source='https://mlcrc.dk/wp-content/uploads/2025/07/Tamiya-Top-Force-4WD-web.jpg'),
-#       size=40,
-#       sizemode='fit'
-#     ),
-#     hoverinfo='skip'
-#   ))
-
-st.write(fig)
-# st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id'))
-
-return
-
-'''
 # Read race information from DB
 races = race.get_race_info(conn)
 # st.write(races)
@@ -131,5 +94,5 @@ if race_year:
       # fig.update_layout(xaxis={'categoryorder':'total descending'})
       # # st.write(fig.show())
       # st.plotly_chart(fig, use_container_width=True)
-'''
+
 
