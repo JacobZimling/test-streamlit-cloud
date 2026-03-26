@@ -39,6 +39,8 @@ def get_lap_info(conn, date_venue, race_name):
   return conn.query(query, ttl=0)
 
 def race_selector():
+  return 'date_venue', 'race_heat'
+  
   # Read race information from DB
   races = get_race_info(conn)
   # st.write(races)
