@@ -42,7 +42,6 @@ def race_selector(conn):
   # Read race information from DB
   races = get_race_info(conn)
   # st.write(races)
-  return 'date_venue', 'race_heat'
   
   # Select year
   race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år', width=300)
