@@ -68,6 +68,19 @@ if race_year:
       # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20]))
       fig = px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20])
       fig.update_layout(xaxis={'categoryorder':'total descending'})
+      for i, row in df.iterrows():
+        fig.add_trace(go.Scatter(
+          x=[row['driver_id']],
+          y=[row['lap']],
+          mode='markers',
+          marker=dict(
+            image=dict(source='https://mlcrc.dk/wp-content/uploads/2025/07/Tamiya-Top-Force-4WD-web.jpg'),
+            size=40,
+            sizemode='fit'
+          ),
+          hoverinfo='skip'
+        ))
+      
       st.write(fig)
       # st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id'))
       
