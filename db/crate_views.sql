@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS w_race_identifier;
 create view w_race_identifier as
 SELECT  race_id,
 		CONCAT(
@@ -6,7 +7,9 @@ SELECT  race_id,
             race_name
         ) AS race_identifier
 	from race_info;
-	
+
+
+DROP VIEW IF EXISTS w_driver_times;
 create view w_driver_times as
 SELECT t.race_identifier, d.driver_id, t.race_time
                 FROM (
@@ -23,6 +26,8 @@ SELECT t.race_identifier, d.driver_id, t.race_time
                 ) as d
             	ON t.race_identifier=d.race_identifier;
 		
+
+DROP VIEW IF EXISTS w_race_graph;
 create view w_race_graph as		
 SELECT *
 FROM (
