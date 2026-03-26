@@ -15,7 +15,7 @@ st.write(f'date_venue: {date_venue} race_heat: {race_heat}')
 # Get lap data for selected heat
 # st.write(f'race_heat {race_heat}')
 df = race.get_lap_info(conn, date_venue, race_heat)
-# st.dataframe(df)
+st.dataframe(df)
 
 # st.line_chart(df, x='lap_time', y='lap')
 # st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
