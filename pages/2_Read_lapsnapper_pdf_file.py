@@ -56,7 +56,7 @@ if file is not None:
 
             race_id = df['race_id'].iloc[0]
             # st.write(race_id)
-            st.dataframe(df)
+            # st.dataframe(df)
 
             st.write('extract race times')
             racetime_info = re.findall(r'(\d+)\. (\w[\w ]+)\.? (\d{2}:\d{2}.\d{3})', page_text)
@@ -96,9 +96,9 @@ if file is not None:
                         params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5], race_time=race_time.time().strftime('%H:%M:%S.%f'))
                     )
                 rt = datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')
-                st.write(f'{rt} {race_time} {rt-race_time}')
+                # st.write(f'{rt} {race_time} {rt-race_time}')
                 query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                st.write(query)
+                # st.write(query)
                 s.execute(text(query))
                 s.commit()
                 
