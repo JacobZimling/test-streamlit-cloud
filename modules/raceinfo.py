@@ -38,7 +38,7 @@ def get_lap_info(conn, date_venue, race_name):
   query = f'SELECT * FROM w_race_graph WHERE race_identifier="{date_venue}{race_name}";'
   return conn.query(query, ttl=0)
 
-def race_selector():
+def race_selector(conn):
   # Read race information from DB
   races = get_race_info(conn)
   # st.write(races)
