@@ -22,7 +22,7 @@ if race_year:
 
   # Limit venue list based on race_year
   venue_selector = races[races['race_year'] == race_year]
-  st.write(venue_selector)
+  # st.write(venue_selector)
   # st.write(type(venue_selector))
 
   # Create data for venue labels
@@ -37,7 +37,7 @@ if race_year:
   date_venue = st.selectbox('Løbsdag', options=venue_selector['date_venue'].unique(), index=None, placeholder='Vælg løbsdag', format_func=lambda x: venue_label.get(x), width=300)
 
   if date_venue:
-    st.write(f'get races for {date_venue}')
+    # st.write(f'get races for {date_venue}')
 
     # Limit heat list based on race_venue
     heat_selector = venue_selector[venue_selector['date_venue'] == date_venue]
@@ -57,15 +57,15 @@ if race_year:
 
     if race_heat:
       # Get lap data for selected heat
-      st.write(f'race_heat {race_heat}')
+      # st.write(f'race_heat {race_heat}')
       df = race.get_lap_info(conn, date_venue, race_heat)
-      st.dataframe(df)
+      # st.dataframe(df)
 
       # st.line_chart(df, x='lap_time', y='lap')
       # st.bar_chart(df, x='driver_id', y='lap', sort='driver_id', color='driver_id', stack=False)
 
       import plotly.express as px
-      st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id"))
+      st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20]))
       # st.write(px.bar(df, x="driver_id", y="lap", hover_name="driver_id", color='driver_id'))
       
       # st.write(df['driver_id'])
