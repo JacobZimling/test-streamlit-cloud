@@ -45,7 +45,7 @@ def race_selector(conn):
   
   # Select year
   race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år', width=300)
-  return date_venue, race_heat  
+  return 'date_venue', 'race_heat'  
   
   if race_year:
     # st.write(f'get races for {race_year}')
