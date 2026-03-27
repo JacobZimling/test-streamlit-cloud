@@ -63,7 +63,7 @@ if race_year:
         column_config={
             "rank": st.column_config.NumberColumn("Placering"),
             "driver_id": st.column_config.TextColumn("Kører"),
-            "race_time": st.column_config.NumberColumn("Tid"),
+            "race_time": st.column_config.TimeColumn("Tid", format='m:s.SSS'),
             "lap": st.column_config.NumberColumn("Omgange"),
             "point": st.column_config.NumberColumn("Point"),
         }
