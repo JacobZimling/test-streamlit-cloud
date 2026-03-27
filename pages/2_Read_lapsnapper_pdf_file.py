@@ -85,7 +85,7 @@ if file is not None:
                 s.execute(text(query))
                 race_time = datetime.strptime("00:00:00", "%H:%M:%S")
                 # st.write(type(race_time))
-                st.write(race_time)
+                # st.write(race_time)
                 s.execute(
                     text('INSERT INTO race_laps (race_id, lap, driver_id) VALUES (:race_id, :lap, :driver_id);'),
                     params = dict(race_id=race_id, lap=0, driver_id=lap_info[0][1])
@@ -112,7 +112,7 @@ if file is not None:
                 # rt = datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')
                 # race_time_corr = (datetime.min + (rt-race_time)).time()
                 race_time_corr = datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time
-                st.write(race_time_corr)
+                # st.write(race_time_corr)
                 # st.write(type(race_time_corr))
                 # st.write(f'{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}')
                 # st.write(f'{rt} {race_time} {rt-race_time} {race_time_corr}')
@@ -120,7 +120,7 @@ if file is not None:
                 # query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}'), race_time_dt=ADDTIME(race_time_dt, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                 query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{race_time_corr}'), race_time_dt=ADDTIME(race_time_dt, '{race_time_corr}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                 # query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                st.write(query)
+                # st.write(query)
                 s.execute(text(query))
                 # query = f"UPDATE race_laps SET race_time_dt=ADDTIME(race_time_dt, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                 # query = f"UPDATE race_laps SET race_time_dt=DATE_ADD(race_time_dt, INTERVAL '{datetime.strptime(race_result[lap_info[0][1]], '%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
