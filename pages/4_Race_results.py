@@ -69,7 +69,7 @@ if race_year:
       df = race.get_race_result(conn, date_venue, race_heat)
       # st.write(type(df))
       # st.write(type(df['race_time']))
-      df['race_time_formated'] = df['race_time'].apply(format_time)
+      #df['race_time_formated'] = df['race_time_dt'].apply(format_time)
 
       st.dataframe(
         df, 
@@ -78,9 +78,10 @@ if race_year:
             "rank": st.column_config.NumberColumn("Placering"),
             "driver_id": st.column_config.TextColumn("Kører"),
             # "race_time": st.column_config.NumberColumn("Tid", format='%m:%s.%SSS'),
-            "race_time": st.column_config.TimeColumn("Tid", format='DD-MM-YYYY HH.mm:ss.SSS'),
+            #"race_time": st.column_config.TimeColumn("Tid", format='DD-MM-YYYY HH.mm:ss.SSS'),
             # "race_time": st.column_config.NumberColumn("Tid", format='%f'),
             # "race_time": st.column_config.TimeColumn("Tid"),
+            "race_time_dt": st.column_config.NumberColumn("Tid"),
             "lap": st.column_config.NumberColumn("Omgange"),
             "point": st.column_config.NumberColumn("Point"),
         }
