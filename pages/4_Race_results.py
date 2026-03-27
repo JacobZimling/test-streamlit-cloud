@@ -61,7 +61,7 @@ if race_year:
       st.write(f'Show results {date_venue}, {race_heat}')
       df = race.get_race_result(conn, date_venue, race_heat)
       # st.write(type(df))
-      st.wrtie(type(df['race_time']))
+      st.write(type(df['race_time']))
       df['race_time_formated'] = df['race_time'].apply(format_time)
 
       st.dataframe(
