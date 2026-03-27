@@ -110,7 +110,8 @@ if file is not None:
                         )
                     )
                 rt = datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')
-                race_time_corr = rt-race_time;
+                race_time_corr = (datetime.min + (rt-race_time)).time()
+                st.write(race_time_corr)
                 st.write(type(race_time_corr))
                 # st.write(f'{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}')
                 st.write(f'{rt} {race_time} {rt-race_time} {race_time_corr}')
