@@ -92,7 +92,7 @@ if file is not None:
                 )
                 for lap in lap_info:
                     race_time += datetime.strptime(lap[2], '%M:%S.%f') - datetime.strptime("00:00:00", "%H:%M:%S")
-                    st.write(f'r{ace_time} {race_time.strftime("0000-00-00 %H:%M:%S.%f")}')
+                    st.write(f'{race_time} {race_time.strftime("0000-00-00 %H:%M:%S.%f")}')
                     # st.write(f"{datetime.strptime(lap[2], '%M:%S.%f').strftime('0000-00-00 %H:%M:%S.%f')}, {race_time_dt=race_time.strftime('%H:%M:%S.%f')}")
                     # st.write(f'{datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')} {race_time.time().strftime('%H:%M:%S.%f')}')
                     s.execute(
