@@ -81,7 +81,7 @@ if race_year:
             #"race_time": st.column_config.TimeColumn("Tid", format='DD-MM-YYYY HH.mm:ss.SSS'),
             # "race_time": st.column_config.NumberColumn("Tid", format='%f'),
             # "race_time": st.column_config.TimeColumn("Tid"),
-            "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:s.SSS'),
+            "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
             "lap": st.column_config.NumberColumn("Omgange"),
             "point": st.column_config.NumberColumn("Point"),
         }
