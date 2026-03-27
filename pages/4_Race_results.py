@@ -2,8 +2,15 @@ import streamlit as st
 from modules import raceinfo as race
 
 def format_time(td):
-  st.write(type(td))
-  return 'Format'
+  # st.write(type(td))
+  # Assuming td is a timedelta object
+  total_seconds = int(td.total_seconds())
+  hours = total_seconds // 3600
+  minutes = (total_seconds % 3600) // 60
+  seconds = total_seconds % 60
+  milliseconds = int((td.total_seconds() - int(td.total_seconds())) * 1000)
+  return f"{hours}:{minutes:02d}:{seconds:02d}.{milliseconds:03d}"  
+  # return 'Format'
   
 # Initialize DB connection.
 # conn = st.connection('heliohost', type='sql')
@@ -61,7 +68,7 @@ if race_year:
       st.write(f'Show results {date_venue}, {race_heat}')
       df = race.get_race_result(conn, date_venue, race_heat)
       # st.write(type(df))
-      st.write(type(df['race_time']))
+      # st.write(type(df['race_time']))
       df['race_time_formated'] = df['race_time'].apply(format_time)
 
       st.dataframe(
