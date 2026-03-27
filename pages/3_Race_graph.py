@@ -69,7 +69,7 @@ if race_year:
       import math
       # st.write(px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20]))
       # fig = px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, 20])
-      fig = px.bar(df, x="driver_id", y="lap", animation_frame="race_time", hover_name="driver_id", range_y=[0, math.ceil(df['lap'].max() / 5) * 5])
+      fig = px.bar(df, x="driver_id", y="lap", animation_frame="race_time_dt", hover_name="driver_id", range_y=[0, math.ceil(df['lap'].max() / 5) * 5])
       fig.update_layout(xaxis={'categoryorder':'total descending'}, xaxis_title='Kører', yaxis_title='Omgange')
       # for i, row in df.iterrows():
       #   fig.add_trace(go.Scatter(
