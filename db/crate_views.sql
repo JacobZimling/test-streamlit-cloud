@@ -73,16 +73,16 @@ SELECT
         	race_identifier,
 			ROW_NUMBER() OVER(
                 PARTITION BY race_identifier
-				ORDER BY race_identifier, lap DESC, race_time
+				ORDER BY race_identifier, lap DESC, race_time_dt
 			) AS rank,
 			driver_id,
-			race_time,
+			race_time_dt,
 			lap
 		FROM (
 			SELECT
             	wri.race_identifier,
 				rl.driver_id,
-				rl.race_time,
+				rl.race_time_dt,
 				rl.lap,
 				ROW_NUMBER() OVER(
 					PARTITION BY wri.race_identifier, rl.driver_id
