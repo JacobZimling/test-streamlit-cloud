@@ -56,8 +56,6 @@ if race_year:
     if race_heat:
       st.write(f'Show results {date_venue}, {race_heat}')
       df = race.get_race_result(conn, date_venue, race_heat)
-      st.write(type(df))
-      st.write(df)
+      # st.write(type(df))
+      st.dataframe(df, hide_index=True)
 
-      for i, result in df.iterrows():
-        st.write(result)
