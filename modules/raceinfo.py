@@ -46,8 +46,8 @@ def get_race_result(conn, date_venue, race_name):
   conn.reset()
   query = f'SELECT rank, driver_id, race_time, lap, point FROM w_race_result WHERE race_identifier="{date_venue}{race_name}";'
   race_result = conn.query(query, ttl=0)
-  st.wrtie(type(race_result['race_time']))
-  race_result['race_time_formated'] = race_result['race_time'].apply(format_time)
+  # st.wrtie(type(race_result['race_time']))
+  # race_result['race_time_formated'] = race_result['race_time'].apply(format_time)
   # return conn.query(query, ttl=0)
   return race_result
 
