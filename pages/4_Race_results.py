@@ -57,5 +57,15 @@ if race_year:
       st.write(f'Show results {date_venue}, {race_heat}')
       df = race.get_race_result(conn, date_venue, race_heat)
       # st.write(type(df))
-      st.dataframe(df, hide_index=True)
+      st.dataframe(
+        df, 
+        hide_index=True,
+        column_config={
+            "rank": st.column_config.NumberColumn("Placering"),
+            "driver_id": st.column_config.NumberColumn("Kører"),
+            "race_time": st.column_config.NumberColumn("Tid"),
+            "lap": st.column_config.NumberColumn("Omgange"),
+            "point": st.column_config.NumberColumn("Point"),
+        }
+      )
 
