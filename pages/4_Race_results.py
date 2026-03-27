@@ -2,15 +2,15 @@ import streamlit as st
 from modules import raceinfo as race
 
 def format_time(td):
-  # st.write(type(td))
+  st.write(type(td))
   # Assuming td is a timedelta object
-  total_seconds = int(td.total_seconds())
+  #total_seconds = int(td.total_seconds())
   # hours = total_seconds // 3600
-  minutes = (total_seconds % 3600) // 60
-  seconds = total_seconds % 60
-  milliseconds = int((td.total_seconds() - int(td.total_seconds())) * 1000)
-  return f"{minutes:02d}:{seconds:02d}.{milliseconds:03d}"  
-  # return 'Format'
+  #minutes = (total_seconds % 3600) // 60
+  #seconds = total_seconds % 60
+  #milliseconds = int((td.total_seconds() - int(td.total_seconds())) * 1000)
+  #return f"{minutes:02d}:{seconds:02d}.{milliseconds:03d}"  
+  return 'Format'
   
 # Initialize DB connection.
 # conn = st.connection('heliohost', type='sql')
@@ -81,7 +81,7 @@ if race_year:
             #"race_time": st.column_config.TimeColumn("Tid", format='DD-MM-YYYY HH.mm:ss.SSS'),
             # "race_time": st.column_config.NumberColumn("Tid", format='%f'),
             # "race_time": st.column_config.TimeColumn("Tid"),
-            "race_time_dt": st.column_config.NumberColumn("Tid"),
+            "race_time_dt": st.column_config.TimeColumn("Tid"),
             "lap": st.column_config.NumberColumn("Omgange"),
             "point": st.column_config.NumberColumn("Point"),
         }
