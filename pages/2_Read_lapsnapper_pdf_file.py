@@ -64,7 +64,7 @@ if file is not None:
             race_result = {}
             for r in racetime_info:
                 race_result[r[1]] = r[2]
-            # st.write(race_result)
+            st.write(race_result)
         
         elif page != 1:
             st.write('extract lap times')
