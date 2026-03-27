@@ -38,10 +38,17 @@ def get_lap_info(conn, date_venue, race_name):
   query = f'SELECT * FROM w_race_graph WHERE race_identifier="{date_venue}{race_name}";'
   return conn.query(query, ttl=0)
 
+def format_time(td):
+  st.write(type(td))
+  return ''
+
 def get_race_result(conn, date_venue, race_name):
   conn.reset()
   query = f'SELECT rank, driver_id, race_time, lap, point FROM w_race_result WHERE race_identifier="{date_venue}{race_name}";'
-  return conn.query(query, ttl=0)
+  race_result = conn.query(query, ttl=0)
+  racE_result['race_time_formated'] = race_result['race_time'].apply(format_time)
+  # return conn.query(query, ttl=0)
+  return race_result
 
 def race_selector(conn):
   # Read race information from DB
