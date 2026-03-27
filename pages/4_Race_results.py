@@ -54,6 +54,6 @@ if race_year:
     race_heat = st.selectbox('Løb', options=heat_selector['race_name'].unique(), index=None, placeholder='Vælg løb', format_func=lambda x: heat_label.get(x), width=300)
 
     if race_heat:
-      st.write('Show results')
+      st.write(f'Show results {date_venue}, {race_heat}')
       df = race.get_race_result(conn, date_venue, race_heat)
       st.write(df)
