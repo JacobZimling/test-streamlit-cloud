@@ -100,7 +100,8 @@ if file is not None:
                         params = dict(race_id=race_id, lap=lap[0], driver_id=lap[1], lap_time=datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f'), dif=lap[3], rank=lap[5], race_time=race_time.time().strftime('%H:%M:%S.%f'), lap_time_dt=datetime.strptime(lap[2], '%M:%S.%f').strftime('0000-00-00 %H:%M:%S.%f'), race_time_dt=race_time.strftime("0000-00-00 %H:%M:%S.%f"))
                     )
                 rt = datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')
-                # st.write(f'{rt} {race_time} {rt-race_time}')
+                # st.write(f'{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}')
+                st.write(f'{rt} {race_time} {rt-race_time}')
                 # query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                 # query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}'), race_time_dt=ADDTIME(race_time_dt, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                 # st.write(query)
