@@ -122,10 +122,10 @@ if file is not None:
                 # query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                 st.write(query)
                 s.execute(text(query))
-                query = f"UPDATE race_laps SET race_time_dt=ADDTIME(race_time_dt, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
+                # query = f"UPDATE race_laps SET race_time_dt=ADDTIME(race_time_dt, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                 # query = f"UPDATE race_laps SET race_time_dt=DATE_ADD(race_time_dt, INTERVAL '{datetime.strptime(race_result[lap_info[0][1]], '%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                st.write(query)
-                s.execute(text(query))
+                # st.write(query)
+                # s.execute(text(query))
                 s.commit()
                 
 
