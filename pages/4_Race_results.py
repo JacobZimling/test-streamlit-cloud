@@ -55,3 +55,5 @@ if race_year:
 
     if race_heat:
       st.write('Show results')
+      df = race.get_race_result(conn, date_venue, race_heat)
+      st.write(df)
