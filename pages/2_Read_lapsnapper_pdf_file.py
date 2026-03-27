@@ -84,6 +84,8 @@ if file is not None:
                 # st.write(query)
                 s.execute(text(query))
                 race_time = datetime.strptime("00:00:00", "%H:%M:%S")
+                st.write(type(race_time))
+                st.write(race_time)
                 s.execute(
                     text('INSERT INTO race_laps (race_id, lap, driver_id) VALUES (:race_id, :lap, :driver_id);'),
                     params = dict(race_id=race_id, lap=0, driver_id=lap_info[0][1])
