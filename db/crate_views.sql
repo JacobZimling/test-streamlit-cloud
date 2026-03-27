@@ -68,41 +68,32 @@ CREATE VIEW w_race_result as
 SELECT
     r.*,
     p.point
-FROM
-    (
-    SELECT
-        ROW_NUMBER() OVER(
-    ORDER BY
-        lap
-    DESC
-        ,
-        race_time
-    ) AS rank,
-    driver_id,
-    race_time,
-    lap
-FROM
-    (
-    SELECT
-        driver_id,
-        race_time,
-        lap,
-        ROW_NUMBER() OVER(
-        PARTITION BY driver_id
-    ORDER BY
-        driver_id,
-        lap
-    DESC
-    ) AS rn
-FROM
-    `race_laps`
-WHERE
-    race_id IN(14, 15)) sub
-    WHERE
-        rn = 1
-) AS r
-LEFT JOIN race_points AS p
-ON
-    r.rank = p.rank
-ORDER BY
-    r.rank;
+	FROM (
+		SELECT
+        	race_identifier,
+			ROW_NUMBER() OVER(
+                PARTITION BY race_identifier
+				ORDER BY race_identifier, lap DESC, race_time
+			) AS rank,
+			driver_id,
+			race_time,
+			lap
+		FROM (
+			SELECT
+            	wri.race_identifier,
+				rl.driver_id,
+				rl.race_time,
+				rl.lap,
+				ROW_NUMBER() OVER(
+					PARTITION BY wri.race_identifier, rl.driver_id
+					ORDER BY wri.race_identifier, rl.driver_id, rl.lap DESC
+				) AS rn
+			FROM `race_laps` as rl
+            	JOIN w_race_identifier as wri
+            		ON rl.race_id=wri.race_id
+		) sub
+		WHERE rn = 1
+	) AS r
+	LEFT JOIN race_points AS p
+		ON r.rank = p.rank
+	ORDER BY r.race_identifier, r.rank;
