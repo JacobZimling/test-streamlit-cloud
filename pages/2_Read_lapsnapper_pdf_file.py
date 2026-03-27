@@ -84,7 +84,7 @@ if file is not None:
                 # st.write(query)
                 s.execute(text(query))
                 race_time = datetime.strptime("00:00:00", "%H:%M:%S")
-                st.write(type(race_time))
+                # st.write(type(race_time))
                 st.write(race_time)
                 s.execute(
                     text('INSERT INTO race_laps (race_id, lap, driver_id) VALUES (:race_id, :lap, :driver_id);'),
@@ -92,6 +92,8 @@ if file is not None:
                 )
                 for lap in lap_info:
                     race_time += datetime.strptime(lap[2], '%M:%S.%f') - datetime.strptime("00:00:00", "%H:%M:%S")
+                    st.write(race_time)
+                    st.write(f"{datetime.strptime(lap[2], '%M:%S.%f').strftime('0000-00-00 %H:%M:%S.%f')}, {race_time_dt=race_time.strftime('%H:%M:%S.%f')}")
                     # st.write(f'{datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')} {race_time.time().strftime('%H:%M:%S.%f')}')
                     s.execute(
                         text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank, race_time, lap_time_dt, race_time_dt) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, :rank, :race_time, :lap_time_dt, :race_time_dt);'),
