@@ -35,7 +35,7 @@ def get_race_info(conn):
   
 def get_lap_info(conn, date_venue, race_name):
   conn.reset()
-  query = f'SELECT driver_id, race_time_dt, lap FROM race_graph WHERE race_identifier="{date_venue}{race_name}" and lap>0;'
+  query = f'SELECT driver_id, race_time_dt, lap FROM race_graph WHERE race_identifier="{date_venue}{race_name}";'
   return conn.query(query, ttl=0)
 
 def format_time(td):
