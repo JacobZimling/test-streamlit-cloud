@@ -55,7 +55,7 @@ if file is not None:
                 # st.dataframe(df)
 
             race_id = df['race_id'].iloc[0]
-            race_identifier = df['race_id'].iloc[0]
+            race_identifier = df['race_identifier'].iloc[0]
             # st.write(race_id)
             st.dataframe(df)
 
