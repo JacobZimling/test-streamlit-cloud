@@ -37,32 +37,32 @@ def update_race_graph_data(conn, race_identifier):
   with conn.session as s:
     query = f"DELETE FROM race_graph WHERE race_identifier='{race_identifier}';"
     s.execute(text(query))
-    query = f"INSERT INTO race_graph (race_identifier, driver_id, race_time_dt, lap) \
-		SELECT race_identifier, driver_id, race_time_dt, coalesce(lap, 0) as lap \ 
-		FROM ( \
-			SELECT \ 
-				dt.race_identifier, \
-				dt.driver_id,  \
-				dt.race_time_dt,  \
-				l.lap,  \
-				ROW_NUMBER() OVER ( \
-					PARTITION BY dt.race_identifier, dt.driver_id, dt.race_time_dt \
-					ORDER BY dt.race_time_dt - l.race_time_dt \
-				) AS rn \
-			FROM w_driver_times as dt \
-			LEFT JOIN ( \
-				SELECT wri.race_identifier, rl.driver_id, rl.race_time_dt, rl.lap \
-				FROM race_laps as rl \
-					JOIN w_race_identifier as wri \
-						ON rl.race_id=wri.race_id \
-			   ) as l \
-				ON dt.race_identifier=l.race_identifier \
-				and dt.driver_id = l.driver_id \
-				AND dt.race_time_dt >= l.race_time_dt \
-			WHERE dt.race_identifier='{race_identifier}' \
-		) sub \
-		WHERE rn = 1 \
-		;"
+    query = f"""INSERT INTO race_graph (race_identifier, driver_id, race_time_dt, lap) 
+		SELECT race_identifier, driver_id, race_time_dt, coalesce(lap, 0) as lap 
+		FROM ( 
+			SELECT 
+				dt.race_identifier, 
+				dt.driver_id,  
+				dt.race_time_dt, 
+				l.lap, 
+				ROW_NUMBER() OVER ( 
+					PARTITION BY dt.race_identifier, dt.driver_id, dt.race_time_dt 
+					ORDER BY dt.race_time_dt - l.race_time_dt 
+				) AS rn 
+			FROM w_driver_times as dt 
+			LEFT JOIN ( 
+				SELECT wri.race_identifier, rl.driver_id, rl.race_time_dt, rl.lap 
+				FROM race_laps as rl 
+					JOIN w_race_identifier as wri 
+						ON rl.race_id=wri.race_id 
+			   ) as l 
+				ON dt.race_identifier=l.race_identifier 
+				and dt.driver_id = l.driver_id 
+				AND dt.race_time_dt >= l.race_time_dt 
+			WHERE dt.race_identifier='{race_identifier}' 
+		) sub 
+		WHERE rn = 1 
+		;"""
     s.execute(text(query))
     s.commit()
   return
