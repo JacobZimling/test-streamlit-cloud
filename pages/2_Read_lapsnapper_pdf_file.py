@@ -140,8 +140,9 @@ if file is not None:
 
     st.write('Updating race_graph')
     st.write(race_identifier)
-    cursor = conn.cursor()
-    cursor.callproc('update_race_graph', ('{race_identifier}'))
-    cursor.close()
+    #cursor = conn.cursor()
+    #cursor.callproc('update_race_graph', ('{race_identifier}'))
+    #cursor.close()
     #conn.execute(f"CALL update_race_graph('{race_identifier}');", ttl=0)
+    race.update_race_graph_data(conn, race_identifier)
     
