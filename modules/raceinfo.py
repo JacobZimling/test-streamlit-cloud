@@ -32,6 +32,40 @@ def db_connect():
 def get_race_info(conn):
   # return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, "%Y-%m-%d") as race_date, race_venue, concat(race_venue, " (", race_date, ")") as venue_label, race_name FROM race_info')
   return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, "%Y-%m-%d") as race_date, race_venue, concat(date_format(race_date, "%Y-%m-%d"), race_venue) as date_venue, concat(race_venue, " (", date_format(race_date, "%e. %M"), ")") as venue_label, race_name, case (race_name) when "2wd" then "0" else race_name end as race_order FROM race_info ORDER BY race_date, race_order', ttl=0)
+
+def update_race_graph_data(conn, race_identifier):
+  with conn.session as s:
+    query = f"DELETE FROM race_graph WHERE race_identifier='{race_identifier}'; /
+    INSERT INTO race_graph (race_identifier, driver_id, race_time_dt, lap)
+	SELECT race_identifier, driver_id, race_time_dt, coalesce(lap, 0) as lap 
+	FROM (
+	    SELECT 
+	    	dt.race_identifier,
+	        dt.driver_id, 
+	        dt.race_time_dt, 
+	        l.lap, 
+	        ROW_NUMBER() OVER (
+	        	PARTITION BY dt.race_identifier, dt.driver_id, dt.race_time_dt
+	            ORDER BY dt.race_time_dt - l.race_time_dt
+	        ) AS rn
+	    FROM w_driver_times as dt
+	    LEFT JOIN (
+		    SELECT wri.race_identifier, rl.driver_id, rl.race_time_dt, rl.lap
+	        FROM race_laps as rl
+	        	JOIN w_race_identifier as wri
+	        		ON rl.race_id=wri.race_id
+	       ) as l
+	        ON dt.race_identifier=l.race_identifier
+	    	and dt.driver_id = l.driver_id
+	        AND dt.race_time_dt >= l.race_time_dt
+	    WHERE dt.race_identifier='{race_identifier}'
+	) sub
+	WHERE rn = 1
+	;
+"
+    s.execute(text(query))
+    s.commit()
+  return
   
 def get_lap_info(conn, date_venue, race_name):
   conn.reset()
