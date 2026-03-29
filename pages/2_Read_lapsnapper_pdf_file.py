@@ -3,6 +3,7 @@ from pypdf import PdfReader
 import re
 from datetime import datetime
 from sqlalchemy.sql import text
+from modules import raceinfo as race
 
 #st.pdf("https://pihl-zimling.dk/mlcrc/1308-Race-Slangerup-1a.pdf")
 
