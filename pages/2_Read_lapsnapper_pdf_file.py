@@ -51,10 +51,11 @@ if file is not None:
                     s.commit()
                 
                 # Get race_id
-                df = conn.query(f"SELECT * FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';", ttl=0)
+                df = conn.query(f"SELECT race_id, CONCAT(race_date, race_venue, race_name) AS race_identifier FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';", ttl=0)
                 # st.dataframe(df)
 
             race_id = df['race_id'].iloc[0]
+            race_identifier = df['race_id'].iloc[0]
             # st.write(race_id)
             # st.dataframe(df)
 
@@ -135,3 +136,8 @@ if file is not None:
             # df['lap_time_f'] = df['lap_time'].dt.strftime('%M:%S.%f')
             # df['race_time_f'] = df['race_time'].dt.strftime('%M:%S.%f')
             # st.dataframe(df)
+
+    st.write('Updating race_graph')
+    st.write(race_identifier)
+    conn.execute(f"CALL update_race_graph('{race_identifier}');", ttl=0)
+    
