@@ -145,7 +145,7 @@ if file is not None:
     #cursor.callproc('update_race_graph', ('{race_identifier}'))
     #cursor.close()
     #conn.execute(f"CALL update_race_graph('{race_identifier}');", ttl=0)
-    with st.spinner('Updating race graph data...', show_time=true):
+    with st.spinner('Updating race graph data...', show_time=True):
         race.update_race_graph_data(conn, race_identifier)
     st.success('Race graph data updated')
     
