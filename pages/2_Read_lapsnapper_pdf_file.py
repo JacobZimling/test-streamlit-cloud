@@ -139,11 +139,13 @@ if file is not None:
             # df['race_time_f'] = df['race_time'].dt.strftime('%M:%S.%f')
             # st.dataframe(df)
 
-    st.write('Updating race_graph')
-    st.write(race_identifier)
+    #st.write('Updating race graph data')
+    #st.write(race_identifier)
     #cursor = conn.cursor()
     #cursor.callproc('update_race_graph', ('{race_identifier}'))
     #cursor.close()
     #conn.execute(f"CALL update_race_graph('{race_identifier}');", ttl=0)
-    race.update_race_graph_data(conn, race_identifier)
+    with st.spinner('Updating race graph data...'):
+        race.update_race_graph_data(conn, race_identifier)
+    st.success('Race graph data updated')
     
