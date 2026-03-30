@@ -23,7 +23,6 @@ if file is not None:
             if page == 0:
                 # Extract race info
                 race_info = re.findall(r'Session name: ([\włæøåÆØÅ]+) ((\d)([abe])|(2wd))\.? Session started: (\w{3} \d{2}, \d{4})', page_text, re.IGNORECASE)[0]
-                st.write(race_info)
                 race_name = race_info[2] or race_info[4]
                 race_date = datetime.strptime(race_info[5], "%b %d, %Y").date()
     
@@ -93,7 +92,7 @@ if file is not None:
                 # Get lap info - for verification purposes
                 # df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
                 # st.dataframe(df)
-    st.success('Race graph data updated')
+    st.success('Race information processed')
 
     # Update race graph data
     with st.spinner('Updating race graph data...', show_time=True):
