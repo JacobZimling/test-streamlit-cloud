@@ -18,10 +18,10 @@ if file is not None:
         pdf_reader = PdfReader(file)
         # Extract the content
         for page in range(len(pdf_reader.pages)):
-            #st.write(page)
             page_text = pdf_reader.pages[page].extract_text()
     
             if page == 0:
+                # Extract race info
                 race_info = re.findall(r'Session name: ([\włæøåÆØÅ]+) ((\d)([abe])|(2wd))\.? Session started: (\w{3} \d{2}, \d{4})', page_text, re.IGNORECASE)[0]
                 st.write(race_info)
                 race_name = race_info[2] or race_info[4]
@@ -47,46 +47,30 @@ if file is not None:
     
                 race_id = df['race_id'].iloc[0]
                 race_identifier = df['race_identifier'].iloc[0]
-                # st.write(race_id)
-                "st.dataframe(df)
-    
-                "st.write('extract race times')
+
+                # Extract race totals
                 racetime_info = re.findall(r'(\d+)\. (\w[\w ]+)\.? (\d{2}:\d{2}.\d{3})', page_text)
-                #st.write(racetime_info)
                 race_result = {}
                 for r in racetime_info:
                     race_result[r[1]] = r[2]
-                # st.write(race_result)
             
             elif page != 1:
-                st.write('extract lap times')
-                # st.write(page_text)
-    
+                # Extract lap times
                 lap_info = re.findall(r'(\d+) (\w[\w ]+)\.? (\d{2}:\d{2}.\d{3}) (\+.{5,6}) (\d{2}:\d{2}.\d{3}) (\d+)\.', page_text)
-                # st.write(lap_info)
-    
-                # st.write(lap_info[0][2])
-                # time = datetime.strptime(lap_info[0][2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')
-                # st.write(time)
-                # st.write(type(time))
-                # st.write(type(lap_info[0][2]))
-    
+
                 with conn.session as s:
+                    # Delete lap times if exist i DB
                     query = f"DELETE FROM race_laps WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                    # st.write(query)
                     s.execute(text(query))
+
+                    # Write lap times to DB
                     race_time = datetime.strptime("00:00:00", "%H:%M:%S")
-                    # st.write(type(race_time))
-                    # st.write(race_time)
                     s.execute(
                         text('INSERT INTO race_laps (race_id, lap, driver_id) VALUES (:race_id, :lap, :driver_id);'),
                         params = dict(race_id=race_id, lap=0, driver_id=lap_info[0][1])
                     )
                     for lap in lap_info:
                         race_time += datetime.strptime(lap[2], '%M:%S.%f') - datetime.strptime("00:00:00", "%H:%M:%S")
-                        # st.write(f'{race_time.strftime("0000-00-00 %H:%M:%S.%f")} # {datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}')
-                        # st.write(f"{datetime.strptime(lap[2], '%M:%S.%f').strftime('0000-00-00 %H:%M:%S.%f')}, {race_time_dt=race_time.strftime('%H:%M:%S.%f')}")
-                        # st.write(f'{datetime.strptime(lap[2], '%M:%S.%f').time().strftime('%H:%M:%S.%f')} {race_time.time().strftime('%H:%M:%S.%f')}')
                         s.execute(
                             text('INSERT INTO race_laps (race_id, lap, driver_id, lap_time, dif, rank, race_time, lap_time_dt, race_time_dt) VALUES (:race_id, :lap, :driver_id, :lap_time, :dif, :rank, :race_time, :lap_time_dt, :race_time_dt);'),
                             params = dict(
@@ -101,40 +85,17 @@ if file is not None:
                                 race_time_dt=race_time.strftime("%Y-%m-%d %H:%M:%S.%f")
                             )
                         )
-                    # rt = datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')
-                    # race_time_corr = (datetime.min + (rt-race_time)).time()
                     race_time_corr = datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time
-                    # st.write(race_time_corr)
-                    # st.write(type(race_time_corr))
-                    # st.write(f'{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}')
-                    # st.write(f'{rt} {race_time} {rt-race_time} {race_time_corr}')
-                    # query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                    # query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}'), race_time_dt=ADDTIME(race_time_dt, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                    query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{race_time_corr}'), race_time_dt=ADDTIME(race_time_dt, '{race_time_corr}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                    # query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                    # st.write(query)
+                    query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{race_time_corr}'), race_time_dt=ADDTIME(race_time_dt, '{race_time_corr}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';")
                     s.execute(text(query))
-                    # query = f"UPDATE race_laps SET race_time_dt=ADDTIME(race_time_dt, '{datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                    # query = f"UPDATE race_laps SET race_time_dt=DATE_ADD(race_time_dt, INTERVAL '{datetime.strptime(race_result[lap_info[0][1]], '%S.%f')-race_time}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
-                    # st.write(query)
-                    # s.execute(text(query))
                     s.commit()
-                    
     
-                # # Get lap info
-                df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
-                st.dataframe(df)
-                # df['lap_time_f'] = df['lap_time'].dt.strftime('%M:%S.%f')
-                # df['race_time_f'] = df['race_time'].dt.strftime('%M:%S.%f')
+                # Get lap info - for verification purposes
+                # df = conn.query(f"SELECT * FROM race_laps WHERE race_id='{race_id}' and driver_id='{lap_info[0][1]}';", ttl=0)
                 # st.dataframe(df)
     st.success('Race graph data updated')
 
-    #st.write('Updating race graph data')
-    #st.write(race_identifier)
-    #cursor = conn.cursor()
-    #cursor.callproc('update_race_graph', ('{race_identifier}'))
-    #cursor.close()
-    #conn.execute(f"CALL update_race_graph('{race_identifier}');", ttl=0)
+    # Update race graph data
     with st.spinner('Updating race graph data...', show_time=True):
         race.update_race_graph_data(conn, race_identifier)
     st.success('Race graph data updated')
