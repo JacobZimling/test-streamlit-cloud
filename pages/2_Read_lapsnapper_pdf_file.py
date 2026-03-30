@@ -86,7 +86,7 @@ if file is not None:
                             )
                         )
                     race_time_corr = datetime.strptime(race_result[lap_info[0][1]], '%M:%S.%f')-race_time
-                    query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{race_time_corr}'), race_time_dt=ADDTIME(race_time_dt, '{race_time_corr}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';")
+                    query = f"UPDATE race_laps SET race_time=ADDTIME(race_time, '{race_time_corr}'), race_time_dt=ADDTIME(race_time_dt, '{race_time_corr}') WHERE race_id={race_id} and driver_id='{lap_info[0][1]}';"
                     s.execute(text(query))
                     s.commit()
     
