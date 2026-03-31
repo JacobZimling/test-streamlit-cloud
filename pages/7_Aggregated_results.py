@@ -15,11 +15,15 @@ if race_year:
 
     # Select race type (2wd/4wd)
     race_type = st.selectbox('Løbstype', options=races[races['race_year']==race_year]['race_type'].unique(), index=None, placeholder='Vælg løbstype', width=300)
+    race_type = st.filter(
+        'Løbstype',
+        races[races['race_year']==race_year]['race_type'].unique()
+    )
 
     # if race_type:
     
 
-#     df = race.get_race_result_aggr(conn, race_year, date_venue, race_heat)
+    # df = race.get_race_result_aggr(conn, race_year, date_venue, race_heat)
     
 #     st.dataframe(
 #         df, 
