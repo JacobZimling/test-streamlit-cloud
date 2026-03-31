@@ -14,7 +14,7 @@ race_year = st.selectbox('År', options=races['race_year'].unique(), index=None,
 if race_year:
 
     # Select race type (2wd/4wd)
-    race_type = st.selectbox('Løbstype', options=races[races['race_year']=race_year]['race_type'].unique(), index=None, placeholder='Vælg løbstype', width=300)
+    race_type = st.selectbox('Løbstype', options=races[races['race_year']==race_year]['race_type'].unique(), index=None, placeholder='Vælg løbstype', width=300)
 
     # if race_type:
     
