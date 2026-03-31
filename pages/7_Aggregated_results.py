@@ -9,7 +9,7 @@ races = race.get_race_info(conn)
 st.write(races)
 
 # Select 2wd/4wd
-# race_type = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år', width=300)
+race_type = st.selectbox('Løbstype', options=races['race_type'].unique(), index=None, placeholder='Vælg løbstype', width=300)
 
 
 # Select year
