@@ -15,7 +15,7 @@ if race_year:
 
     # Select race type (2wd/4wd)
     race_type = st.selectbox('Løbstype', options=races[races['race_year']==race_year]['race_type'].unique(), index=None, placeholder='Vælg løbstype', width=300)
-    race_type = st.filter(
+    race_type = st.segmented_control(
         'Løbstype',
         races[races['race_year']==race_year]['race_type'].unique()
     )
