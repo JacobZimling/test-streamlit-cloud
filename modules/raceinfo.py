@@ -31,7 +31,7 @@ def db_connect():
 
 def get_race_info(conn):
   # return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, "%Y-%m-%d") as race_date, race_venue, concat(race_venue, " (", race_date, ")") as venue_label, race_name FROM race_info')
-  return conn.query('SELECT race_id, year(race_date) as race_year, date_format(race_date, "%Y-%m-%d") as race_date, race_venue, concat(date_format(race_date, "%Y-%m-%d"), race_venue) as date_venue, concat(race_venue, " (", date_format(race_date, "%e. %M"), ")") as venue_label, race_name, case (race_name) when "2wd" then "0" else race_name end as race_order FROM race_info ORDER BY race_date, race_order', ttl=0)
+  return conn.query('SELECT race_id, case race_name when '2wd' then race_name else '4wd' end as race_type, year(race_date) as race_year, date_format(race_date, "%Y-%m-%d") as race_date, race_venue, concat(date_format(race_date, "%Y-%m-%d"), race_venue) as date_venue, concat(race_venue, " (", date_format(race_date, "%e. %M"), ")") as venue_label, race_name, case (race_name) when "2wd" then "0" else race_name end as race_order FROM race_info ORDER BY race_date, race_order', ttl=0)
 
 def update_race_graph_data(conn, race_identifier):
   with conn.session as s:
