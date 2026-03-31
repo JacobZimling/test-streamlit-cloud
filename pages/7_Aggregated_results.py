@@ -14,7 +14,6 @@ race_year = st.selectbox('År', options=races['race_year'].unique(), index=None,
 if race_year:
 
     # Select race type (2wd/4wd)
-    # race_type = st.selectbox('Løbstype', options=races[races['race_year']==race_year]['race_type'].unique(), index=None, placeholder='Vælg løbstype', width=300)
     race_type = st.segmented_control(
         'Løbstype',
         races[races['race_year']==race_year]['race_type'].unique()
@@ -22,7 +21,6 @@ if race_year:
 
     venue_label = {}
     for index, venue_row in races[races['race_year']==race_year].iterrows():
-        # venue_label[venue_row['race_date']] = venue_row['venue_label']
         venue_label[venue_row['date_venue']] = venue_row['venue_label']
         
     date_venue = st.segmented_control(
@@ -31,6 +29,7 @@ if race_year:
         format_func=lambda x: venue_label.get(x)
     )
 
+    
     st.write(f'{race_type} {date_venue}')
 
     # if race_type:
