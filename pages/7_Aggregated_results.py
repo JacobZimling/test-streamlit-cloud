@@ -32,7 +32,7 @@ if race_year:
     race_name = None
     if race_type == '4wd':
         race_label = {}
-        for index, race_row in races[races['race_year']==race_year].iterrows():
+        for index, race_row in races[races['race_year']==race_year & races['race_name']!='2wd'].iterrows():
           if race_row['race_name'] == '2wd':
             _race_name = race_row['race_name']
           else:
