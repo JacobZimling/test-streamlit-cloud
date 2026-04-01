@@ -44,7 +44,7 @@ if race_year:
         format_func=lambda x: heat_label.get(x)
     )
     
-    st.write(f'{race_type} {date_venue}')
+    st.write(f'{race_type} {date_venue} {race_name}')
 
     # if race_type:
     #     race_result = race.get_race_result_aggr(conn, race_year, race_type)
