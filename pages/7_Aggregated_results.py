@@ -29,7 +29,7 @@ if race_year:
         format_func=lambda x: venue_label.get(x)
     )
 
-    if race_type != '2wd':
+    if race_type == '4wd':
         race_label = {}
         for index, race_row in races[races['race_year']==race_year].iterrows():
           if race_row['race_name'] == '2wd':
