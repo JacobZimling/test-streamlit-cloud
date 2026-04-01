@@ -103,19 +103,7 @@ def get_race_result(conn, date_venue, race_name):
   return race_result
 
 def result_identifier(*args):
-	# result_id = ''
-	# for id in args:
-	# 	result_id += f'¤{id}'
-	# return result_id
-	# st.write(args)
-	# st.write(list(str(args)))
-	# result = []
-	# for id in args:
-	# 	result.append(id)
-	# st.write(result)
-	# return '¤'.join(result)
 	return '¤'.join(list(map(str, args)))
-	# return ''
 	
 def get_race_result_aggr(conn, race_year, race_type):
 	conn.reset()
