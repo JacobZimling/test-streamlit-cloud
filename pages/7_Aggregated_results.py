@@ -38,7 +38,7 @@ if race_year:
           else:
             _race_name = f'4wd løb {race_row['race_name']}'
           race_label[race_row['race_name']] = _race_name
-        st.write(heat_label)
+        st.write(race_label)
       
         race_name = st.segmented_control(
             'Løb', 
