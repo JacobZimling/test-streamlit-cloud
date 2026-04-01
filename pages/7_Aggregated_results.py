@@ -22,18 +22,16 @@ if race_year:
     if race_type:
         venue_label = {}
         for index, venue_row in races[races['race_year']==race_year].iterrows():
-            # venue_label[venue_row['date_venue']] = venue_row['venue_label']
             venue_label[venue_row['race_date']] = venue_row['venue_label']
             
-        date_venue = st.segmented_control(
+        race_date = st.segmented_control(
             'Løbsdag',
-            # races[races['race_year']==race_year]['date_venue'].unique(),
             races[races['race_year']==race_year]['race_date'].unique(),
             format_func=lambda x: venue_label.get(x)
         )
     
         race_name = None
-        if date_venue and race_type == '4wd':
+        if race_date and race_type == '4wd':
             race_label = {}
             for index, race_row in races[(races['race_year']==race_year) & (races['race_name']!='2wd')].iterrows():
               if race_row['race_name'] == '2wd':
@@ -51,15 +49,15 @@ if race_year:
         
         st.write('Selections')
         st.write(f'race: {race_type}')
-        st.write(f'date: {date_venue}')
+        st.write(f'date: {race_date}')
         st.write(f' name: {race_name}')
 
-        if date_venue and race_name:
+        if race_date and race_name:
             st.write('year_type_date_race')
-            st.write(race.result_identifier(race_year, race_type, date_venue, race_name))
-        elif date_venue:
+            st.write(race.result_identifier(race_year, race_type, race_date, race_name))
+        elif race_date:
             st.write('year_type_date')
-            st.write(race.result_identifier(race_year, race_type, date_venue))
+            st.write(race.result_identifier(race_year, race_type, race_date))
         else:
             st.write('year_type')
             st.write(race.result_identifier(race_year, race_type))
