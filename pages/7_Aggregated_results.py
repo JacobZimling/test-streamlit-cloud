@@ -53,20 +53,19 @@ if race_year:
         st.write(f' name: {race_name}')
 
         if race_date and race_name:
-            st.write('year_type_date_race')
-            st.write(race.result_identifier(race_year, race_type, race_date, race_name))
+            # st.write('year_type_date_race')
+            # st.write(race.result_identifier(race_year, race_type, race_date, race_name))
+            race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date, race_name)
         elif race_date:
-            st.write('year_type_date')
-            st.write(race.result_identifier(race_year, race_type, race_date))
+            # st.write('year_type_date')
+            # st.write(race.result_identifier(race_year, race_type, race_date))
+            race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date)
         else:
-            st.write('year_type')
-            st.write(race.result_identifier(race_year, race_type))
+            # st.write('year_type')
+            # st.write(race.result_identifier(race_year, race_type))
+            race_result = race.get_race_result_aggr(conn, race_year, race_type)
 
         st.write('display result')
-
-    # if race_type:
-    #     race_result = race.get_race_result_aggr(conn, race_year, race_type)
-    
     #     st.dataframe(
     #         race_result, 
     #         hide_index=True,
