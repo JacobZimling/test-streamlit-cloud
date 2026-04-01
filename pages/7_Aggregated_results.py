@@ -17,6 +17,7 @@ if race_year:
     race_type = st.segmented_control(
         'Løbstype',
         races[races['race_year']==race_year]['race_type'].unique()
+        ,label_visibility = 'collapsed'
     )
 
     if race_type:
@@ -28,6 +29,7 @@ if race_year:
             'Løbsdag',
             races[races['race_year']==race_year]['race_date'].unique(),
             format_func=lambda x: venue_label.get(x)
+            ,label_visibility = 'collapsed'
         )
     
         race_name = None
@@ -45,12 +47,13 @@ if race_year:
                 'Løb', 
                 races[(races['race_year']==race_year) & (races['race_name']!='2wd')]['race_name'].unique(), 
                 format_func=lambda x: race_label.get(x)
+                ,label_visibility = 'collapsed'
             )
         
-        st.write('Selections')
-        st.write(f'race: {race_type}')
-        st.write(f'date: {race_date}')
-        st.write(f' name: {race_name}')
+        # st.write('Selections')
+        # st.write(f'race: {race_type}')
+        # st.write(f'date: {race_date}')
+        # st.write(f' name: {race_name}')
 
         if race_date and race_name:
             # st.write('year_type_date_race')
