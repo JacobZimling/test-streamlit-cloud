@@ -9,7 +9,12 @@ races = race.get_race_info(conn)
 st.write(races)
 
 # Select year
-race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år', width=300)
+# race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år', width=300)
+race_year = st.segmented_control(
+    'År',
+    races['race_year'].unique()
+    ,label_visibility = 'collapsed'
+)
 
 if race_year:
 
