@@ -109,6 +109,7 @@ def result_identifier(*args):
 	# return result_id
 	# st.write(args)
 	# st.write(list(str(args)))
+	result = []
 	for id in args:
 		result.append(id)
 	st.write(result)
