@@ -109,12 +109,12 @@ def result_identifier(*args):
 	# return result_id
 	# st.write(args)
 	# st.write(list(str(args)))
-	result = []
-	for id in args:
-		result.append(id)
-	st.write(result)
-	return '¤'.join(result)
-	# return '¤'.join(list(str(args)))
+	# result = []
+	# for id in args:
+	# 	result.append(id)
+	# st.write(result)
+	# return '¤'.join(result)
+	return '¤'.join(list(map(str, args)))
 	# return ''
 	
 def get_race_result_aggr(conn, race_year, race_type):
