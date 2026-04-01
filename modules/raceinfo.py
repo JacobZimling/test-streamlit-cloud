@@ -107,7 +107,8 @@ def get_result_identifier(*args):
 	
 def get_race_result_aggr(conn, *args):
 	# conn.reset()
-	result_identifier = get_result_identifier(args)
+	# result_identifier = get_result_identifier(args)
+	result_identifier = '¤'.join(list(map(str, args)))
 	query = f'SELECT rank, driver_id, race_time_dt, lap, point FROM w_race_result WHERE race_identifier="{result_identifier}";'
 	st.write(query)
 	# race_result = conn.query(query, ttl=0)
