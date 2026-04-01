@@ -42,7 +42,7 @@ if race_year:
       
         race_name = st.segmented_control(
             'Løb', 
-            races[races['race_year']==race_year]['race_name'].unique(), 
+            races[(races['race_year']==race_year) & (races['race_name']!='2wd')]['race_name'].unique(), 
             format_func=lambda x: race_label.get(x)
         )
     
