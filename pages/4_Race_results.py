@@ -72,7 +72,7 @@ if race_year:
       #df['race_time_formated'] = df['race_time_dt'].apply(format_time)
 
       st.dataframe(
-        df, 
+        df.filter(items=['rank', 'driver_id', 'point']), 
         hide_index=True,
         column_config={
             "rank": st.column_config.NumberColumn("Placering"),
