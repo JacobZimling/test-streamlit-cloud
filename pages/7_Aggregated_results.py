@@ -22,7 +22,8 @@ if race_year:
     if race_type:
         venue_label = {}
         for index, venue_row in races[races['race_year']==race_year].iterrows():
-            venue_label[venue_row['date_venue']] = venue_row['venue_label']
+            # venue_label[venue_row['date_venue']] = venue_row['venue_label']
+            venue_label[venue_row['race_date']] = venue_row['venue_label']
             
         date_venue = st.segmented_control(
             'Løbsdag',
