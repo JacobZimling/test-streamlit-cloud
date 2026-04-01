@@ -75,6 +75,7 @@ if race_year:
 
         st.write('display result')
     #     st.dataframe(
+              # df.filter(items=['rank', 'driver_id', 'point']), 
     #         race_result, 
     #         hide_index=True,
     #         column_config={
