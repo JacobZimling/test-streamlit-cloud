@@ -35,7 +35,7 @@ if race_year:
           if race_row['race_name'] == '2wd':
             race_name = race_row['race_name']
           else:
-            race_name = f'4wd løb {heat_row['race_name']}'
+            race_name = f'4wd løb {race_row['race_name']}'
           race_label[race_row['race_name']] = race_name
         # st.write(heat_label)
       
