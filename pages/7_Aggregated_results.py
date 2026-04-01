@@ -54,10 +54,13 @@ if race_year:
 
         if date_venue and race_name:
             st.write('year_type_date_race')
+            st.write(race.result_identifier(race_year, race_type, date_venue, race_name))
         elif date_venue:
             st.write('year_type_date')
+            st.write(race.result_identifier(race_year, race_type, date_venue))
         else:
             st.write('year_type')
+            st.write(race.result_identifier(race_year, race_type))
 
         st.write('display result')
 
