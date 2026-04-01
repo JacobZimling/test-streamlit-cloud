@@ -29,20 +29,21 @@ if race_year:
         format_func=lambda x: venue_label.get(x)
     )
 
-    heat_label = {}
-    for index, heat_row in races[races['race_year']==race_year].iterrows():
-      if heat_row['race_name'] == '2wd':
-        heat_name = heat_row['race_name']
-      else:
-        heat_name = f'4wd løb {heat_row['race_name']}'
-      heat_label[heat_row['race_name']] = heat_name
-    # st.write(heat_label)
-  
-    race_name = st.segmented_control(
-        'Løb', 
-        races[races['race_year']==race_year]['race_name'].unique(), 
-        format_func=lambda x: heat_label.get(x)
-    )
+    if race_type ne '2wd':
+        race_label = {}
+        for index, race_row in races[races['race_year']==race_year].iterrows():
+          if race_row['race_name'] == '2wd':
+            race_name = race_row['race_name']
+          else:
+            race_name = f'4wd løb {heat_row['race_name']}'
+          race_label[race_row['race_name']] = race_name
+        # st.write(heat_label)
+      
+        race_name = st.segmented_control(
+            'Løb', 
+            races[races['race_year']==race_year]['race_name'].unique(), 
+            format_func=lambda x: race_label.get(x)
+        )
     
     st.write(f'{race_type} {date_venue} {race_name}')
 
