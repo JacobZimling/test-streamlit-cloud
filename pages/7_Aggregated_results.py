@@ -74,20 +74,20 @@ if race_year:
             race_result = race.get_race_result_aggr(conn, race_year, race_type)
 
         st.write('display result')
-    #     st.dataframe(
-              # df.filter(items=['rank', 'driver_id', 'point']), 
-    #         race_result, 
-    #         hide_index=True,
-    #         column_config={
-    #             "rank": st.column_config.NumberColumn("Placering"),
-    #             "driver_id": st.column_config.TextColumn("Kører"),
-    #             # "race_time": st.column_config.NumberColumn("Tid", format='%m:%s.%SSS'),
-    #             #"race_time": st.column_config.TimeColumn("Tid", format='DD-MM-YYYY HH.mm:ss.SSS'),
-    #             # "race_time": st.column_config.NumberColumn("Tid", format='%f'),
-    #             # "race_time": st.column_config.TimeColumn("Tid"),
-    #             "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
-    #             "lap": st.column_config.NumberColumn("Omgange"),
-    #             "point": st.column_config.NumberColumn("Point"),
-    #         }
-    #     )
+        st.dataframe(
+            # df.filter(items=['rank', 'driver_id', 'point']), 
+            race_result, 
+            hide_index=True,
+            column_config={
+                "rank": st.column_config.NumberColumn("Placering"),
+                "driver_id": st.column_config.TextColumn("Kører"),
+                # "race_time": st.column_config.NumberColumn("Tid", format='%m:%s.%SSS'),
+                #"race_time": st.column_config.TimeColumn("Tid", format='DD-MM-YYYY HH.mm:ss.SSS'),
+                # "race_time": st.column_config.NumberColumn("Tid", format='%f'),
+                # "race_time": st.column_config.TimeColumn("Tid"),
+                "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
+                "lap": st.column_config.NumberColumn("Omgange"),
+                "point": st.column_config.NumberColumn("Point"),
+            }
+        )
     
