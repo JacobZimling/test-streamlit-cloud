@@ -56,7 +56,7 @@ if race_year:
             st.write('year_type_date_race')
         elif date_venue:
             st.write('year_type_date')
-        elif:
+        else:
             st.write('year_type')
 
         st.write('display result')
