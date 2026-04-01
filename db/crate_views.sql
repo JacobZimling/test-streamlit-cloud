@@ -97,3 +97,149 @@ SELECT
 	LEFT JOIN race_points AS p
 		ON r.rank = p.rank
 	ORDER BY r.race_identifier, r.rank;
+
+/* driver_name */
+ INSERT INTO `driver_name` (`driver_id`, `driver_name`) VALUES ('Peter', 'Peter Seyfarth'), ('Jesper K', 'Jesper Klausen'), ('Jesper', 'Jesper Seyfarth'), ('Palle', 'Palle Larsen'), ('Mike', 'Mike Pedersen'), ('John', 'John Dalsgaard'), ('Alex', 'Alex Pedersen'), ('Zimling', 'Jacob Zimling'), ('Niels', 'Niels Bay'), ('Leif', 'Leif Nebbelunde'), ('Jacob G', 'Jacob Gottlieb'), ('Brian', 'Brian Nielsen'), ('Jacob Z', 'Jacob Zimling'), ('Jesper S', 'Jesper Seyfarth'),('Zimling', 'Jacob Zimling'), ('Jacob', 'Jacob Gottlieb');
+
+/* year_race */
+/*
+*/
+insert into race_result (result_identifier, driver_name, point)
+SELECT
+    r.result_identifier,
+    r.driver_name,
+    sum(p.point) as point
+	FROM (
+		SELECT
+        	result_identifier,
+            race_identifier,
+			ROW_NUMBER() OVER(
+                PARTITION BY result_identifier, race_identifier
+				ORDER BY result_identifier, race_identifier, lap DESC, race_time_dt
+			) AS rank,
+        	driver_name,
+			race_time_dt,
+			lap
+		FROM (
+			SELECT
+            	result_id.year_type as result_identifier,
+            	race_id.race_identifier,
+            	driver.driver_name,
+				rl.race_time_dt,
+				rl.lap,
+				ROW_NUMBER() OVER(
+					PARTITION BY result_id.year_type, race_id.race_identifier, driver.driver_name
+					ORDER BY result_id.year_type, race_id.race_identifier, driver.driver_name, rl.lap DESC
+				) AS rn
+			FROM `race_laps` as rl
+            	JOIN w_race_identifier as race_id
+            		ON rl.race_id=race_id.race_id
+            	JOIN w_result_identifier as result_id
+            		ON rl.race_id=result_id.race_id
+            	LEFT JOIN driver_name as driver
+            		ON rl.driver_id=driver.driver_id
+		) sub
+		WHERE rn = 1
+	) AS r
+	LEFT JOIN race_points AS p
+		ON r.rank = p.rank
+    GROUP BY r.result_identifier, r.driver_name
+    ORDER BY r.result_identifier, point DESC
+/*        
+	ORDER BY r.race_identifier, r.rank;
+ */
+
+/* year_type_date */
+/*
+*/
+insert into race_result (result_identifier, driver_name, point)
+SELECT
+    r.result_identifier,
+    r.driver_name,
+    sum(p.point) as point
+	FROM (
+		SELECT
+        	result_identifier,
+            race_identifier,
+			ROW_NUMBER() OVER(
+                PARTITION BY result_identifier, race_identifier
+				ORDER BY result_identifier, race_identifier, lap DESC, race_time_dt
+			) AS rank,
+        	driver_name,
+			race_time_dt,
+			lap
+		FROM (
+			SELECT
+            	result_id.year_type_date as result_identifier,
+            	race_id.race_identifier,
+            	driver.driver_name,
+				rl.race_time_dt,
+				rl.lap,
+				ROW_NUMBER() OVER(
+					PARTITION BY result_id.year_type_date, race_id.race_identifier, driver.driver_name
+					ORDER BY result_id.year_type_date, race_id.race_identifier, driver.driver_name, rl.lap DESC
+				) AS rn
+			FROM `race_laps` as rl
+            	JOIN w_race_identifier as race_id
+            		ON rl.race_id=race_id.race_id
+            	JOIN w_result_identifier as result_id
+            		ON rl.race_id=result_id.race_id
+            	LEFT JOIN driver_name as driver
+            		ON rl.driver_id=driver.driver_id
+		) sub
+		WHERE rn = 1
+	) AS r
+	LEFT JOIN race_points AS p
+		ON r.rank = p.rank
+    GROUP BY r.result_identifier, r.driver_name
+    ORDER BY r.driver_name, r.result_identifier, point DESC
+/*        
+    ORDER BY r.result_identifier, point DESC
+	ORDER BY r.race_identifier, r.rank;
+ */
+
+/* year_type_date_race */
+insert into race_result (result_identifier, rank, driver_name, race_time_dt, lap, point)
+SELECT
+    r.result_identifier,
+    r.rank,
+    r.driver_name,
+    r.race_time_dt,
+    r.lap,
+    sum(p.point) as point
+	FROM (
+		SELECT
+        	result_identifier,
+            race_identifier,
+			ROW_NUMBER() OVER(
+                PARTITION BY result_identifier, race_identifier
+				ORDER BY result_identifier, race_identifier, lap DESC, race_time_dt
+			) AS rank,
+        	driver_name,
+			race_time_dt,
+			lap
+		FROM (
+			SELECT
+            	result_id.year_type_date_race as result_identifier,
+            	race_id.race_identifier,
+            	driver.driver_name,
+				rl.race_time_dt,
+				rl.lap,
+				ROW_NUMBER() OVER(
+					PARTITION BY result_id.year_type_date_race, race_id.race_identifier, driver.driver_name
+					ORDER BY result_id.year_type_date_race, race_id.race_identifier, driver.driver_name, rl.lap DESC
+				) AS rn
+			FROM `race_laps` as rl
+            	JOIN w_race_identifier as race_id
+            		ON rl.race_id=race_id.race_id
+            	JOIN w_result_identifier as result_id
+            		ON rl.race_id=result_id.race_id
+            	LEFT JOIN driver_name as driver
+            		ON rl.driver_id=driver.driver_id
+		) sub
+		WHERE rn = 1
+	) AS r
+	LEFT JOIN race_points AS p
+		ON r.rank = p.rank
+    GROUP BY r.result_identifier, r.driver_name
+    ORDER BY r.result_identifier, point DESC
