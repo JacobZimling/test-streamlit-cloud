@@ -19,34 +19,47 @@ if race_year:
         races[races['race_year']==race_year]['race_type'].unique()
     )
 
-    venue_label = {}
-    for index, venue_row in races[races['race_year']==race_year].iterrows():
-        venue_label[venue_row['date_venue']] = venue_row['venue_label']
-        
-    date_venue = st.segmented_control(
-        'Løbsdag',
-        races[races['race_year']==race_year]['date_venue'].unique(),
-        format_func=lambda x: venue_label.get(x)
-    )
-
-    race_name = None
-    if race_type == '4wd':
-        race_label = {}
-        for index, race_row in races[(races['race_year']==race_year) & (races['race_name']!='2wd')].iterrows():
-          if race_row['race_name'] == '2wd':
-            _race_name = race_row['race_name']
-          else:
-            _race_name = f'4wd løb {race_row['race_name']}'
-          race_label[race_row['race_name']] = _race_name
-        # st.write(race_label)
-      
-        race_name = st.segmented_control(
-            'Løb', 
-            races[(races['race_year']==race_year) & (races['race_name']!='2wd')]['race_name'].unique(), 
-            format_func=lambda x: race_label.get(x)
+    if race_type:
+        venue_label = {}
+        for index, venue_row in races[races['race_year']==race_year].iterrows():
+            venue_label[venue_row['date_venue']] = venue_row['venue_label']
+            
+        date_venue = st.segmented_control(
+            'Løbsdag',
+            races[races['race_year']==race_year]['date_venue'].unique(),
+            format_func=lambda x: venue_label.get(x)
         )
     
-    st.write(f'Selections:', f'race: {race_type} ', f'date: {date_venue}', f' name: {race_name}')
+        race_name = None
+        if race_type == '4wd':
+            race_label = {}
+            for index, race_row in races[(races['race_year']==race_year) & (races['race_name']!='2wd')].iterrows():
+              if race_row['race_name'] == '2wd':
+                _race_name = race_row['race_name']
+              else:
+                _race_name = f'4wd løb {race_row['race_name']}'
+              race_label[race_row['race_name']] = _race_name
+            # st.write(race_label)
+          
+            race_name = st.segmented_control(
+                'Løb', 
+                races[(races['race_year']==race_year) & (races['race_name']!='2wd')]['race_name'].unique(), 
+                format_func=lambda x: race_label.get(x)
+            )
+        
+        st.write('Selections')
+        st.write(f'race: {race_type}')
+        st.write(f'date: {date_venue}')
+        st.write(f' name: {race_name}')
+
+        if date_venue and race_name:
+            st.write('year_type_date_race')
+        elif date_venue:
+            st.write('year_type_date')
+        elif:
+            st.write('year_type')
+
+        st.write('display result')
 
     # if race_type:
     #     race_result = race.get_race_result_aggr(conn, race_year, race_type)
