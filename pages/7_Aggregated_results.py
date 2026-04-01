@@ -6,7 +6,7 @@ conn = race.db_connect()
 
 # Read race information for exlect boxes from DB
 races = race.get_race_info(conn)
-st.write(races)
+# st.write(races)
 
 # Select year
 # race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år', width=300)
