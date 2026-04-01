@@ -26,7 +26,8 @@ if race_year:
             
         date_venue = st.segmented_control(
             'Løbsdag',
-            races[races['race_year']==race_year]['date_venue'].unique(),
+            # races[races['race_year']==race_year]['date_venue'].unique(),
+            races[races['race_year']==race_year]['race_date'].unique(),
             format_func=lambda x: venue_label.get(x)
         )
     
