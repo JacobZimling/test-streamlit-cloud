@@ -247,3 +247,80 @@ SELECT
 		ON r.rank = p.rank
     GROUP BY r.result_identifier, r.driver_name
     ORDER BY r.result_identifier, point DESC
+
+SELECT
+    r.result_identifier,
+    r.rank,
+    r.driver_name,
+    r.race_time_dt,
+    r.lap,
+    r.elimination_race,
+    /*
+    max(r.lap) as max_lap,
+    */
+    max(r.lap) OVER (
+    	partition by r.result_identifier
+    ) as max_lap,
+    /*
+    calculated max_lap as max_lap2,
+    sum(
+    	case 
+    		when r.elimination_race=1 and r.lap<3 then 0
+    		when r.elimination_race=0 and r.lap<max(r.lap) OVER (partition by r.result_identifier)/2 then 0 
+    		else p.point
+    	end
+    ) as point_50pl,
+    */
+    sum(
+    	case 
+    		when r.elimination_race=1 and r.lap<3 then 0
+    		when r.elimination_race=0 and r.race_time_dt<'1900-01-01 00:03:30' then 0 
+    		else p.point
+    	end
+    ) as point_3_30,
+    sum(
+    	case 
+    		when r.elimination_race=1 and r.lap<3 then 0
+    		else p.point
+    	end
+    ) as point_E3
+	,p.point as point
+	FROM (
+		SELECT
+        	result_identifier,
+            race_identifier,
+        	elimination_race,
+			ROW_NUMBER() OVER(
+                PARTITION BY result_identifier, race_identifier
+				ORDER BY result_identifier, race_identifier, lap DESC, race_time_dt
+			) AS rank,
+        	driver_name,
+			race_time_dt,
+			lap
+		FROM (
+			SELECT
+            	result_id.year_type_date_race as result_identifier,
+            	race_id.race_identifier,
+            	race_id.elimination_race,
+            	driver.driver_name,
+				rl.race_time_dt,
+				rl.lap,
+				ROW_NUMBER() OVER(
+					PARTITION BY result_id.year_type_date_race, race_id.race_identifier, driver.driver_name
+					ORDER BY result_id.year_type_date_race, race_id.race_identifier, driver.driver_name, rl.lap DESC
+				) AS rn
+			FROM `race_laps` as rl
+            	JOIN w_race_identifier as race_id
+            		ON rl.race_id=race_id.race_id
+            	JOIN w_result_identifier as result_id
+            		ON rl.race_id=result_id.race_id
+            	LEFT JOIN driver_name as driver
+            		ON rl.driver_id=driver.driver_id
+            WHERE not(result_id.year_type_date_race='2025¤4wd¤2025-05-18¤4' and driver.driver_name='Jacob Gottlieb')
+		) sub
+		WHERE rn = 1
+	) AS r
+	LEFT JOIN race_points AS p
+		ON r.rank = p.rank
+    GROUP BY r.result_identifier, r.driver_name
+    ORDER BY r.result_identifier, point DESC
