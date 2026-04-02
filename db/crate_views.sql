@@ -5,7 +5,11 @@ SELECT  race_id,
             race_date,
             race_venue,
             race_name
-        ) AS race_identifier
+        ) AS race_identifier,
+        case race_heat
+        	when 'e' then True
+        	else False
+        end as elimination_race
 	from race_info;
 
 
