@@ -54,6 +54,7 @@ if race_year:
                 format_func=lambda x: race_label.get(x)
                 ,label_visibility = 'collapsed'
             )
+        else race_name = '2wd'
         
         # st.write('Selections')
         # st.write(f'race: {race_type}')
