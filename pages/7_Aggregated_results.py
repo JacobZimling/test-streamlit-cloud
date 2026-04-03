@@ -89,6 +89,7 @@ if race_year:
                 "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
                 "lap": st.column_config.NumberColumn("Omgange"),
                 "point": st.column_config.NumberColumn("Point"),
-            }
+            },
+            placeholder=""
         )
     
