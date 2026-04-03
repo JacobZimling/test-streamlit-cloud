@@ -73,7 +73,7 @@ if race_year:
             # st.write(race.result_identifier(race_year, race_type))
             race_result = race.get_race_result_aggr(conn, race_year, race_type)
 
-        st.write('display result')
+        #st.write('display result')
         st.dataframe(
             # df.filter(items=['rank', 'driver_id', 'point']), 
             race_result, 
