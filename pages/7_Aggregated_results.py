@@ -78,7 +78,7 @@ if race_year:
         st.dataframe(
             race_result, 
             hide_index=True,
-            placeholder="--",
+            #placeholder="--",
             column_config={
                 "rank": st.column_config.NumberColumn("Placering"),
                 "driver_id": st.column_config.TextColumn("Kører"),
