@@ -90,6 +90,6 @@ if race_year:
                 "lap": st.column_config.NumberColumn("Omgange"),
                 "point": st.column_config.NumberColumn("Point"),
             },
-            placeholder=""
+            placeholder="N/A"
         )
     
