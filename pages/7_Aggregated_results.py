@@ -87,6 +87,7 @@ if race_year:
             race_result, 
             hide_index=True,
             height="content",
+            width="content",
             column_order=columns,
             #column_order=(),
             #placeholder="--",
