@@ -96,6 +96,7 @@ if file is not None:
 
     # Update race graph data
     with st.spinner('Updating race graph data...', show_time=True):
+        st.write('Update suspended for testing')
         #race.update_race_graph_data(conn, race_identifier)
     st.success('Race graph data updated')
 
