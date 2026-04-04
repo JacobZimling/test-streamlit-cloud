@@ -76,7 +76,9 @@ if race_year:
             race_result = race.get_race_result_aggr(conn, race_year, race_type)
 
         #st.write('display result')
-        # df.filter(items=['rank', 'driver_id', 'point']), 
+        # df.filter(items=['rank', 'driver_id', 'point']),
+        import numpy as np
+        race_result['p'] = np.where(race_result['DNF_DSQ'] != [], race_result['DNF_DSQ'], race_result['point'])
         st.dataframe(
             race_result, 
             hide_index=True,
