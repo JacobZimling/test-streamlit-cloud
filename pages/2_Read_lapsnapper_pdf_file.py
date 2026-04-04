@@ -96,6 +96,11 @@ if file is not None:
 
     # Update race graph data
     with st.spinner('Updating race graph data...', show_time=True):
-        race.update_race_graph_data(conn, race_identifier)
+        #race.update_race_graph_data(conn, race_identifier)
     st.success('Race graph data updated')
-    
+
+    # Update race result data
+    with st.spinner('Updating race result data...', show_time=True):
+        race.update_race_result_data(conn, race_date.year)
+    st.success('Race result data updated')
+
