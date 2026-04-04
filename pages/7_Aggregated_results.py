@@ -80,7 +80,7 @@ if race_year:
         st.dataframe(
             race_result, 
             hide_index=True,
-            #height="content",
+            height="content",
             #column_order=(),
             #placeholder="--",
             column_config={
