@@ -79,7 +79,7 @@ if race_year:
         # df.filter(items=['rank', 'driver_id', 'point']),
         import numpy as np
         #race_result['p'] = np.where(race_result['DNF_DSQ'] != [], race_result['DNF_DSQ'], race_result['point'])
-        race_result['p'] = race_result[['DNF_DSQ', 'point']].bfill(axis=1).iloc[:, 0]
+        race_result['point'] = race_result[['DNF_DSQ', 'point']].bfill(axis=1).iloc[:, 0]
         st.dataframe(
             race_result, 
             hide_index=True,
@@ -89,13 +89,10 @@ if race_year:
             column_config={
                 "rank": st.column_config.NumberColumn("Placering"),
                 "driver_id": st.column_config.TextColumn("Kører"),
-                # "race_time": st.column_config.NumberColumn("Tid", format='%m:%s.%SSS'),
-                #"race_time": st.column_config.TimeColumn("Tid", format='DD-MM-YYYY HH.mm:ss.SSS'),
-                # "race_time": st.column_config.NumberColumn("Tid", format='%f'),
-                # "race_time": st.column_config.TimeColumn("Tid"),
                 "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
                 "lap": st.column_config.NumberColumn("Omgange"),
-                "point": st.column_config.NumberColumn("Point"),
+                #"point": st.column_config.NumberColumn("Point"),
+                "point": st.column_config.TextColumn("Point"),
             }
         )
     
