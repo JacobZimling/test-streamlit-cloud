@@ -116,7 +116,6 @@ def get_race_result_aggr(conn, *args):
 	# return 
 
 def update_race_result_data(conn, race_year):
-	st.write(race_year)
 	with conn.session as s:
 	    query = f"DELETE FROM race_result WHERE result_identifier like '{race_year}¤%';"
 	    s.execute(text(query))
