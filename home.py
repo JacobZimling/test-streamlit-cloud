@@ -6,4 +6,4 @@ visible_page = st.Page("pages/2_Read_lapsnapper_pdf_file.py", title="Read lapsna
 
 # Create navigation with only visible pages
 page = st.navigation([visible_page])
-page.run()   
+#page.run()   
