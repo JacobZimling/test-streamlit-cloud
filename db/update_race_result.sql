@@ -155,15 +155,10 @@ WITH
 			driver_name,
 			race_time_dt,
 			lap,
-/*			sum(result_point) as point,
-			sum(result_point_2) as point_2*/
 			result_point as point,
 			result_point_2 as point_2,
 			DNF_DSQ
 			FROM point_dnf 
-/*			GROUP BY year_type_date_race, driver_name*/
-		/*
-		*/	
 			order by race_identifier, rank 
 	)
 	SELECT
