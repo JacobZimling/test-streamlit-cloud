@@ -80,6 +80,8 @@ if race_year:
         st.dataframe(
             race_result, 
             hide_index=True,
+            height="content",
+            #column_order=(),
             #placeholder="--",
             column_config={
                 "rank": st.column_config.NumberColumn("Placering"),
