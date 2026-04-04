@@ -115,6 +115,10 @@ def get_race_result_aggr(conn, *args):
 	return race_result
 	# return 
 
+def update_race_result_data(conn, race_year):
+	st.write(race_year)
+	return
+
 def race_selector(conn):
   # Read race information from DB
   races = get_race_info(conn)
