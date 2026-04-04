@@ -84,11 +84,12 @@ if race_year:
             race_result, 
             hide_index=True,
             height="content",
+            column_order=('rank', 'driver_name', 'race_time_dt', 'lap', 'point'),
             #column_order=(),
             #placeholder="--",
             column_config={
                 "rank": st.column_config.NumberColumn("Placering"),
-                "driver_id": st.column_config.TextColumn("Kører"),
+                "driver_name": st.column_config.TextColumn("Kører"),
                 "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
                 "lap": st.column_config.NumberColumn("Omgange"),
                 #"point": st.column_config.NumberColumn("Point"),
