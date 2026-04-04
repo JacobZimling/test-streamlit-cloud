@@ -78,7 +78,8 @@ if race_year:
         #st.write('display result')
         # df.filter(items=['rank', 'driver_id', 'point']),
         import numpy as np
-        race_result['p'] = np.where(race_result['DNF_DSQ'] != [], race_result['DNF_DSQ'], race_result['point'])
+        #race_result['p'] = np.where(race_result['DNF_DSQ'] != [], race_result['DNF_DSQ'], race_result['point'])
+        race_result['p'] = race_result[['DNF_DSQ', 'point']].bfill(axis=1).iloc[:, 0]
         st.dataframe(
             race_result, 
             hide_index=True,
