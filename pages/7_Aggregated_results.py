@@ -72,7 +72,7 @@ if race_year:
             # st.write(race.result_identifier(race_year, race_type, race_date, race_name))
             race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date, race_name)
             columns = ('rank', 'driver_name', 'race_time_dt', 'lap', 'point')
-            if mode='DSQ':
+            if mode=='DSQ':
                 on_select = "rerun"
             else:
                 on_select = "ignore"
