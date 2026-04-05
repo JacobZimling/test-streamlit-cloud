@@ -55,10 +55,7 @@ WITH
 		    		ON rl.driver_id=driver.driver_id
 		    	LEFT JOIN race_disqualified as dsq
 		    		ON result_id.year_type_date_race=dsq.year_type_date_race
-		    			and rl.driver_id=dsq.driver_id
-/*
-		    WHERE not(result_id.year_type_date_race='2025¤4wd¤2025-05-18¤4' and driver.driver_name='Jacob Gottlieb')
-*/
+		    			and driver.driver_name=dsq.driver_name
 		) sub
 		WHERE rn = 1
 	),
@@ -150,7 +147,7 @@ WITH
 			year_type_date_race as race_identifier,
 			ROW_NUMBER() OVER (
 				PARTITION BY race_identifier
-				ORDER BY race_identifier, lap DESC, point DESC
+				ORDER BY race_identifier, lap DESC, point DESC, DNF_DSQ
 			) as rank,
 			driver_name,
 			race_time_dt,
