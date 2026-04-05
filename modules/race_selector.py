@@ -7,3 +7,11 @@ def year_selector(values):
       ,label_visibility = 'collapsed'
   )
   return race_year
+
+def selector(values):
+    selection = st.segmented_control(
+        '',
+        values.unique()
+        ,label_visibility = 'collapsed'
+    )
+    return selection
