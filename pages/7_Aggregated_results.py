@@ -1,6 +1,8 @@
 import streamlit as st
 from modules import raceinfo as race
 
+st.write(st.query_string.mode)
+
 # Initialize DB connection.
 conn = race.db_connect()
 
