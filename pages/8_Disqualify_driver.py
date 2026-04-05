@@ -14,8 +14,4 @@ st.write(race_year)
 if race_year:
 
     # Select race type (2wd/4wd)
-    race_type = st.segmented_control(
-        'Løbstype',
-        races[races['race_year']==race_year]['race_type'].unique()
-        ,label_visibility = 'collapsed'
-    )
+    race_type = rs.selector(races[races['race_year']==race_year]['race_type'])
