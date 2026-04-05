@@ -121,6 +121,6 @@ if race_year:
                     #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
                     if race_result.iloc[driver.selection.cells[0][0]]['DNF_DSQ'] != 'DSQ':
                         st.write(f'Er du sikker på at {race_result.iloc[driver.selection.cells[0][0]]['driver_name']} skal diskvalificeres i dette løb?')
-                        if st.button('Ja', icon=":material/check:"):
+                        if st.button('Ja', icon=":material/check:", type="primary"):
                             st.write('set DSQ flag')
                         
