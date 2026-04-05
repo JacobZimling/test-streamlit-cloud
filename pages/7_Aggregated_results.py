@@ -93,7 +93,7 @@ if race_year:
             width="content",
             column_order=columns,
             on_select=on_select,
-            selection_mode="single-row",
+            selection_mode="single-cell",
             #column_order=(),
             #placeholder="--",
             column_config={
