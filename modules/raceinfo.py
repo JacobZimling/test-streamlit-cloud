@@ -137,6 +137,7 @@ def update_race_graph_data(conn, race_identifier):
 							and driver.driver_name=DSQ.driver_name
 				WHERE rtl.rn = 1 
 		;"""
+	st.write(query)
     s.execute(text(query))
     s.commit()
   return
