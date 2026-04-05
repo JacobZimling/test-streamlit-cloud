@@ -109,7 +109,7 @@ if race_year:
         if driver:
             st.write(driver)
             st.write(driver.selection.cells)
-            st.write(length(driver.selection.cells))
+            st.write(len(driver.selection.cells))
             #if driver.selection['cells']
             #row_id = driver['selection']['cells'][0][0]
             #st.write(row_id)
