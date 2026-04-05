@@ -114,4 +114,4 @@ if race_year:
                 #row_id = driver.selection.cells[0][0]
                 #st.write(row_id)
                 st.write(race_result.iloc[driver.selection.cells[0][0]])
-                st.write(type(race_result.iloc[driver.selection.cells[0][0]]))
+                st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
