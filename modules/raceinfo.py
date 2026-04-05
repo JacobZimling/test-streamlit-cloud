@@ -80,7 +80,7 @@ def update_race_graph_data(conn, race_identifier):
 		) sub 
 		WHERE rn = 1 
 		;"""
-	query = f"""
+    query = f"""
 		INSERT INTO race_graph (
 				race_identifier, 
 				driver_name,
