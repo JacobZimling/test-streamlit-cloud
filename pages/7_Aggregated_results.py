@@ -86,7 +86,7 @@ if race_year:
         import numpy as np
         #race_result['p'] = np.where(race_result['DNF_DSQ'] != [], race_result['DNF_DSQ'], race_result['point'])
         race_result['point'] = race_result[['DNF_DSQ', 'point']].bfill(axis=1).iloc[:, 0]
-        st.dataframe(
+        driver = st.dataframe(
             race_result, 
             hide_index=True,
             height="content",
@@ -105,4 +105,6 @@ if race_year:
                 "point": st.column_config.TextColumn("Point"),
             }
         )
-    
+
+        if driver:
+            st.write(driver)
