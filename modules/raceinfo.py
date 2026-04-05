@@ -109,7 +109,7 @@ def get_race_result_aggr(conn, *args):
 	conn.reset()
 	result_identifier = get_result_identifier(args)
 	result_identifier = '¤'.join(list(map(str, args)))
-	query = f'SELECT rank, driver_name, race_time_dt, lap, point, DNF_DSQ FROM race_result WHERE result_identifier="{result_identifier}" ORDER BY point DESC;'
+	query = f'SELECT result_identifier, rank, driver_name, race_time_dt, lap, point, DNF_DSQ FROM race_result WHERE result_identifier="{result_identifier}" ORDER BY point DESC;'
 	#st.write(query)
 	race_result = conn.query(query, ttl=0)
 	return race_result
