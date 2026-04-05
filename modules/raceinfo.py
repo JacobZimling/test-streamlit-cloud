@@ -115,6 +115,12 @@ def get_race_result_aggr(conn, *args):
 	return race_result
 	# return 
 
+def set_dsq_flag(conn, result_identifier, driver_name):
+	conn.reset()
+	query = f"INSERT INTO race_disqualified (year_type_date_race, driver_name, DSQ) VALUES ('{result_identifier}', '{driver_name}', 1);"
+	conn.execute(text(query))
+	return
+
 def update_race_result_data(conn, race_year):
 	with conn.session as s:
 	    query = f"DELETE FROM race_result WHERE result_identifier like '{race_year}¤%';"
@@ -174,7 +180,7 @@ def update_race_result_data(conn, race_year):
 							    		ON rl.driver_id=driver.driver_id
 							    	LEFT JOIN race_disqualified as dsq
 							    		ON result_id.year_type_date_race=dsq.year_type_date_race
-							    			and rl.driver_id=dsq.driver_id
+							    			and driver.driver_name=dsq.driver_name
 									LEFT JOIN w_race_info as wri
 										ON rl.race_id=wri.race_id
 								WHERE wri.race_year={race_year}
@@ -269,7 +275,7 @@ def update_race_result_data(conn, race_year):
 								year_type_date_race as race_identifier,
 								ROW_NUMBER() OVER (
 									PARTITION BY race_identifier
-									ORDER BY race_identifier, lap DESC, point DESC
+									ORDER BY race_identifier, lap DESC, point DESC, DNF_DSQ
 								) as rank,
 								driver_name,
 								race_time_dt,
