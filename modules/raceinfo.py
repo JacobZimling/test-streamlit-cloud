@@ -117,8 +117,10 @@ def get_race_result_aggr(conn, *args):
 
 def set_dsq_flag(conn, result_identifier, driver_name):
 	conn.reset()
-	query = f"INSERT INTO race_disqualified (year_type_date_race, driver_name, DSQ) VALUES ('{result_identifier}', '{driver_name}', 1);"
-	conn.session.execute(text(query))
+	with conn.session as s:
+		query = f"INSERT INTO race_disqualified (year_type_date_race, driver_name, DSQ) VALUES ('{result_identifier}', '{driver_name}', 1);"
+		s.execute(text(query))
+		s.commit()
 	return
 
 def update_race_result_data(conn, race_year):
