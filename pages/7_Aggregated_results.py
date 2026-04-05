@@ -2,7 +2,6 @@ import streamlit as st
 from modules import raceinfo as race
 
 if 'mode' in st.query_params:
-    st.write(st.query_params.mode)
     mode = st.query_params.mode
 else:
     mode = ''
@@ -73,7 +72,10 @@ if race_year:
             # st.write(race.result_identifier(race_year, race_type, race_date, race_name))
             race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date, race_name)
             columns = ('rank', 'driver_name', 'race_time_dt', 'lap', 'point')
-            on_select = "rerun"
+            if mode='DSQ':
+                on_select = "rerun"
+            else:
+                on_select = "ignore"
         elif race_date:
             # st.write('year_type_date')
             # st.write(race.result_identifier(race_year, race_type, race_date))
@@ -111,7 +113,9 @@ if race_year:
                 "point": st.column_config.TextColumn("Point"),
             }
         )
-        #if driver:
-            #if len(driver.selection.cells) > 0:
-                #st.write(race_result.iloc[driver.selection.cells[0][0]])
-                #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
+
+        if mode=DSQ:
+            if driver:
+                if len(driver.selection.cells) > 0:
+                    st.write(race_result.iloc[driver.selection.cells[0][0]])
+                    st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
