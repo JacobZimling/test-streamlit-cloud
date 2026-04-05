@@ -116,7 +116,6 @@ def update_race_graph_data(conn, race_identifier):
 			)
 			SELECT 
 				rtl.race_identifier, 
-				res_id.year_type_date_race,
 				driver.driver_name,
 				rtl.race_time_dt,
 				CASE DSQ.DSQ
