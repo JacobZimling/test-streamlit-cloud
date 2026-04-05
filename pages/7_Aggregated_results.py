@@ -105,8 +105,8 @@ if race_year:
                 "point": st.column_config.TextColumn("Point"),
             }
         )
-
-        if driver and 1=2:
+'''
+        if driver:
             #st.write(driver)
             #st.write(driver.selection.cells)
             #st.write(len(driver.selection.cells))
@@ -115,3 +115,4 @@ if race_year:
                 #st.write(row_id)
                 st.write(race_result.iloc[driver.selection.cells[0][0]])
                 st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
+'''
