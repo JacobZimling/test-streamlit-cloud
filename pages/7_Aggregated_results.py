@@ -117,5 +117,8 @@ if race_year:
         if mode=='DSQ':
             if driver:
                 if len(driver.selection.cells) > 0:
-                    st.write(race_result.iloc[driver.selection.cells[0][0]])
-                    st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
+                    #st.write(race_result.iloc[driver.selection.cells[0][0]])
+                    #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
+                    if race_result.iloc[driver.selection.cells[0][0]]['DNF_DSQ'] != 'DSQ':
+                        st.write(f'Er du sikker på at {race_result.iloc[driver.selection.cells[0][0]]['driver_name']} skal diskvalificeres i dette løb?')
+                        
