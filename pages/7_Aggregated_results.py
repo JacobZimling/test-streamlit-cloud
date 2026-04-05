@@ -117,7 +117,7 @@ if race_year:
         if mode=='DSQ':
             if driver:
                 if len(driver.selection.cells) > 0:
-                    st.write(race_result.iloc[driver.selection.cells[0][0]])
+                    #st.write(race_result.iloc[driver.selection.cells[0][0]])
                     #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
                     if race_result.iloc[driver.selection.cells[0][0]]['DNF_DSQ'] != 'DSQ':
                         result_identifier = race_result.iloc[driver.selection.cells[0][0]]['result_identifier']
