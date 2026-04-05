@@ -125,9 +125,9 @@ if race_year:
                         st.write(f'Er du sikker på at {driver_name} skal diskvalificeres i dette løb?')
                         if st.button('Ja', icon=":material/check:", type="primary"):
                             st.write('set DSQ flag')
-                            #race.set_dsq_flag(result_identifier, driver_name)
+                            race.set_dsq_flag(conn, result_identifier, driver_name)
                             with st.spinner('Updating race result data...', show_time=True):
-                                st.write(result_identifier.split('¤', 1)[0])
-                                #race.update_race_result_data(conn, race_date.year)
+                                #st.write(result_identifier.split('¤', 1)[0])
+                                race.update_race_result_data(conn, race_date.year)
                             st.success('Race result data updated')
                         
