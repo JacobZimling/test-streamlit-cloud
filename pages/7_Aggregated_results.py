@@ -114,7 +114,7 @@ if race_year:
             }
         )
 
-        if mode==DSQ:
+        if mode=='DSQ':
             if driver:
                 if len(driver.selection.cells) > 0:
                     st.write(race_result.iloc[driver.selection.cells[0][0]])
