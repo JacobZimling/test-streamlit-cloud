@@ -1,8 +1,12 @@
 import streamlit as st
 from modules import raceinfo as race
 
-st.write(st.query_params.mode)
-
+if 'mode' in st.query_params:
+    st.write(st.query_params.mode)
+    mode = st.query_params.mode
+else:
+    mode = ''
+    
 # Initialize DB connection.
 conn = race.db_connect()
 
