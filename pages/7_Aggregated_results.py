@@ -108,6 +108,10 @@ if race_year:
 
         if driver:
             st.write(driver)
-            row_id = driver['selection']['cells'][0][0]
-            st.write(row_id)
-            st.write(race_result.iloc[row_id])
+            st.write(driver.selection.cells)
+            st.write(type(driver.selection.cells))
+            #if driver.selection['cells']
+            #row_id = driver['selection']['cells'][0][0]
+            #st.write(row_id)
+            #if row_id
+            #st.write(race_result.iloc[row_id])
