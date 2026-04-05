@@ -80,8 +80,7 @@ def update_race_graph_data(conn, race_identifier):
 		) sub 
 		WHERE rn = 1 
 		;"""
-    query = f"""
-		INSERT INTO race_graph (
+    query = f"""INSERT INTO race_graph (
 				race_identifier, 
 				driver_name,
 				race_time_dt,
@@ -137,7 +136,7 @@ def update_race_graph_data(conn, race_identifier):
 							and driver.driver_name=DSQ.driver_name
 				WHERE rtl.rn = 1 
 		;"""
-	st.write(query)
+	#st.write(query)
     s.execute(text(query))
     s.commit()
   return
