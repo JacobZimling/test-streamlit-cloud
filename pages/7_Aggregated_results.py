@@ -120,11 +120,14 @@ if race_year:
                     st.write(race_result.iloc[driver.selection.cells[0][0]])
                     #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
                     if race_result.iloc[driver.selection.cells[0][0]]['DNF_DSQ'] != 'DSQ':
-                        st.write(f'Er du sikker på at {race_result.iloc[driver.selection.cells[0][0]]['driver_name']} skal diskvalificeres i dette løb?')
+                        result_identifier = race_result.iloc[driver.selection.cells[0][0]]['result_identifier']
+                        driver_name = race_result.iloc[driver.selection.cells[0][0]]['driver_name']
+                        st.write(f'Er du sikker på at {driver_name} skal diskvalificeres i dette løb?')
                         if st.button('Ja', icon=":material/check:", type="primary"):
                             st.write('set DSQ flag')
-                            #race.set_dsq_flag(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'], race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
-                            #with st.spinner('Updating race result data...', show_time=True):
+                            #race.set_dsq_flag(result_identifier, driver_name)
+                            with st.spinner('Updating race result data...', show_time=True):
+                                st.write(result_identifier.split('¤', 1)[0])
                                 #race.update_race_result_data(conn, race_date.year)
                             st.success('Race result data updated')
                         
