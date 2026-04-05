@@ -67,16 +67,19 @@ if race_year:
             # st.write(race.result_identifier(race_year, race_type, race_date, race_name))
             race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date, race_name)
             columns = ('rank', 'driver_name', 'race_time_dt', 'lap', 'point')
+            on_select = "rerun"
         elif race_date:
             # st.write('year_type_date')
             # st.write(race.result_identifier(race_year, race_type, race_date))
             race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date)
             columns = ('rank', 'driver_name', 'point')
+            on_select = "ignore"
         else:
             # st.write('year_type')
             # st.write(race.result_identifier(race_year, race_type))
             race_result = race.get_race_result_aggr(conn, race_year, race_type)
             columns = ('rank', 'driver_name', 'point')
+            on_select = "ignore"
 
         #st.write('display result')
         # df.filter(items=['rank', 'driver_id', 'point']),
@@ -89,6 +92,8 @@ if race_year:
             height="content",
             width="content",
             column_order=columns,
+            on_select=on_select,
+            selection_mode="single-row",
             #column_order=(),
             #placeholder="--",
             column_config={
