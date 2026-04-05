@@ -9,5 +9,13 @@ conn = race.db_connect()
 races = race.get_race_info(conn)
 st.write(races)
 
-race_year = rs.year_selector(races['race_year'])
+race_year = rs.selector(races['race_year'])
 st.write(race_year)
+if race_year:
+
+    # Select race type (2wd/4wd)
+    race_type = st.segmented_control(
+        'Løbstype',
+        races[races['race_year']==race_year]['race_type'].unique()
+        ,label_visibility = 'collapsed'
+    )
