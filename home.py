@@ -1,8 +1,8 @@
 import streamlit as st
 
 pg = st.navigation([
-    st.page("pages/2_Read_lapsnapper_pdf_file.py"),
-    st.page("pages/3_Race_graph.py"),
+    st.Page("pages/2_Read_lapsnapper_pdf_file.py"),
+    st.Page("pages/3_Race_graph.py"),
 ])
 
 # Define visible and invisible pages
