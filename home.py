@@ -4,6 +4,7 @@ pg = st.navigation([
     st.Page("pages/2_Read_lapsnapper_pdf_file.py"),
     st.Page("pages/3_Race_graph.py"),
 ])
+pg.run()
 
 # Define visible and invisible pages
 #visible_page = st.Page("pages/2_Read_lapsnapper_pdf_file.py", title="Read lapsnapper pdf file")
