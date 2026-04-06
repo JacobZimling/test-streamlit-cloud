@@ -7,7 +7,8 @@ pg = st.navigation([
     ),
     st.Page(
         "pages/7_Aggregated_results.py",
-        title="Resultater"
+        title="Resultater",
+        url_path="Aggregated_results?mode="
     ),
     st.Page(
         "pages/3_Race_graph.py",
