@@ -43,24 +43,25 @@ if race_year:
         )
     
         race_name = None
-        if race_date and race_type == '4wd':
-            race_label = {}
-            for index, race_row in races[(races['race_year']==race_year) & (races['race_name']!='2wd')].iterrows():
-              if race_row['race_name'] == '2wd':
-                _race_name = race_row['race_name']
-              else:
-                _race_name = f'4wd løb {race_row['race_name']}'
-              race_label[race_row['race_name']] = _race_name
-            # st.write(race_label)
-          
-            race_name = st.segmented_control(
-                'Løb', 
-                races[(races['race_year']==race_year) & (races['race_name']!='2wd')]['race_name'].unique(), 
-                format_func=lambda x: race_label.get(x)
-                ,label_visibility = 'collapsed'
-            )
-        else:
-            race_name = '2wd'
+        if race_date:
+            race_type == '4wd':
+                race_label = {}
+                for index, race_row in races[(races['race_year']==race_year) & (races['race_name']!='2wd')].iterrows():
+                  if race_row['race_name'] == '2wd':
+                    _race_name = race_row['race_name']
+                  else:
+                    _race_name = f'4wd løb {race_row['race_name']}'
+                  race_label[race_row['race_name']] = _race_name
+                # st.write(race_label)
+              
+                race_name = st.segmented_control(
+                    'Løb', 
+                    races[(races['race_year']==race_year) & (races['race_name']!='2wd')]['race_name'].unique(), 
+                    format_func=lambda x: race_label.get(x)
+                    ,label_visibility = 'collapsed'
+                )
+            else:
+                race_name = '2wd'
         
         # st.write('Selections')
         # st.write(f'race: {race_type}')
