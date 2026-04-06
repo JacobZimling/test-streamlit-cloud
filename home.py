@@ -13,6 +13,11 @@ pg = st.navigation([
         "pages/3_Race_graph.py",
         title="Race graf"
     ),
+    st.Page(
+        "pages/7_Aggregated_results.py",
+        title="Diskvalificering",
+        url_path="Aggregated_results?mode=DSQ"
+    ),
 ])
 pg.run()
 
