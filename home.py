@@ -3,15 +3,15 @@ import streamlit as st
 pg = st.navigation([
     st.Page(
         "pages/2_Read_lapsnapper_pdf_file.py", 
-        label="Indlæs resultater fr Lapsnapper PDF fil"
+        title="Indlæs resultater fr Lapsnapper PDF fil"
     ),
     st.Page(
         "pages/7_Aggregated_results.py",
-        label="Resultater"
+        title="Resultater"
     ),
     st.Page(
         "pages/3_Race_graph.py",
-        label="Race graf"
+        title="Race graf"
     ),
 ])
 pg.run()
