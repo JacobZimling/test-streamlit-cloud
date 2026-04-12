@@ -41,7 +41,7 @@ if file is not None:
                         s.commit()
                     
                     # Get race_id
-                    st.write(f"SELECT race_id, CONCAT(race_date, race_venue, race_name) AS race_identifier FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';")
+                    #st.write(f"SELECT race_id, CONCAT(race_date, race_venue, race_name) AS race_identifier FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';")
                     df = conn.query(f"SELECT race_id, CONCAT(race_date, race_venue, race_name) AS race_identifier FROM race_info WHERE race_date='{race_date}' and race_venue='{race_info[0]}' and race_name='{race_name}' and race_heat='{race_info[3]}';", ttl=0)
     
                 race_id = df['race_id'].iloc[0]
