@@ -125,12 +125,15 @@ def update_race_graph_data(conn, race_identifier):
 				FROM racetime_laps as rtl
 					LEFT JOIN driver_name as driver
 						ON rtl.driver_id=driver.driver_id
-					LEFT JOIN w_race_identifier as wri
+					LEFT JOIN (
+						SELECT distinct w_race_identifier.race_identifier, w_result_identifier.year_type_date_race 
+							FROM w_race_identifier  
+							JOIN w_result_identifier  
+								ON w_race_identifier.race_id=w_result_identifier.race_id 
+					) as wri
 						ON rtl.race_identifier=wri.race_identifier
-					LEFT JOIN w_result_identifier as res_id
-						ON wri.race_id=res_id.race_id
 					LEFT JOIN race_disqualified as DSQ
-						ON res_id.year_type_date_race=DSQ.year_type_date_race
+						ON wri.year_type_date_race=DSQ.year_type_date_race
 							and driver.driver_name=DSQ.driver_name
 				WHERE rtl.rn = 1 
 		;"""
