@@ -19,6 +19,7 @@ race_year = st.segmented_control(
     'År',
     races['race_year'].unique()[::-1]
     ,label_visibility = 'collapsed'
+    ,default = races['race_year'].max()
 )
 
 if race_year:
