@@ -29,6 +29,7 @@ if race_year:
         'Løbstype',
         races[races['race_year']==race_year]['race_type'].unique()
         ,label_visibility = 'collapsed'
+        ,default = '4wd'
     )
 
     if race_type:
