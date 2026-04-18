@@ -9,6 +9,7 @@ pg = st.navigation([
     st.Page(
         "pages/2_Read_lapsnapper_pdf_file.py", 
         title="Indlæs resultater fra Lapsnapper PDF fil",
+        url_path="read_results",
         visibility="hidden"
     ),
     st.Page(
