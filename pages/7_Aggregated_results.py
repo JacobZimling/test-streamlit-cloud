@@ -1,5 +1,6 @@
 import streamlit as st
 from modules import raceinfo as race
+from modules.raceinfo import race_selector
 
 if 'mode' in st.query_params:
     mode = st.query_params.mode
@@ -93,10 +94,8 @@ if race_year:
             on_select = "ignore"
 
         #st.write('display result')
-        # df.filter(items=['rank', 'driver_id', 'point']),
-        import numpy as np
-        #race_result['p'] = np.where(race_result['DNF_DSQ'] != [], race_result['DNF_DSQ'], race_result['point'])
-        race_result['point'] = race_result[['DNF_DSQ', 'point']].bfill(axis=1).iloc[:, 0]
+        race_result['point'] = race_result['point'].astype(str)
+        race_result.loc[race_result['DNF_DSQ'].notna(), 'point'] = race_result['DNF_DSQ']
         driver = st.dataframe(
             race_result, 
             hide_index=True,
@@ -114,13 +113,15 @@ if race_year:
                 "lap": st.column_config.NumberColumn("Omgange"),
                 #"point": st.column_config.NumberColumn("Point"),
                 "point": st.column_config.TextColumn("Point"),
+                #"point_DNF_DSQ": st.column_config.TextColumn("Point"),
             }
         )
+        #st.write(driver)
 
-        if mode=='DSQ':
-            if race_name and driver:
-                #st.write(race_name)
-                #st.write(driver)
+        if race_name and driver:
+            #st.write(race_name)
+            #st.write(driver)
+            if mode=='DSQ':
                 if len(driver.selection.cells) > 0:
                     #st.write(race_result.iloc[driver.selection.cells[0][0]])
                     #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
@@ -135,4 +136,11 @@ if race_year:
                                 #st.write(result_identifier.split('¤', 1)[0])
                                 race.update_race_result_data(conn, result_identifier.split('¤', 1)[0])
                             st.success('Race result data updated')
-                        
+            #else:
+                #st.write(f'show laps for {driver}')
+                #if len(driver.selection.cells) > 0:
+                    #st.write(driver.selection)
+                    ##st.write(driver.selection.cells[0])
+                    ##st.write(driver.selection.cells[0][0])
+                    #st.write(race_result.iloc[driver.selection.cells[0][0]])
+                    #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
