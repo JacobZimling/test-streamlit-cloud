@@ -76,10 +76,11 @@ if race_year:
             # st.write(race.result_identifier(race_year, race_type, race_date, race_name))
             race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date, race_name)
             columns = ('rank', 'driver_name', 'race_time_dt', 'lap', 'point')
-            if mode=='DSQ':
-                on_select = "rerun"
-            else:
-                on_select = "ignore"
+            #if mode=='DSQ':
+            #    on_select = "rerun"
+            #else:
+            #    on_select = "ignore"
+            on_select = "rerun"
         elif race_date:
             # st.write('year_type_date')
             # st.write(race.result_identifier(race_year, race_type, race_date))
@@ -136,11 +137,28 @@ if race_year:
                                 #st.write(result_identifier.split('¤', 1)[0])
                                 race.update_race_result_data(conn, result_identifier.split('¤', 1)[0])
                             st.success('Race result data updated')
-            #else:
+            else:
                 #st.write(f'show laps for {driver}')
-                #if len(driver.selection.cells) > 0:
+                if len(driver.selection.cells) > 0:
                     #st.write(driver.selection)
                     ##st.write(driver.selection.cells[0])
                     ##st.write(driver.selection.cells[0][0])
                     #st.write(race_result.iloc[driver.selection.cells[0][0]])
                     #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
+                    st.write(f"Omgangstider for {race_result.iloc[driver.selection.cells[0][0]]['driver_name']}")
+                    lap_times = race.get_lap_times(conn,
+                                                   race_result.iloc[driver.selection.cells[0][0]]['result_identifier'],
+                                                   race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
+                    st.dataframe(
+                        lap_times,
+                        hide_index = True,
+                        height="content",
+                        #width="content",
+                        column_config={
+                            "lap": st.column_config.NumberColumn("Omgang"),
+                            "driver_name": st.column_config.TextColumn("Kører"),
+                            "lap_time_dt": st.column_config.TimeColumn("Omgangstid", format='m:ss.SSS'),
+                            "rank": st.column_config.NumberColumn("Rank"),
+                        }
+                    )
+

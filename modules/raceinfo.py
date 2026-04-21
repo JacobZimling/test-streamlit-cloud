@@ -173,6 +173,27 @@ def get_race_result_aggr(conn, *args):
 	return race_result
 	# return 
 
+def get_lap_times(conn, race_identifier, driver_name):
+    query = f'''SELECT 
+                     rl.lap
+                    ,dn.driver_name
+                    ,rl.lap_time_dt
+                    ,rl.rank
+                    FROM race_laps as rl
+                        JOIN w_result_identifier wri
+                            ON rl.race_id=wri.race_id 
+                        JOIN driver_name dn
+                            ON rl.driver_id=dn.driver_id 
+                    WHERE wri.year_type_date_race='{race_identifier}'
+                        and dn.driver_name='{driver_name}'
+                        and rl.lap>0
+                    ORDER BY 
+                        rl.lap
+			;'''
+    #st.write(query)
+    lap_times = conn.query(query, ttl=0)
+    return lap_times
+
 def set_dsq_flag(conn, result_identifier, driver_name):
 	conn.reset()
 	with conn.session as s:
