@@ -1,6 +1,6 @@
 import streamlit as st
 from modules import raceinfo as race
-from modules.raceinfo import race_selector
+#from modules.raceinfo import race_selector
 
 if 'mode' in st.query_params:
     mode = st.query_params.mode
@@ -12,10 +12,8 @@ conn = race.db_connect()
 
 # Read race information for exlect boxes from DB
 races = race.get_race_info(conn)
-# st.write(races)
 
 # Select year
-# race_year = st.selectbox('År', options=races['race_year'].unique(), index=None, placeholder='Vælg år', width=300)
 race_year = st.segmented_control(
     'År',
     races['race_year'].unique()[::-1]
@@ -55,8 +53,7 @@ if race_year:
                   else:
                     _race_name = f'4wd løb {race_row['race_name']}'
                   race_label[race_row['race_name']] = _race_name
-                # st.write(race_label)
-              
+
                 race_name = st.segmented_control(
                     'Løb', 
                     races[(races['race_year']==race_year) & (races['race_name']!='2wd')]['race_name'].unique(), 
@@ -65,37 +62,20 @@ if race_year:
                 )
             else:
                 race_name = '2wd'
-        
-        # st.write('Selections')
-        # st.write(f'race: {race_type}')
-        # st.write(f'date: {race_date}')
-        # st.write(f' name: {race_name}')
 
         if race_date and race_name:
-            # st.write('year_type_date_race')
-            # st.write(race.result_identifier(race_year, race_type, race_date, race_name))
             race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date, race_name)
             columns = ('rank', 'driver_name', 'race_time_dt', 'lap', 'point')
-            #if mode=='DSQ':
-            #    on_select = "rerun"
-            #else:
-            #    on_select = "ignore"
             on_select = "rerun"
         elif race_date:
-            # st.write('year_type_date')
-            # st.write(race.result_identifier(race_year, race_type, race_date))
             race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date)
             columns = ('rank', 'driver_name', 'point')
-            #on_select = "ignore"
             on_select = "rerun"
         else:
-            # st.write('year_type')
-            # st.write(race.result_identifier(race_year, race_type))
             race_result = race.get_race_result_aggr(conn, race_year, race_type)
             columns = ('rank', 'driver_name', 'point')
             on_select = "ignore"
 
-        #st.write('display result')
         race_result['point'] = race_result['point'].astype(str)
         race_result.loc[race_result['DNF_DSQ'].notna(), 'point'] = race_result['DNF_DSQ']
         driver = st.dataframe(
@@ -106,46 +86,29 @@ if race_year:
             column_order=columns,
             on_select=on_select,
             selection_mode="single-cell",
-            #column_order=(),
-            #placeholder="--",
             column_config={
                 "rank": st.column_config.NumberColumn("Placering"),
                 "driver_name": st.column_config.TextColumn("Kører"),
                 "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
                 "lap": st.column_config.NumberColumn("Omgange"),
-                #"point": st.column_config.NumberColumn("Point"),
                 "point": st.column_config.TextColumn("Point"),
-                #"point_DNF_DSQ": st.column_config.TextColumn("Point"),
             }
         )
-        #st.write(driver)
 
         if race_name and driver:
-            #st.write(race_name)
-            #st.write(driver)
             if mode=='DSQ':
                 if len(driver.selection.cells) > 0:
-                    #st.write(race_result.iloc[driver.selection.cells[0][0]])
-                    #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
                     if race_result.iloc[driver.selection.cells[0][0]]['DNF_DSQ'] != 'DSQ':
                         result_identifier = race_result.iloc[driver.selection.cells[0][0]]['result_identifier']
                         driver_name = race_result.iloc[driver.selection.cells[0][0]]['driver_name']
                         st.write(f'Er du sikker på at {driver_name} skal diskvalificeres i dette løb?')
                         if st.button('Ja', icon=":material/check:", type="primary"):
-                            #st.write('set DSQ flag')
                             race.set_dsq_flag(conn, result_identifier, driver_name)
                             with st.spinner('Updating race result data...', show_time=True):
-                                #st.write(result_identifier.split('¤', 1)[0])
                                 race.update_race_result_data(conn, result_identifier.split('¤', 1)[0])
                             st.success('Race result data updated')
             else:
-                #st.write(f'show laps for {driver}')
                 if len(driver.selection.cells) > 0:
-                    #st.write(driver.selection)
-                    ##st.write(driver.selection.cells[0])
-                    ##st.write(driver.selection.cells[0][0])
-                    #st.write(race_result.iloc[driver.selection.cells[0][0]])
-                    #st.write(race_result.iloc[driver.selection.cells[0][0]]['result_identifier'])
                     st.write(f"Omgangstider for {race_result.iloc[driver.selection.cells[0][0]]['driver_name']}")
                     lap_times = race.get_lap_times(conn,
                                                    race_result.iloc[driver.selection.cells[0][0]]['result_identifier'],
@@ -154,7 +117,6 @@ if race_year:
                         lap_times,
                         hide_index = True,
                         height="content",
-                        #width="content",
                         column_config={
                             "lap": st.column_config.NumberColumn("Omgang"),
                             "driver_name": st.column_config.TextColumn("Kører"),
@@ -165,25 +127,18 @@ if race_year:
 
         elif race_date and driver:
             if len(driver.selection.cells) > 0:
-                #st.write(f'Show all race results for {driver}')
-                #st.write(f'{race_result.iloc[driver.selection.cells[0][0]]['result_identifier']}¤')
-                #st.write(race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
-                #st.write(f'{race_year}¤{race_type}¤{race_date}¤')
                 st.write(f'Dagens resultater for {race_result.iloc[driver.selection.cells[0][0]]['driver_name']}')
                 driver_results = race.get_all_races_driver(conn, race_result.iloc[driver.selection.cells[0][0]]['result_identifier'], race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
                 st.dataframe(
                     driver_results,
                     hide_index=True,
                     height="content",
-                    # width="content",
                     column_config={
                         "race_number": st.column_config.TextColumn("Løb"),
                         "rank": st.column_config.NumberColumn("Placering"),
                         "driver_name": st.column_config.TextColumn("Kører"),
                         "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
                         "lap": st.column_config.NumberColumn("Omgange"),
-                        # "point": st.column_config.NumberColumn("Point"),
                         "point": st.column_config.TextColumn("Point"),
-                        # "point_DNF_DSQ": st.column_config.TextColumn("Point"),
                     }
                 )
