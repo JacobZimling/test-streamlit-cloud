@@ -194,6 +194,29 @@ def get_lap_times(conn, race_identifier, driver_name):
     lap_times = conn.query(query, ttl=0)
     return lap_times
 
+def get_all_races_driver(conn, race_identifier, driver_name):
+    query = f'''
+        SELECT
+             CONCAT(
+                'Løb ',
+                SUBSTRING_INDEX(rr.result_identifier, '¤', -1)
+             ) as race_number
+            ,rr.`rank`
+            ,rr.race_time_dt 
+            ,rr.lap 
+            ,case rr.point
+                when 0 then rr.DNF_DSQ
+                else rr.point
+             end as point
+        FROM race_result rr 
+        WHERE rr.result_identifier like '{race_identifier}¤%'
+            and rr.driver_name = '{driver_name}'
+        ORDER BY rr.result_identifier 
+    '''
+    #st.write(query)
+    results = conn.query(query, ttl=0)
+    return results
+
 def set_dsq_flag(conn, result_identifier, driver_name):
 	conn.reset()
 	with conn.session as s:

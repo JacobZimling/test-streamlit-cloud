@@ -86,7 +86,8 @@ if race_year:
             # st.write(race.result_identifier(race_year, race_type, race_date))
             race_result = race.get_race_result_aggr(conn, race_year, race_type, race_date)
             columns = ('rank', 'driver_name', 'point')
-            on_select = "ignore"
+            #on_select = "ignore"
+            on_select = "rerun"
         else:
             # st.write('year_type')
             # st.write(race.result_identifier(race_year, race_type))
@@ -162,3 +163,27 @@ if race_year:
                         }
                     )
 
+        if race_date and driver:
+            if len(driver.selection.cells) > 0:
+                #st.write(f'Show all race results for {driver}')
+                #st.write(f'{race_result.iloc[driver.selection.cells[0][0]]['result_identifier']}¤')
+                #st.write(race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
+                #st.write(f'{race_year}¤{race_type}¤{race_date}¤')
+                driver_results = race.get_all_races_driver(conn, race_result.iloc[driver.selection.cells[0][0]]['result_identifier'], race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
+                st.write(f'Dagens resultater for {race_result.iloc[driver.selection.cells[0][0]]['driver_name']}')
+                st.dataframe(
+                    driver_results,
+                    hide_index=True,
+                    height="content",
+                    # width="content",
+                    column_config={
+                        "race_number": st.column_config.TextColumn("Løb"),
+                        "rank": st.column_config.NumberColumn("Placering"),
+                        "driver_name": st.column_config.TextColumn("Kører"),
+                        "race_time_dt": st.column_config.TimeColumn("Total tid", format='m:ss.SSS'),
+                        "lap": st.column_config.NumberColumn("Omgange"),
+                        # "point": st.column_config.NumberColumn("Point"),
+                        "point": st.column_config.TextColumn("Point"),
+                        # "point_DNF_DSQ": st.column_config.TextColumn("Point"),
+                    }
+                )
