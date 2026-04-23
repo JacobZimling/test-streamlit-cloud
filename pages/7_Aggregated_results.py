@@ -163,14 +163,14 @@ if race_year:
                         }
                     )
 
-        if race_date and driver:
+        elif race_date and driver:
             if len(driver.selection.cells) > 0:
                 #st.write(f'Show all race results for {driver}')
                 #st.write(f'{race_result.iloc[driver.selection.cells[0][0]]['result_identifier']}¤')
                 #st.write(race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
                 #st.write(f'{race_year}¤{race_type}¤{race_date}¤')
-                driver_results = race.get_all_races_driver(conn, race_result.iloc[driver.selection.cells[0][0]]['result_identifier'], race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
                 st.write(f'Dagens resultater for {race_result.iloc[driver.selection.cells[0][0]]['driver_name']}')
+                driver_results = race.get_all_races_driver(conn, race_result.iloc[driver.selection.cells[0][0]]['result_identifier'], race_result.iloc[driver.selection.cells[0][0]]['driver_name'])
                 st.dataframe(
                     driver_results,
                     hide_index=True,
