@@ -22,7 +22,7 @@ if file is not None:
     
             if page == 0:
                 # Extract race info
-                race_info = re.findall(r'Session name: ([\włæøåÆØÅ]+) ((\d)([abe])|(2wd))\.? Session started: (\w{3} \d{2}, \d{4})', page_text, re.IGNORECASE)[0]
+                race_info = re.findall(r'Session name: ([\włæøåÆØÅ]+) ((\d)([abe])|(2wd))\.? Session started: (\w{3} \d{1,2}, \d{4})', page_text, re.IGNORECASE)[0]
                 race_name = race_info[2] or race_info[4]
                 race_date = datetime.strptime(race_info[5], "%b %d, %Y").date()
     

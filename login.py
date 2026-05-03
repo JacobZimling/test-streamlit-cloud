@@ -9,7 +9,7 @@ def check_login(username, password):
         #hashed_password = bcrypt.hashpw(st.secrets[username].password.encode(), bcrypt.gensalt())
         hashed_password = bcrypt.hashpw(st.secrets[username].password.encode(), bcrypt.gensalt())
         #hashed_password = st.secrets[username]['password'].encode()
-        st.write(f'hashed_password: {hashed_password}')
+        #st.write(f'hashed_password: {hashed_password}')
         return bcrypt.checkpw(password.encode(), hashed_password)
     else:
         #st.error("Ukendt bruger")
